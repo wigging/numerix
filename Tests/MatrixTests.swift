@@ -20,6 +20,9 @@ final class MatrixTests: XCTestCase {
         let x3: [Double] = [3, 4, 5, 8.1, 7, 9]
         let m3 = Matrix(rows: 2, columns: 3, values: x3)
         XCTAssertEqual(m3.values, x3)
+        
+        let m4 = Matrix([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(m4.values, [1, 2, 3, 4, 5, 6])
     }
     
     func testSubscript() {

@@ -7,7 +7,6 @@
 
 import XCTest
 import Numerix
-import Accelerate
 
 final class ArithmeticTests: XCTestCase {
     

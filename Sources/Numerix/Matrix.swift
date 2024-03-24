@@ -35,6 +35,14 @@ public struct Matrix<T: FloatingPoint> {
         self.values = Array(repeating: fill, count: rows * columns)
     }
     
+    /// Create a Matrix from a 2D Array such as [[1, 2], [3, 4]].
+    /// - Parameter content: A two-dimensional Array.
+    public init(_ content: [[T]]) {
+        self.rows = content.count
+        self.columns = content[0].count
+        self.values = content.flatMap { $0 }
+    }
+    
     public subscript(row: Int, column: Int) -> T {
         get { return values[(row * columns) + column] }
         set { values[(row * columns) + column] = newValue }
