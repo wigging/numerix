@@ -19,6 +19,26 @@ extension Matrix where T == Double {
         let v = vDSP.add(lhs.values, rhs.values)
         return Matrix(rows: lhs.rows, columns: lhs.columns, values: v)
     }
+    
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Matrix A.
+    ///   - rhs: Scalar value.
+    /// - Returns: The sum of A[i] + scalar.
+    static public func + (lhs: Matrix, rhs: T) -> Matrix {
+        let v = vDSP.add(rhs, lhs.values)
+        return Matrix(rows: lhs.rows, columns: lhs.columns, values: v)
+    }
+    
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Scalar value
+    ///   - rhs: Matrix B.
+    /// - Returns: The sum of scalar + B[i].
+    static public func + (lhs: T, rhs: Matrix) -> Matrix {
+        let v = vDSP.add(lhs, rhs.values)
+        return Matrix(rows: rhs.rows, columns: rhs.columns, values: v)
+    }
 }
 
 extension Matrix where T == Float {
@@ -32,5 +52,25 @@ extension Matrix where T == Float {
         precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must be same shape")
         let v = vDSP.add(lhs.values, rhs.values)
         return Matrix(rows: lhs.rows, columns: lhs.columns, values: v)
+    }
+    
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Matrix A.
+    ///   - rhs: Scalar value.
+    /// - Returns: The sum of A[i] + scalar.
+    static public func + (lhs: Matrix, rhs: T) -> Matrix {
+        let v = vDSP.add(rhs, lhs.values)
+        return Matrix(rows: lhs.rows, columns: lhs.columns, values: v)
+    }
+    
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Scalar value
+    ///   - rhs: Matrix B.
+    /// - Returns: The sum of scalar + B[i].
+    static public func + (lhs: T, rhs: Matrix) -> Matrix {
+        let v = vDSP.add(lhs, rhs.values)
+        return Matrix(rows: rhs.rows, columns: rhs.columns, values: v)
     }
 }

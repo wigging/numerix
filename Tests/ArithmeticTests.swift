@@ -7,18 +7,24 @@
 
 import XCTest
 import Numerix
+import Accelerate
 
 final class ArithmeticTests: XCTestCase {
     
-    func testAddition() {
-        let m1 = Matrix(rows: 2, columns: 2, values: [1.0, 2.0, 5.0, 6.0])
-        let m2 = Matrix(rows: 2, columns: 2, values: [4.2, 2.0, 1.0, 8.7])
-        let x = m1 + m2
-        XCTAssertEqual(x.values, [5.2, 4.0, 6.0, 14.7])
+    let m = Matrix(rows: 2, columns: 2, values: [1, 2, 3, 4])
+    let n = Matrix<Float>(rows: 2, columns: 2, values: [1, 2, 3, 4])
+    let s = 2.0
+    let t = Float(2.0)
         
-        let m3: Matrix<Float> = Matrix(rows: 2, columns: 2, values: [1.0, 2.0, 5.0, 6.0])
-        let m4: Matrix<Float> = Matrix(rows: 2, columns: 2, values: [4.2, 2.0, 1.0, 8.7])
-        let y = m3 + m4
-        XCTAssertEqual(y.values, [5.2, 4.0, 6.0, 14.7])
+    func testAddition() {
+        // Double precision
+        XCTAssertEqual((m + m).values, [2, 4, 6, 8])
+        XCTAssertEqual((m + s).values, [3, 4, 5, 6])
+        XCTAssertEqual((s + m).values, [3, 4, 5, 6])
+        
+        // Float precision
+        XCTAssertEqual((n + n).values, [2, 4, 6, 8])
+        XCTAssertEqual((n + t).values, [3, 4, 5, 6])
+        XCTAssertEqual((t + n).values, [3, 4, 5, 6])
     }
 }
