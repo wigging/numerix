@@ -30,4 +30,12 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(m[0, 0], 3.0)
         XCTAssertEqual(m[1, 2], 18.2)
     }
+    
+    func testRandom() {
+        let md = Matrix<Double>.random(rows: 2, columns: 3)
+        XCTAssertLessThanOrEqual(md[0, 0], 1.0)
+        
+        let mf = Matrix<Float>.random(rows: 2, columns: 3)
+        XCTAssertLessThanOrEqual(mf[0, 0], 1.0)
+    }
 }
