@@ -9,8 +9,15 @@ import Accelerate
 
 extension Matrix where T == Double {
     
-    public static func random(rows: Int, columns: Int) -> Matrix {
-        var idist: Int32 = 1
+    /// Create a Matrix containing random values with double precision.
+    /// - Parameters:
+    ///   - rows: Number of rows.
+    ///   - columns: Number of columns.
+    ///   - dist: Specify the distribution of the random numbers where 1 is 
+    ///   uniform (0,1), 2 is uniform (-1,1) and 3 is normal (0,1).
+    /// - Returns: A Matrix of random values.
+    public static func random(rows: Int, columns: Int, dist: Int32) -> Matrix {
+        var idist: Int32 = dist
         
         // Must be between 0 and 4095, and iseed[3] must be odd
         // See https://netlib.org/lapack/explore-html/d5/dd2/group__larnv.html
@@ -28,8 +35,15 @@ extension Matrix where T == Double {
 
 extension Matrix where T == Float {
     
-    public static func random(rows: Int, columns: Int) -> Matrix {
-        var idist: Int32 = 1
+    /// Create a Matrix containing random values with single precision.
+    /// - Parameters:
+    ///   - rows: Number of rows.
+    ///   - columns: Number of columns.
+    ///   - dist: Specify the distribution of the random numbers where 1 is
+    ///   uniform (0,1), 2 is uniform (-1,1) and 3 is normal (0,1).
+    /// - Returns: A Matrix of random values.
+    public static func random(rows: Int, columns: Int, dist: Int32) -> Matrix {
+        var idist: Int32 = dist
         
         // Must be between 0 and 4095, and iseed[3] must be odd
         // See https://netlib.org/lapack/explore-html/d5/dd2/group__larnv.html
