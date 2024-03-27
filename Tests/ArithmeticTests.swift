@@ -9,21 +9,21 @@ import XCTest
 import Numerix
 
 final class ArithmeticTests: XCTestCase {
-    
-    let m = Matrix(rows: 2, columns: 2, values: [1, 2, 3, 4])
-    let n = Matrix<Float>(rows: 2, columns: 2, values: [1, 2, 3, 4])
-    let s = 2.0
-    let t = Float(2.0)
-        
+
+    let matrixD = Matrix(rows: 2, columns: 2, values: [1, 2, 3, 4])
+    let matrixF = Matrix<Float>(rows: 2, columns: 2, values: [1, 2, 3, 4])
+    let scalarD = 2.0
+    let scalarF = Float(2.0)
+
     func testAddition() {
         // Double precision
-        XCTAssertEqual((m + m).values, [2, 4, 6, 8])
-        XCTAssertEqual((m + s).values, [3, 4, 5, 6])
-        XCTAssertEqual((s + m).values, [3, 4, 5, 6])
-        
+        XCTAssertEqual((matrixD + matrixD).values, [2, 4, 6, 8])
+        XCTAssertEqual((matrixD + scalarD).values, [3, 4, 5, 6])
+        XCTAssertEqual((scalarD + matrixD).values, [3, 4, 5, 6])
+
         // Float precision
-        XCTAssertEqual((n + n).values, [2, 4, 6, 8])
-        XCTAssertEqual((n + t).values, [3, 4, 5, 6])
-        XCTAssertEqual((t + n).values, [3, 4, 5, 6])
+        XCTAssertEqual((matrixF + matrixF).values, [2, 4, 6, 8])
+        XCTAssertEqual((matrixF + scalarF).values, [3, 4, 5, 6])
+        XCTAssertEqual((scalarF + matrixF).values, [3, 4, 5, 6])
     }
 }
