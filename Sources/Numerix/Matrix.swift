@@ -48,3 +48,75 @@ public struct Matrix<T: FloatingPoint> {
         set { values[(row * columns) + column] = newValue }
     }
 }
+
+// MARK: - Double precision
+
+extension Matrix where T == Double {
+
+    /// Element-wise sum of two matrices with double precision.
+    /// - Parameters:
+    ///   - lhs: Matrix A.
+    ///   - rhs: Matrix B.
+    /// - Returns: The sum of A[i] + B[i].
+    public static func + (lhs: Matrix, rhs: Matrix) -> Matrix {
+        precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must be same shape")
+        let vec = vDSP.add(lhs.values, rhs.values)
+        return Matrix(rows: lhs.rows, columns: lhs.columns, values: vec)
+    }
+
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Matrix A.
+    ///   - rhs: Scalar value.
+    /// - Returns: The sum of A[i] + scalar.
+    static public func + (lhs: Matrix, rhs: T) -> Matrix {
+        let vec = vDSP.add(rhs, lhs.values)
+        return Matrix(rows: lhs.rows, columns: lhs.columns, values: vec)
+    }
+
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Scalar value
+    ///   - rhs: Matrix B.
+    /// - Returns: The sum of scalar + B[i].
+    static public func + (lhs: T, rhs: Matrix) -> Matrix {
+        let vec = vDSP.add(lhs, rhs.values)
+        return Matrix(rows: rhs.rows, columns: rhs.columns, values: vec)
+    }
+}
+
+// MARK: - Single precision
+
+extension Matrix where T == Float {
+
+    /// Element-wise sum of two matrices with single precision.
+    /// - Parameters:
+    ///   - lhs: Matrix A.
+    ///   - rhs: Matrix B.
+    /// - Returns: The sum of A[i] + B[i].
+    public static func + (lhs: Matrix, rhs: Matrix) -> Matrix {
+        precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must be same shape")
+        let vec = vDSP.add(lhs.values, rhs.values)
+        return Matrix(rows: lhs.rows, columns: lhs.columns, values: vec)
+    }
+
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Matrix A.
+    ///   - rhs: Scalar value.
+    /// - Returns: The sum of A[i] + scalar.
+    static public func + (lhs: Matrix, rhs: T) -> Matrix {
+        let vec = vDSP.add(rhs, lhs.values)
+        return Matrix(rows: lhs.rows, columns: lhs.columns, values: vec)
+    }
+
+    /// Element-wise sum of a matrix and a scalar with double precision.
+    /// - Parameters:
+    ///   - lhs: Scalar value
+    ///   - rhs: Matrix B.
+    /// - Returns: The sum of scalar + B[i].
+    static public func + (lhs: T, rhs: Matrix) -> Matrix {
+        let vec = vDSP.add(lhs, rhs.values)
+        return Matrix(rows: rhs.rows, columns: rhs.columns, values: vec)
+    }
+}
