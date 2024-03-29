@@ -11,7 +11,7 @@ import Numerix
 final class VectorTests: XCTestCase {
 
     func testSubscript() {
-        let vector = Vector([3, 5.8, 4, 1])
+        let vector = Vector([3, 5.8, 402.89, 1])
         XCTAssertEqual(vector[0], 3)
     }
 
