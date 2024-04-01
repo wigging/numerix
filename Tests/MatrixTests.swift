@@ -27,6 +27,16 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(matrix[1, 2], 18.2)
     }
 
+    func testDescription() {
+        let mat = Matrix(rows: 2, columns: 3, values: [3, 4, 8, 10, 11, 18.2])
+        let desc = """
+        2x3 Matrix<Double>
+         3.00  4.00  8.00
+         10.00  11.00  18.20
+        """
+        XCTAssertEqual(String(describing: mat), desc)
+    }
+
     func testRandom() {
         let matrixD = Matrix<Double>.random(rows: 2, columns: 3, dist: 1)
         XCTAssertLessThanOrEqual(matrixD[0, 0], 1.0)

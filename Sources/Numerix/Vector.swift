@@ -25,23 +25,6 @@ public struct Vector<T: FloatingPoint> {
     }
 }
 
-extension Vector: CustomStringConvertible {
-
-    public var description: String {
-        var des = [String]()
-        for value in self.values {
-            if let val = value as? Double {
-                des.append(val.formatted(.number.precision(.fractionLength(2))))
-            } else if let val = value as? Float {
-                des.append(val.formatted(.number.precision(.fractionLength(1))))
-            } else {
-                des.append("\(value)")
-            }
-        }
-        return "<\(des.joined(separator: " "))>"
-    }
-}
-
 extension Vector where T == Double {
 
     public static func + (left: Vector, right: Vector) -> Vector {

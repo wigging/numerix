@@ -15,6 +15,15 @@ final class VectorTests: XCTestCase {
         XCTAssertEqual(vector[0], 3)
     }
 
+    func testDescription() {
+        let vec = Vector([3, 5.8, 402.89, 1])
+        let desc = """
+        4-element Vector<Double>
+         3.00  5.80  402.89  1.00
+        """
+        XCTAssertEqual(String(describing: vec), desc)
+    }
+
     func testFill() {
         let vector1 = Vector(size: 5)
         XCTAssertEqual(vector1[0], 0.0)
