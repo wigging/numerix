@@ -36,5 +36,8 @@ final class VectorTests: XCTestCase {
         let vector1 = Vector([3.8, 4, 5, 6])
         let vector2 = Vector([1, 2, 3, 4.9])
         XCTAssertEqual((vector1 + vector2).values, [4.8, 6, 8, 10.9])
+
+        XCTAssertEqual((vector1 + 2.8).values, [6.6, 6.8, 7.8, 8.8])
+        XCTAssertEqual((2.8 + vector1).values, [6.6, 6.8, 7.8, 8.8])
     }
 }
