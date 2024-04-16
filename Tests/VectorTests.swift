@@ -41,22 +41,22 @@ final class VectorTests: XCTestCase {
     }
 
     func testSubtraction() {
-        let vector1 = Vector([3.8, 4, 5, 6])
-        let vector2 = Vector([1, 2, 3, 4.8])
+        let vec1 = Vector([3.8, 4, 5, 6])
+        let vec2 = Vector([1, 2, 3, 4.8])
 
-        let result1 = (vector1 - vector2).values
+        let result1 = (vec1 - vec2).values
         let answer1 = [2.8, 2, 2, 1.2]
         for i in 0..<result1.count {
             XCTAssertEqual(result1[i], answer1[i], accuracy: 0.01)
         }
 
-        let result2 = (vector1 - 2.0).values
+        let result2 = (vec1 - 2.0).values
         let answer2 = [1.8, 2, 3, 4]
         for i in 0..<result2.count {
             XCTAssertEqual(result2[i], answer2[i], accuracy: 0.01)
         }
 
-        let result3 = (2.0 - vector1).values
+        let result3 = (2.0 - vec1).values
         let answer3 = [-1.8, -2, -3, -4]
         for i in 0..<result3.count {
             XCTAssertEqual(result3[i], answer3[i], accuracy: 0.01)
