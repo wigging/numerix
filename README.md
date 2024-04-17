@@ -1,6 +1,6 @@
 # Numerix
 
-A linear algebra package for Swift.
+A linear algebra package written in Swift for macOS and iOS.
 
 ## Contributing
 
