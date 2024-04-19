@@ -8,9 +8,9 @@
 import XCTest
 import Numerix
 
-final class VectorAdditionTests: XCTestCase {
+final class VectorAddTests: XCTestCase {
 
-    func testVectorAddition() {
+    func testVectorAdd() {
         let vec1 = Vector([1, 2, 3, 4])
         let vec2 = Vector([5, 2, 3, 1])
         assertApproxEqual(vec1 + vec2, Vector([6, 4, 6, 5]))

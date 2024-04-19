@@ -8,9 +8,9 @@
 import XCTest
 import Numerix
 
-final class MatrixAdditionTests: XCTestCase {
+final class MatrixAddTests: XCTestCase {
 
-    func testMatrixAddition() {
+    func testMatrixAdd() {
         let mat1 = Matrix([[1, 2, 3], [4, 5, 6]])
         let mat2 = Matrix([[2, 2, 3], [8, 5, 6]])
         assertApproxEqual(mat1 + mat2, Matrix([[3, 4, 6], [12, 10, 12]]))

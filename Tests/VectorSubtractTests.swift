@@ -8,9 +8,9 @@
 import XCTest
 import Numerix
 
-final class VectorSubtractionTests: XCTestCase {
+final class VectorSubtractTests: XCTestCase {
 
-    func testVectorSubtraction() {
+    func testVectorSubtract() {
         let vec1 = Vector([3.8, 4, 5, 6])
         let vec2 = Vector([1, 2, 3, 4.8])
         assertApproxEqual(vec1 - vec2, Vector([2.8, 2, 2, 1.2]))
