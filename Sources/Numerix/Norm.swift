@@ -12,8 +12,8 @@ import Accelerate
 /// - Returns: The norm of the input vector.
 public func norm(_ vec: Vector<Double>) -> Double {
     let x = vec.values
-    let n = Int32(x.count)
-    let incx = Int32(1)
+    let n = x.count
+    let incx = 1
     let nrm = cblas_dnrm2(n, x, incx)
     return nrm
 }
@@ -23,8 +23,8 @@ public func norm(_ vec: Vector<Double>) -> Double {
 /// - Returns: The norm of the input vector.
 public func norm(_ vec: Vector<Float>) -> Float {
     let x = vec.values
-    let n = Int32(x.count)
-    let incx = Int32(1)
+    let n = x.count
+    let incx = 1
     let nrm = cblas_snrm2(n, x, incx)
     return nrm
 }
@@ -34,8 +34,8 @@ public func norm(_ vec: Vector<Float>) -> Float {
 /// - Returns: The norm of the input matrix.
 public func norm(_ mat: Matrix<Double>) -> Double {
     let x = mat.values
-    let n = Int32(x.count)
-    let incx = Int32(1)
+    let n = x.count
+    let incx = 1
     let nrm = cblas_dnrm2(n, x, incx)
     return nrm
 }
@@ -45,8 +45,8 @@ public func norm(_ mat: Matrix<Double>) -> Double {
 /// - Returns: The norm of the input matrix.
 public func norm(_ mat: Matrix<Float>) -> Float {
     let x = mat.values
-    let n = Int32(x.count)
-    let incx = Int32(1)
+    let n = x.count
+    let incx = 1
     let nrm = cblas_snrm2(n, x, incx)
     return nrm
 }

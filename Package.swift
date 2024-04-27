@@ -13,7 +13,10 @@ let package = Package(
     targets: [
         .target(
             name: "Numerix",
-            cxxSettings: [.define("ACCELERATE_NEW_LAPACK", to: "1")],
+            cxxSettings: [
+                .define("ACCELERATE_NEW_LAPACK", to: "1"),
+                .define("ACCELERATE_LAPACK_ILP64", to: "1")
+            ],
             linkerSettings: [.linkedFramework("Accelerate")]
         ),
         .testTarget(name: "Tests", dependencies: ["Numerix"])
