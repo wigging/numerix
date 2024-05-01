@@ -11,11 +11,16 @@ import Numerix
 final class VectorTests: XCTestCase {
 
     func testInit() {
-        let vector1 = Vector(size: 5)
+        let vector1 = Vector(length: 5)
         XCTAssertEqual(vector1[0], 0.0)
 
-        let vector2 = Vector(size: 4, fill: 2.2)
+        let vector2 = Vector(length: 4, fill: 2.2)
         XCTAssertEqual(vector2[0], 2.2)
+    }
+
+    func testProperties() {
+        let vec = Vector([3, 4, 5, 6])
+        XCTAssertEqual(vec.length, 4)
     }
 
     func testSubscript() {
