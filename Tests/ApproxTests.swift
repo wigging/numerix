@@ -13,11 +13,11 @@ final class FunctionTests: XCTestCase {
     func testVectorApprox() {
         let vec1 = Vector([1, 2, 3, 4])
         let vec2 = Vector([1, 2, 3, 4])
-        assertApproxEqual(vec1, vec2)
+        XCTAssert(isApprox(vec1, vec2))
 
         let vec3 = Vector<Float>([1, 2, 3, 4])
         let vec4 = Vector<Float>([1, 2, 3, 4])
-        assertApproxEqual(vec3, vec4)
+        XCTAssert(isApprox(vec3, vec4))
     }
 
     func testMatrixApprox() {
@@ -27,7 +27,7 @@ final class FunctionTests: XCTestCase {
         let mat2 = Matrix<Double>([[1, 2, 3, 4],
                                    [5, 6, 7, 8]])
         
-        assertApproxEqual(mat1, mat2)
+        XCTAssert(isApprox(mat1, mat2))
 
         let mat3 = Matrix<Float>([[1, 2, 3, 4],
                                   [5, 6, 7, 8]])
@@ -35,6 +35,6 @@ final class FunctionTests: XCTestCase {
         let mat4 = Matrix<Float>([[1, 2, 3, 4],
                                   [5, 6, 7, 8]])
 
-        assertApproxEqual(mat3, mat4)
+        XCTAssert(isApprox(mat3, mat4))
     }
 }
