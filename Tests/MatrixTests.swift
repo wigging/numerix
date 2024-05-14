@@ -65,7 +65,23 @@ final class MatrixTests: XCTestCase {
         XCTAssert(isApprox(mat1 * mat2, result))
     }
 
-    func textComplexMultiplication() {
+    func testIntegerMultiplication() {
+        let a = Matrix([[1, 2],
+                        [3, 4]])
+
+        let b = Matrix([[1, 2],
+                        [3, 4]])
+
+        let c = a * b
+
+        let result = Matrix([[7, 10],
+                             [15, 22]])
+
+        XCTAssertEqual(c[0, 0], result[0, 0])
+        XCTAssertEqual(c[1, 1], result[1, 1])
+    }
+
+    func testComplexMultiplication() {
         let a = Matrix([[Complex(real: 1.0, imag: 2.0), Complex(real: 2.0, imag: 3.0)],
                         [Complex(real: 5.0, imag: 6.0), Complex(real: 7.0, imag: 8.0)]])
 
@@ -78,7 +94,7 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(c[0, 0].imag, 31.0)
     }
 
-    func testElementWise() {
+    func testElementMultiplication() {
         let mat1 = Matrix([[1.0, 2.0, 3.0],
                            [4.0, 5.0, 6.0]])
 

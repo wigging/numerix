@@ -213,6 +213,31 @@ extension Matrix {
         return mat
     }
     
+    /// Matrix multiplication for integer values. Number of columns in left matrix must equal
+    /// number of rows in right matrix.
+    /// - Parameters:
+    ///   - lhs: Left matrix with dimension m x n.
+    ///   - rhs: Right matrix with dimension n x p.
+    /// - Returns: Matrix with dimension m x p.
+    public static func * (lhs: Matrix, rhs: Matrix) -> Matrix where T == Int {
+        precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
+        let a = lhs.values.compactMap { Double($0) }
+        let b = rhs.values.compactMap { Double($0) }
+        var c = [Double](repeating: 0.0, count: lhs.rows * rhs.columns)
+
+        let m = lhs.rows     // rows in matrices A and C
+        let n = rhs.columns  // columns in matrices B and C
+        let k = lhs.columns  // columns in matrix A and rows in matrix B
+        let alpha = 1.0
+        let beta = 0.0
+
+        // matrix multiplication where C ← αAB + βC
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, &c, n)
+
+        let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c.compactMap { Int($0) } )
+        return mat
+    }
+
     /// Matrix multiplication for double precision complex. Number of columns in left matrix must be
     /// equal to number of rows in the right matrix.
     /// - Parameters:
