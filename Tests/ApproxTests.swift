@@ -21,12 +21,20 @@ final class FunctionTests: XCTestCase {
     }
 
     func testMatrixApprox() {
-        let mat1 = Matrix([[1, 2, 3, 4], [5, 6, 7, 8]])
-        let mat2 = Matrix([[1, 2, 3, 4], [5, 6, 7, 8]])
+        let mat1 = Matrix<Double>([[1, 2, 3, 4],
+                                   [5, 6, 7, 8]])
+
+        let mat2 = Matrix<Double>([[1, 2, 3, 4],
+                                   [5, 6, 7, 8]])
+        
         assertApproxEqual(mat1, mat2)
 
-        let mat3 = Matrix<Float>([[1, 2, 3, 4], [5, 6, 7, 8]])
-        let mat4 = Matrix<Float>([[1, 2, 3, 4], [5, 6, 7, 8]])
+        let mat3 = Matrix<Float>([[1, 2, 3, 4],
+                                  [5, 6, 7, 8]])
+
+        let mat4 = Matrix<Float>([[1, 2, 3, 4],
+                                  [5, 6, 7, 8]])
+
         assertApproxEqual(mat3, mat4)
     }
 }

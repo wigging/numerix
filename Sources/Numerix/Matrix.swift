@@ -7,7 +7,7 @@
 
 import Accelerate
 
-public struct Matrix<T: FloatingPoint> {
+public struct Matrix<T> {
 
     /// Number of matrix rows.
     public let rows: Int
@@ -19,11 +19,11 @@ public struct Matrix<T: FloatingPoint> {
     public var values: [T]
 
     /// Create a Matrix with size m x n where m is number of rows and n is
-    /// number columns.
+    /// number of columns.
     /// - Parameters:
     ///   - rows: Number of rows.
     ///   - columns: Number of columns.
-    ///   - values: Array of Doulbe or Float values.
+    ///   - values: Array of values.
     public init(rows: Int, columns: Int, values: [T]) {
         self.rows = rows
         self.columns = columns
@@ -208,6 +208,31 @@ extension Matrix {
 
         // matrix multiplication where C ← αAB + βC
         cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, &c, n)
+
+        let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c)
+        return mat
+    }
+    
+    /// Matrix multiplication for double precision complex. Number of columns in left matrix must be
+    /// equal to number of rows in the right matrix.
+    /// - Parameters:
+    ///   - lhs: Left matrix with dimensions of m x n.
+    ///   - rhs: Right matrix with dimensions of n x p.
+    /// - Returns: Matrix with dimensions of m x p.
+    public static func * (lhs: Matrix, rhs: Matrix) -> Matrix where T == Complex<Double> {
+        precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
+        let a = lhs.values
+        let b = rhs.values
+        var c = [Complex](repeating: Complex(real: 0.0, imag: 0.0), count: lhs.rows * rhs.columns)
+
+        let m = lhs.rows     // rows in matrices A and C
+        let n = rhs.columns  // columns in matrices B and C
+        let k = lhs.columns  // columns in matrix A and rows in matrix B
+
+        let alpha = [Complex(real: 1.0, imag: 0.0)]
+        let beta = [Complex(real: 1.0, imag: 0.0)]
+
+        cblas_zgemm_wrapper(m, n, k, alpha, a, k, b, n, beta, &c, n)
 
         let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c)
         return mat
