@@ -1,9 +1,5 @@
-//
-//  VectorTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 3/26/24.
-//
+// Tests for vector initialization, properties, subscript, addition,
+// subtraction, and multiplication.
 
 import XCTest
 import Numerix
@@ -11,11 +7,11 @@ import Numerix
 final class VectorTests: XCTestCase {
 
     func testInit() {
-        let vector1 = Vector(length: 5)
-        XCTAssertEqual(vector1[0], 0.0)
-
-        let vector2 = Vector(length: 4, fill: 2.2)
-        XCTAssertEqual(vector2[0], 2.2)
+        let vec1 = Vector(length: 5)
+        let vec2 = Vector(length: 4, fill: 2.2)
+        
+        XCTAssertEqual(vec1[0], 0.0)
+        XCTAssertEqual(vec2[0], 2.2)
     }
 
     func testProperties() {
@@ -24,22 +20,20 @@ final class VectorTests: XCTestCase {
     }
 
     func testSubscript() {
-        let vector = Vector([3, 5.8, 402.89, 1])
-        XCTAssertEqual(vector[0], 3)
+        let vec = Vector([3, 5.8, 402.89, 1])
+        XCTAssertEqual(vec[0], 3)
     }
 
     func testAddition() {
         let vec1 = Vector<Double>([1, 2, 3, 4])
         let vec2 = Vector<Double>([5, 2, 3, 1])
-        XCTAssert(isApprox(vec1 + vec2, Vector([6, 4, 6, 5])))
-
         let vec3 = Vector<Float>([5, 4, 3, 2])
         let vec4 = Vector<Float>([6, 5, 4, 3])
-        XCTAssert(isApprox(vec3 + vec4, Vector<Float>([11, 9, 7, 5])))
 
+        XCTAssert(isApprox(vec1 + vec2, Vector([6, 4, 6, 5])))
+        XCTAssert(isApprox(vec3 + vec4, Vector<Float>([11, 9, 7, 5])))
         XCTAssert(isApprox(vec1 + 2.0, Vector([3, 4, 5, 6])))
         XCTAssert(isApprox(2.0 + vec1, Vector([3, 4, 5, 6])))
-
         XCTAssert(isApprox(vec3 + 2.0, Vector<Float>([7, 6, 5, 4])))
         XCTAssert(isApprox(2.0 + vec3, Vector<Float>([7, 6, 5, 4])))
     }

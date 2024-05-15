@@ -1,9 +1,4 @@
-//
-//  RandomTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 4/16/24.
-//
+// Tests for creating a random matrix.
 
 import XCTest
 import Numerix
