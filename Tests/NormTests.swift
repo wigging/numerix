@@ -11,7 +11,7 @@ import Numerix
 final class NormTests: XCTestCase {
 
     func testVectorNorm() {
-        let vec = Vector([1, 2, 3, 4])
+        let vec = Vector<Double>([1, 2, 3, 4])
         let nrm = norm(vec)
         XCTAssertEqual(nrm, 5.47, accuracy: 0.01)
 

@@ -29,8 +29,8 @@ final class VectorTests: XCTestCase {
     }
 
     func testAddition() {
-        let vec1 = Vector([1, 2, 3, 4])
-        let vec2 = Vector([5, 2, 3, 1])
+        let vec1 = Vector<Double>([1, 2, 3, 4])
+        let vec2 = Vector<Double>([5, 2, 3, 1])
         XCTAssert(isApprox(vec1 + vec2, Vector([6, 4, 6, 5])))
 
         let vec3 = Vector<Float>([5, 4, 3, 2])
@@ -53,8 +53,8 @@ final class VectorTests: XCTestCase {
     }
 
     func testMultiplication() {
-        let vec1 = Vector([1, 2, 3, 4])
-        let vec2 = Vector([2, 3, 4, 5])
+        let vec1 = Vector<Double>([1, 2, 3, 4])
+        let vec2 = Vector<Double>([2, 3, 4, 5])
 
         XCTAssert(isApprox(vec1 * vec2, Vector([2, 6, 12, 20])))
         XCTAssert(isApprox(2.0 * vec1, Vector([2, 4, 6, 8])))

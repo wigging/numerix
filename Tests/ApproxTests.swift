@@ -11,8 +11,8 @@ import Numerix
 final class FunctionTests: XCTestCase {
 
     func testVectorApprox() {
-        let vec1 = Vector([1, 2, 3, 4])
-        let vec2 = Vector([1, 2, 3, 4])
+        let vec1 = Vector<Double>([1, 2, 3, 4])
+        let vec2 = Vector<Double>([1, 2, 3, 4])
         XCTAssert(isApprox(vec1, vec2))
 
         let vec3 = Vector<Float>([1, 2, 3, 4])

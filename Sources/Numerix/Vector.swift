@@ -7,7 +7,7 @@
 
 import Accelerate
 
-public struct Vector<T: FloatingPoint> {
+public struct Vector<T> {
     
     /// Scalar elements in the vector.
     public var values: [T]
