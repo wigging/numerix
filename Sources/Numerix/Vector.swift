@@ -8,21 +8,21 @@
 import Accelerate
 
 public struct Vector<T> {
-    
+
     /// Scalar elements in the vector.
     public var values: [T]
-    
+
     /// Number of elements in the vector.
     public var length: Int {
         values.count
     }
-    
+
     /// Create a vector from an array of values.
     /// - Parameter values: Values of the vector.
     public init(_ values: [T]) {
         self.values = values
     }
-    
+
     /// Create a vector of a certain length filled with the given value.
     /// - Parameters:
     ///   - length: Length of the vector.

@@ -65,7 +65,7 @@ public func * (lhs: Matrix<Int>, rhs: Matrix<Int>) -> Matrix<Int> {
     // matrix multiplication where C ← αAB + βC
     cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, &c, n)
 
-    let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c.compactMap { Int($0) } )
+    let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c.compactMap { Int($0) })
     return mat
 }
 

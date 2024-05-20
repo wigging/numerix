@@ -5,6 +5,8 @@
 //  Created by Gavin Wiggins on 5/12/24.
 //
 
+// swiftlint:disable function_parameter_count line_length
+
 import Accelerate
 
 func cblas_zgemm_wrapper(
@@ -22,3 +24,5 @@ func cblas_zgemm_wrapper(
 ) {
     cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, m, k, .init(alpha), .init(a), lda, .init(b), ldb, .init(beta), .init(c), ldc)
 }
+
+// swiftlint:enable function_parameter_count line_length

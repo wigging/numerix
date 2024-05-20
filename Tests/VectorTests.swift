@@ -9,7 +9,7 @@ final class VectorTests: XCTestCase {
     func testInit() {
         let vec1 = Vector(length: 5)
         let vec2 = Vector(length: 4, fill: 2.2)
-        
+
         XCTAssertEqual(vec1[0], 0.0)
         XCTAssertEqual(vec2[0], 2.2)
     }
