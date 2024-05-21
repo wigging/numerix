@@ -61,4 +61,14 @@ final class VectorTests: XCTestCase {
         XCTAssert(isApprox(2.0 * vec3, Vector<Float>([2, 4, 6, 8])))
         XCTAssert(isApprox(vec3 * 2.0, Vector<Float>([2, 4, 6, 8])))
     }
+
+    func testMaxAbsIndex() {
+        let vec1 = Vector<Float>([1, 2, 5, 3, 19, 0.2])
+        let idx1 = vec1.maxAbsIndex()
+        XCTAssertEqual(idx1, 4)
+
+        let vec2 = Vector([1, 2, 5, 3, 0.4, -10, 8])
+        let idx2 = vec2.maxAbsIndex()
+        XCTAssertEqual(idx2, 5)
+    }
 }

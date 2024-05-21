@@ -49,7 +49,27 @@ public struct Matrix<T> {
     }
 
     public subscript(row: Int, column: Int) -> T {
-        get { return values[(row * columns) + column] }
-        set { values[(row * columns) + column] = newValue }
+        get { return self.values[(row * self.columns) + column] }
+        set { self.values[(row * self.columns) + column] = newValue }
+    }
+
+    /// Find the index of the largest absolute value in the matrix with single precision.
+    /// - Parameter stride: Stride within the flattened matrix. Default is 1 for every element.
+    /// - Returns: Row and column index corresponding to the largest absolute value.
+    public func maxAbsIndex(stride: Int = 1) -> (Int, Int) where T == Float {
+        let index = cblas_isamax(self.values.count, self.values, stride)
+        let row = index % self.rows
+        let col = index / self.columns
+        return (row, col)
+    }
+
+    /// Find the index of the largest absolute value in the matrix with double precision.
+    /// - Parameter stride: Stride within the flattened matrix. Default is 1 for every element.
+    /// - Returns: Row and column index corresponding to the largest absolute value.
+    public func maxAbsIndex(stride: Int = 1) -> (Int, Int) where T == Double {
+        let index = cblas_idamax(self.values.count, self.values, stride)
+        let row = index / self.rows
+        let col = index % self.columns
+        return (row, col)
     }
 }

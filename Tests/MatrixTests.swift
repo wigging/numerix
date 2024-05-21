@@ -128,4 +128,20 @@ final class MatrixTests: XCTestCase {
         XCTAssert(isApprox(divide(mat, 2.0), result2, rtol: 1e-2))  // divide matrix by scalar
         XCTAssert(isApprox(mat / 2.0, result2, rtol: 1e-2))         // divide matrix by scalar
     }
+
+    func testMaxAbsIndex() {
+        let mat1 = Matrix<Float>([[1, 2, 3],
+                                  [4, 9, 5],
+                                  [6, 7, 10]])
+        let (row1, col1) = mat1.maxAbsIndex()
+        XCTAssertEqual(row1, 2)
+        XCTAssertEqual(col1, 2)
+
+        let mat2 = Matrix<Double>([[1, 2, 3],
+                                   [4, 9, 5],
+                                   [6, 70, 1]])
+        let (row2, col2) = mat2.maxAbsIndex()
+        XCTAssertEqual(row2, 2)
+        XCTAssertEqual(col2, 1)
+    }
 }

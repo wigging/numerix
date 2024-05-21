@@ -14,7 +14,7 @@ public struct Vector<T> {
 
     /// Number of elements in the vector.
     public var length: Int {
-        values.count
+        self.values.count
     }
 
     /// Create a vector from an array of values.
@@ -32,7 +32,23 @@ public struct Vector<T> {
     }
 
     public subscript(item: Int) -> T {
-        get { return values[item] }
-        set { values[item] = newValue }
+        get { return self.values[item] }
+        set { self.values[item] = newValue }
+    }
+    
+    /// Find the index of the largest absolute value in the vector with single precision.
+    /// - Parameter stride: Stride within the vector. Default is 1 for every element.
+    /// - Returns: Index corresponding to the largest absolute value.
+    public func maxAbsIndex(stride: Int = 1) -> Int where T == Float {
+        let index = cblas_isamax(self.length, self.values, stride)
+        return index
+    }
+
+    /// Find the index of the largest absolute value in the vector with double precision.
+    /// - Parameter stride: Stride within the vector. Default is 1 for every element.
+    /// - Returns: Index corresponding to the largest absolute value.
+    public func maxAbsIndex(stride: Int = 1) -> Int where T == Double {
+        let index = cblas_idamax(self.length, self.values, stride)
+        return index
     }
 }
