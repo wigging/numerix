@@ -32,4 +32,18 @@ final class ExponentialTests: XCTestCase {
         XCTAssert(isApprox(exp(matF), resultMatF))
         XCTAssert(isApprox(exp(matD), resultMatD))
     }
+
+    func testExponentialTwo() {
+        let resultVecF = Vector<Float>([2, 4, 8, 16, 32])
+        let resultVecD = Vector<Double>([2, 4, 8, 16, 32])
+
+        XCTAssert(isApprox(exp2(vecF), resultVecF))
+        XCTAssert(isApprox(exp2(vecD), resultVecD))
+
+        let resultMatF = Matrix<Float>([[2, 4, 8], [16, 32, 64]])
+        let resultMatD = Matrix<Double>([[2, 4, 8], [16, 32, 64]])
+
+        XCTAssert(isApprox(exp2(matF), resultMatF))
+        XCTAssert(isApprox(exp2(matD), resultMatD))
+    }
 }
