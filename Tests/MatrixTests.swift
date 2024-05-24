@@ -21,6 +21,19 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(mat[1, 2], 18.2)
     }
 
+    func testArrayLiteral() {
+        let mat: Matrix = [[1, 2, 3], [4, 5, 6]]
+        XCTAssertEqual(mat.values, [1, 2, 3, 4, 5, 6])
+
+        let matFloat: Matrix<Float> = [[1, 2, 3.8],
+                                       [4, 5.1, 6]]
+        XCTAssertEqual(matFloat.values, [1, 2, 3.8, 4, 5.1, 6])
+
+        let matDouble: Matrix = [[1, 2, 3.8],
+                                 [4, 5.1, 6]]
+        XCTAssertEqual(matDouble.values, [1, 2, 3.8, 4, 5.1, 6])
+    }
+
     func testAddition() {
         let mat1 = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
         let mat2 = Matrix<Double>([[2, 2, 3], [8, 5, 6]])

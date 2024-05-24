@@ -73,3 +73,28 @@ public struct Matrix<T> {
         return (row, col)
     }
 }
+
+extension Matrix: ExpressibleByArrayLiteral {
+
+    /// Create a matrix using an array literal.
+    ///
+    /// Examples of using an array literal to create a matrix.
+    ///
+    /// ```swift
+    /// // Create a matrix of integers
+    /// let mat: Matrix = [[1, 2, 3], [4, 5, 6]]
+    ///
+    /// // Create a matrix of doubles
+    /// let mat: Matrix = [[1, 2, 3.8],
+    ///                    [4, 5.1, 6]]
+    ///
+    /// // Create matrix of doubles where values given as integers
+    /// let mat: Matrix<Double> = [[1, 2, 3],
+    ///                            [4, 5, 6]]
+    /// ```
+    ///
+    /// - Parameter elements: Values in the vector.
+    public init(arrayLiteral elements: [T]...) {
+        self.init(elements)
+    }
+}

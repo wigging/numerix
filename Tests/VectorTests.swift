@@ -24,6 +24,17 @@ final class VectorTests: XCTestCase {
         XCTAssertEqual(vec[0], 3)
     }
 
+    func testArrayLiteral() {
+        let vec: Vector = [3, 4, 5, 6, 7, 8]
+        XCTAssertEqual(vec.values, [3, 4, 5, 6, 7, 8])
+
+        let vecFloat: Vector<Float> = [1, 2, 3, 4]
+        XCTAssertEqual(vecFloat.values, [1, 2, 3, 4])
+
+        let vecDouble: Vector = [1.0, 2, 3, 4.9]
+        XCTAssertEqual(vecDouble.values, [1.0, 2, 3, 4.9])
+    }
+
     func testAddition() {
         let vec1 = Vector<Double>([1, 2, 3, 4])
         let vec2 = Vector<Double>([5, 2, 3, 1])
