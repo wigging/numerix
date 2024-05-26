@@ -35,6 +35,19 @@ final class VectorTests: XCTestCase {
         XCTAssertEqual(vecDouble.values, [1.0, 2, 3, 4.9])
     }
 
+    func testEquatable() {
+        let vec1: Vector = [1, 2, 3, 4, 5]
+        let vec2: Vector = [1, 2, 3, 4, 5]
+        XCTAssert(vec1 == vec2)
+
+        let vec3: Vector = [1, 2, 3, 4, 5.5]
+        let vec4: Vector = [1, 2, 3, 4, 5.5]
+        XCTAssert(vec3 == vec4)
+
+        let vec5: Vector = [0.2, 4, 5, 6]
+        XCTAssert(vec4 != vec5)
+    }
+
     func testAddition() {
         let vec1 = Vector<Double>([1, 2, 3, 4])
         let vec2 = Vector<Double>([5, 2, 3, 1])

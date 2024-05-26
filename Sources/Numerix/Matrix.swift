@@ -98,3 +98,15 @@ extension Matrix: ExpressibleByArrayLiteral {
         self.init(elements)
     }
 }
+
+extension Matrix: Equatable where T: Equatable {
+
+    /// Compare two matrices for equality.
+    /// - Parameters:
+    ///   - lhs: The first matrix.
+    ///   - rhs: The second matrix.
+    /// - Returns: True if both matrices are same dimension and contain the same values.
+    public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
+        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.values == rhs.values
+    }
+}

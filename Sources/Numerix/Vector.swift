@@ -75,3 +75,15 @@ extension Vector: ExpressibleByArrayLiteral {
         self.init(elements)
     }
 }
+
+extension Vector: Equatable where T: Equatable {
+    
+    /// Compare two vectors for equality.
+    /// - Parameters:
+    ///   - lhs: The first vector.
+    ///   - rhs: The second vector.
+    /// - Returns: True if both vectors are same length and contain the same values.
+    public static func == (lhs: Vector, rhs: Vector) -> Bool {
+        return lhs.length == rhs.length && lhs.values == rhs.values
+    }
+}

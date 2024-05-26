@@ -34,6 +34,24 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(matDouble.values, [1, 2, 3.8, 4, 5.1, 6])
     }
 
+    func testEquatable() {
+        let mat1: Matrix = [[1, 2],
+                            [3, 4]]
+        let mat2: Matrix = [[1, 2],
+                            [3, 4]]
+        XCTAssert(mat1 == mat2)
+
+        let mat3: Matrix = [[1.8, 4],
+                            [2.9, 8.05]]
+        let mat4: Matrix = [[1.8, 4],
+                            [2.9, 8.05]]
+        XCTAssert(mat3 == mat4)
+
+        let mat5: Matrix = [[1.8, 4],
+                            [2.9, 52]]
+        XCTAssert(mat5 != mat4)
+    }
+
     func testAddition() {
         let mat1 = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
         let mat2 = Matrix<Double>([[2, 2, 3], [8, 5, 6]])
