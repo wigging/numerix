@@ -35,7 +35,7 @@ public struct Vector<T> {
         get { return self.values[item] }
         set { self.values[item] = newValue }
     }
-    
+
     /// Find the index of the largest absolute value in the vector with single precision.
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
@@ -54,7 +54,7 @@ public struct Vector<T> {
 }
 
 extension Vector: ExpressibleByArrayLiteral {
-    
+
     /// Create a vector using an array literal.
     ///
     /// Examples of using an array literal to create a vector.
@@ -77,7 +77,7 @@ extension Vector: ExpressibleByArrayLiteral {
 }
 
 extension Vector: Equatable where T: Equatable {
-    
+
     /// Compare two vectors for equality.
     /// - Parameters:
     ///   - lhs: The first vector.

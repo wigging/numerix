@@ -10,7 +10,7 @@ import Accelerate
 infix operator .*
 infix operator ⊙
 
-// MARK: - Vector Multiplication
+// MARK: - Vector multiplication
 
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
     let result = vDSP.multiply(lhs, rhs.values)
