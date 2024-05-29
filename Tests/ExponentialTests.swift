@@ -46,4 +46,22 @@ final class ExponentialTests: XCTestCase {
         XCTAssert(isApprox(exp2(matF), resultMatF))
         XCTAssert(isApprox(exp2(matD), resultMatD))
     }
+
+    func testExponentialMinusOne() {
+        let resF: Vector<Float> = [1.7182, 6.3890, 19.0855, 53.5981, 147.4131]
+        let checkF = isApprox(expm1(vecF), resF, rtol: 1e-4)
+        XCTAssert(checkF)
+
+        let resD: Vector<Double> = [1.7182, 6.3890, 19.0855, 53.5981, 147.4131]
+        let checkD = isApprox(expm1(vecD), resD, rtol: 1e-4)
+        XCTAssert(checkD)
+
+        let resMatF: Matrix<Float> = [[1.7182, 6.3890, 19.0855], [53.5981, 147.4130, 402.4290]]
+        let checkMatF = isApprox(expm1(matF), resMatF, rtol: 1e-4)
+        XCTAssert(checkMatF)
+
+        let resMatD: Matrix<Double> = [[1.7182, 6.3890, 19.0855], [53.5981, 147.4130, 402.4290]]
+        let checkMatD = isApprox(expm1(matD), resMatD, rtol: 1e-4)
+        XCTAssert(checkMatD)
+    }
 }

@@ -2,7 +2,7 @@
  Exponential functions for vector and matrix types.
  • exp() for eˣ
  • exp2() for 2ˣ
- • more coming soon
+ • expm1() for eˣ-1
 
  Uses functions from Accelerate vForce
  https://developer.apple.com/documentation/accelerate/veclib/vforce
@@ -48,6 +48,24 @@ public func exp2(_ vector: Vector<Double>) -> Vector<Double> {
     return vec
 }
 
+/// Calculate eˣ-1 for all single-precision values in a vector.
+/// - Parameter vector: The input values.
+/// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
+public func expm1(_ vector: Vector<Float>) -> Vector<Float> {
+    let result = vForce.expm1(vector.values)
+    let vec = Vector(result)
+    return vec
+}
+
+/// Calculate eˣ-1 for all double-precision values in a vector.
+/// - Parameter vector: The input values.
+/// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
+public func expm1(_ vector: Vector<Double>) -> Vector<Double> {
+    let result = vForce.expm1(vector.values)
+    let vec = Vector(result)
+    return vec
+}
+
 // MARK: - Matrix exponential functions
 
 /// Calculate the exponential function eˣ for all single-precision values in a matrix.
@@ -82,6 +100,24 @@ public func exp2(_ matrix: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ matrix: Matrix<Double>) -> Matrix<Double> {
     let result = vForce.exp2(matrix.values)
+    let mat = Matrix(rows: matrix.rows, columns: matrix.columns, values: result)
+    return mat
+}
+
+/// Calculate eˣ-1 for all single-precision values in a matrix.
+/// - Parameter vector: The input values.
+/// - Returns: Element-wise eˣ-1 where x is each value of the input matrix.
+public func expm1(_ matrix: Matrix<Float>) -> Matrix<Float> {
+    let result = vForce.expm1(matrix.values)
+    let mat = Matrix(rows: matrix.rows, columns: matrix.columns, values: result)
+    return mat
+}
+
+/// Calculate eˣ-1 for all double-precision values in a matrix.
+/// - Parameter vector: The input values.
+/// - Returns: Element-wise eˣ-1 where x is each value of the input matrix.
+public func expm1(_ matrix: Matrix<Double>) -> Matrix<Double> {
+    let result = vForce.expm1(matrix.values)
     let mat = Matrix(rows: matrix.rows, columns: matrix.columns, values: result)
     return mat
 }
