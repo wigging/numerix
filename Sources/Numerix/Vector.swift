@@ -7,6 +7,7 @@
 
 import Accelerate
 
+/// A one-dimensional collection of numerical values.
 public struct Vector<T> {
 
     /// Scalar elements in the vector.

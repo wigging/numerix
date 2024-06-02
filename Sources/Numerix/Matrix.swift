@@ -7,6 +7,7 @@
 
 import Accelerate
 
+/// A two-dimensional collection of numerical values.
 public struct Matrix<T> {
 
     /// Number of matrix rows.
