@@ -167,3 +167,12 @@ Compare two vectors or two matrices for approximate equality based on relative a
 - ``isApprox(_:_:rtol:atol:)-2hr20``
 - ``isApprox(_:_:rtol:atol:)-6khct``
 - ``isApprox(_:_:rtol:atol:)-3gf9s``
+
+### Dot product
+
+Calculate the dot product of two vectors.
+
+- ``⋅(_:_:)-5xmep``
+- ``⋅(_:_:)-3mmbq``
+- ``dot(_:_:)-21pra``
+- ``dot(_:_:)-70qan``
