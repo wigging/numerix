@@ -176,3 +176,10 @@ Calculate the dot product of two vectors.
 - ``⋅(_:_:)-3mmbq``
 - ``dot(_:_:)-21pra``
 - ``dot(_:_:)-70qan``
+
+### Transpose
+
+Transpose single and double precision matrices.
+
+- ``transpose(_:)-2taxc``
+- ``transpose(_:)-7dof5``
