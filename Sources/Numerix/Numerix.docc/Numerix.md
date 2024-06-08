@@ -183,3 +183,10 @@ Transpose single and double precision matrices.
 
 - ``transpose(_:)-2taxc``
 - ``transpose(_:)-7dof5``
+
+### Pad
+
+Pad a matrix with a constant value.
+
+- ``pad(_:with:)-b5y1``
+- ``pad(_:with:)-1jph8``
