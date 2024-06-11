@@ -21,6 +21,30 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(mat[1, 2], 18.2)
     }
 
+    func testSubscriptRow() {
+        var mat: Matrix = [[1, 2, 3],
+                           [4, 5, 6],
+                           [7, 8, 9]]
+
+        let matRow = mat[row: 1]
+        XCTAssertEqual(matRow, [4, 5, 6])
+
+        mat[row: 2] = [9, 9, 7]
+        XCTAssertEqual(mat, Matrix([[1, 2, 3], [4, 5, 6], [9, 9, 7]]))
+    }
+
+    func testSubscriptColumn() {
+        var mat: Matrix = [[1, 2, 3],
+                           [4, 5, 6],
+                           [7, 8, 9]]
+
+        let matCol = mat[column: 1]
+        XCTAssertEqual(matCol, [2, 5, 8])
+
+        mat[column: 2] = [9, 9, 7]
+        XCTAssertEqual(mat, Matrix([[1, 2, 9], [4, 5, 9], [7, 8, 7]]))
+    }
+
     func testArrayLiteral() {
         let mat: Matrix = [[1, 2, 3], [4, 5, 6]]
         XCTAssertEqual(mat.values, [1, 2, 3, 4, 5, 6])

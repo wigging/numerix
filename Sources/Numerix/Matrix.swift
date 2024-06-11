@@ -49,9 +49,45 @@ public struct Matrix<T> {
         self.values = content.flatMap { $0 }
     }
 
+    /// Get and set value at row and column index.
     public subscript(row: Int, column: Int) -> T {
         get { return self.values[(row * self.columns) + column] }
         set { self.values[(row * self.columns) + column] = newValue }
+    }
+
+    /// Get and set values at row index.
+    public subscript(row row: Int) -> [T] {
+        get {
+            let start = row * self.columns
+            let end = row * self.columns + self.columns
+            let vals = Array(self.values[start..<end])
+            return vals
+        }
+
+        set {
+            let start = row * self.columns
+            let end = row * self.columns + self.columns
+            self.values.replaceSubrange(start..<end, with: newValue)
+        }
+    }
+
+    /// Get and set values at column index.
+    public subscript(column column: Int) -> [T] {
+        get {
+            var result = [T](repeating: 0 as! T, count: self.rows)
+            for i in 0..<self.rows {
+                let index = i * self.columns + column
+                result[i] = self.values[index]
+            }
+            return result
+        }
+
+        set {
+            for i in 0..<rows {
+                let index = i * self.columns + column
+                self.values[index] = newValue[i]
+            }
+        }
     }
 
     /// Find the index of the largest absolute value in the matrix with single precision.
