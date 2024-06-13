@@ -190,3 +190,10 @@ Pad a matrix with a constant value.
 
 - ``pad(_:with:)-b5y1``
 - ``pad(_:with:)-1jph8``
+
+### Cumulative sum
+
+Cumulative sum of single and double precision vectors.
+
+- ``cumulativeSum(_:)-1o605``
+- ``cumulativeSum(_:)-24z5v``
