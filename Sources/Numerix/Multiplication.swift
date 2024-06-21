@@ -13,33 +13,45 @@ infix operator ⊙
 // MARK: - Vector multiplication
 
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    let result = vDSP.multiply(lhs, rhs.values)
-    return Vector(result)
+    let result = Vector(length: rhs.length) { buffer in
+        vDSP.multiply(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    let result = vDSP.multiply(rhs, lhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.multiply(rhs, lhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    let result = vDSP.multiply(lhs, rhs.values)
-    return Vector(result)
+    let result = Vector(length: rhs.length) { buffer in
+        vDSP.multiply(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    let result = vDSP.multiply(rhs, lhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.multiply(rhs, lhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func * (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    let result = vDSP.multiply(lhs.values, rhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func * (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    let result = vDSP.multiply(lhs.values, rhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 // MARK: - Matrix multiplication

@@ -16,54 +16,60 @@ import Accelerate
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ vector: Vector<Float>) -> Vector<Float> {
-    let result = vForce.exp(vector.values)
-    let vec = Vector(result)
-    return vec
+    let result = Vector(length: vector.length) { buffer in
+        vForce.exp(vector.values, result: &buffer)
+    }
+    return result
 }
 
 /// Calculate eˣ as the exponential function for all double-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ vector: Vector<Double>) -> Vector<Double> {
-    let result = vForce.exp(vector.values)
-    let vec = Vector(result)
-    return vec
+    let result = Vector(length: vector.length) { buffer in
+        vForce.exp(vector.values, result: &buffer)
+    }
+    return result
 }
 
 /// Calculate 2ˣ as 2 raised to the power of all single-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ vector: Vector<Float>) -> Vector<Float> {
-    let result = vForce.exp2(vector.values)
-    let vec = Vector(result)
-    return vec
+    let result = Vector(length: vector.length) { buffer in
+        vForce.exp2(vector.values, result: &buffer)
+    }
+    return result
 }
 
 /// Calculate 2ˣ as 2 raised to the power of all double-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ vector: Vector<Double>) -> Vector<Double> {
-    let result = vForce.exp2(vector.values)
-    let vec = Vector(result)
-    return vec
+    let result = Vector(length: vector.length) { buffer in
+        vForce.exp2(vector.values, result: &buffer)
+    }
+    return result
 }
 
 /// Calculate eˣ-1 for all single-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
 public func expm1(_ vector: Vector<Float>) -> Vector<Float> {
-    let result = vForce.expm1(vector.values)
-    let vec = Vector(result)
-    return vec
+    let result = Vector(length: vector.length) { buffer in
+        vForce.expm1(vector.values, result: &buffer)
+    }
+    return result
 }
 
 /// Calculate eˣ-1 for all double-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
 public func expm1(_ vector: Vector<Double>) -> Vector<Double> {
-    let result = vForce.expm1(vector.values)
-    let vec = Vector(result)
-    return vec
+    let result = Vector(length: vector.length) { buffer in
+        vForce.expm1(vector.values, result: &buffer)
+    }
+    return result
 }
 
 // MARK: - Matrix exponential functions

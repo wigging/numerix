@@ -15,8 +15,10 @@ import Accelerate
 ///   - rhs: Vector of length n.
 /// - Returns: Vector of length n.
 public func + (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    let result = vDSP.add(lhs, rhs.values)
-    return Vector(result)
+    let result = Vector(length: rhs.length) { buffer in
+        vDSP.add(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise addition of a scalar and a vector with double precision.
@@ -25,8 +27,10 @@ public func + (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
 ///   - rhs: Vector of length n.
 /// - Returns: Vector of length n.
 public func + (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    let result = vDSP.add(lhs, rhs.values)
-    return Vector(result)
+    let result = Vector(length: rhs.length) { buffer in
+        vDSP.add(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise addition of a vector and a scalar with single precision.
@@ -35,8 +39,10 @@ public func + (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
 ///   - rhs: Scalar value
 /// - Returns: Vector of length n.
 public func + (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    let result = vDSP.add(rhs, lhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.add(rhs, lhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise addition of a vector and a scalar with double precision.
@@ -45,8 +51,10 @@ public func + (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
 ///   - rhs: Scalar value
 /// - Returns: Vector of length n.
 public func + (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    let result = vDSP.add(rhs, lhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.add(rhs, lhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise addition of two vectors with single precision. Vectors must be same length.
@@ -56,8 +64,10 @@ public func + (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 /// - Returns: Vector of length n.
 public func + (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
     precondition(lhs.length == rhs.length, "Vectors must be same length")
-    let result = vDSP.add(lhs.values, rhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.add(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise addition of two vectors with double precision. Vectors must be same length.
@@ -67,8 +77,10 @@ public func + (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
 /// - Returns: Vector of length n.
 public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
     precondition(lhs.length == rhs.length, "Vectors must be same length")
-    let result = vDSP.add(lhs.values, rhs.values)
-    return Vector(result)
+    let result = Vector(length: lhs.length) { buffer in
+        vDSP.add(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 // MARK: - Matrix addition

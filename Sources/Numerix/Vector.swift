@@ -32,6 +32,17 @@ public struct Vector<T> {
         self.values = [T](repeating: fill, count: length)
     }
 
+    /// Create a vector using a mutable buffer.
+    /// - Parameters:
+    ///   - length: Length of the vector.
+    ///   - source: Mutable buffer reference.
+    public init(length: Int, source: (inout UnsafeMutableBufferPointer<T>) -> Void) {
+        self.values = Array(unsafeUninitializedCapacity: length) { buffer, initializedCount in
+            source(&buffer)
+            initializedCount = length
+        }
+    }
+
     public subscript(item: Int) -> T {
         get { return self.values[item] }
         set { self.values[item] = newValue }

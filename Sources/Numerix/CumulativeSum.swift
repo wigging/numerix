@@ -21,14 +21,12 @@ public func cumulativeSum(_ a: Vector<Float>) -> Vector<Float> {
     let ic = 1                     // stride for C
     let n = vDSP_Length(a.length)  // number of elements to process
 
-    let c = [Float](unsafeUninitializedCapacity: a.length) { buffer, initializedCount in
+    let result = Vector(length: a.length) { buffer in
         vDSP_vrsum(a.values, ia, &s, buffer.baseAddress!, ic, n)
         vDSP.add(a[0], buffer, result: &buffer)
-        initializedCount = a.length
     }
 
-    let vec = Vector(c)
-    return vec
+    return result
 }
 
 /// Cumulative sum of a double-precision vector.
@@ -45,12 +43,10 @@ public func cumulativeSum(_ a: Vector<Double>) -> Vector<Double> {
     let ic = 1                     // stride for C
     let n = vDSP_Length(a.length)  // number of elements to process
 
-    let c = [Double](unsafeUninitializedCapacity: a.length) { buffer, initializedCount in
+    let result = Vector(length: a.length) { buffer in
         vDSP_vrsumD(a.values, ia, &s, buffer.baseAddress!, ic, n)
         vDSP.add(a[0], buffer, result: &buffer)
-        initializedCount = a.length
     }
 
-    let vec = Vector(c)
-    return vec
+    return result
 }
