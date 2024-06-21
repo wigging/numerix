@@ -79,8 +79,10 @@ public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 ///   - rhs: Matrix B.
 /// - Returns: The sum of scalar + B[i].
 public func + (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
-    let result = vDSP.add(lhs, rhs.values)
-    return Matrix(rows: rhs.rows, columns: rhs.columns, values: result)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.add(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise sum of a matrix and a scalar with double precision.
@@ -89,8 +91,10 @@ public func + (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
 ///   - rhs: Scalar value.
 /// - Returns: The sum of A[i] + scalar.
 public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
-    let result = vDSP.add(rhs, lhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.add(rhs, lhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise sum of a matrix and a scalar with double precision.
@@ -99,8 +103,10 @@ public func + (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
 ///   - rhs: Matrix B.
 /// - Returns: The sum of scalar + B[i].
 public func + (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    let result = vDSP.add(lhs, rhs.values)
-    return Matrix(rows: rhs.rows, columns: rhs.columns, values: result)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.add(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise sum of a matrix and a scalar with double precision.
@@ -109,8 +115,10 @@ public func + (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
 ///   - rhs: Scalar value.
 /// - Returns: The sum of A[i] + scalar.
 public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
-    let result = vDSP.add(rhs, lhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.add(rhs, lhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise sum of two matrices with single precision.
@@ -120,8 +128,10 @@ public func + (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
 /// - Returns: The sum of A[i] + B[i].
 public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must be same shape")
-    let result = vDSP.add(lhs.values, rhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.add(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise sum of two matrices with double precision.
@@ -131,6 +141,8 @@ public func + (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: The sum of A[i] + B[i].
 public func + (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must be same shape")
-    let result = vDSP.add(lhs.values, rhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.add(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }

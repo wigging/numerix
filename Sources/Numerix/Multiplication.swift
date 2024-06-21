@@ -79,7 +79,6 @@ public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
     var a = lhs.values
     var b = rhs.values
-    var c = [Float](repeating: 0.0, count: lhs.rows * rhs.columns)
 
     let m = lhs.rows     // number of rows in matrices A and C
     let n = rhs.columns  // number of columns in matrices B and C
@@ -88,10 +87,10 @@ public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     let beta: Float = 0.0
 
     // matrix multiplication where C ← αAB + βC
-    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, &c, n)
-
-    let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c)
-    return mat
+    let c = Matrix<Float>(rows: lhs.rows, columns: rhs.columns) { buffer in
+        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, buffer.baseAddress, n)
+    }
+    return c
 }
 
 /// Matrix multiplication for double precision. Number of columns in the left matrix must be
@@ -104,7 +103,6 @@ public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
     var a = lhs.values
     var b = rhs.values
-    var c = [Double](repeating: 0.0, count: lhs.rows * rhs.columns)
 
     let m = lhs.rows     // number of rows in matrices A and C
     let n = rhs.columns  // number of columns in matrices B and C
@@ -113,10 +111,10 @@ public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     let beta = 0.0
 
     // matrix multiplication where C ← αAB + βC
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, &c, n)
-
-    let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c)
-    return mat
+    let c = Matrix<Double>(rows: lhs.rows, columns: rhs.columns) { buffer in
+        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, buffer.baseAddress, n)
+    }
+    return c
 }
 
 /// Matrix multiplication for double precision complex. Number of columns in left matrix must be
@@ -129,7 +127,6 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
     let a = lhs.values
     let b = rhs.values
-    var c = [Complex](repeating: Complex(real: 0.0, imag: 0.0), count: lhs.rows * rhs.columns)
 
     let m = lhs.rows     // rows in matrices A and C
     let n = rhs.columns  // columns in matrices B and C
@@ -138,10 +135,10 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
     let alpha = [Complex(real: 1.0, imag: 0.0)]
     let beta = [Complex(real: 1.0, imag: 0.0)]
 
-    cblas_zgemm_wrapper(m, n, k, alpha, a, k, b, n, beta, &c, n)
-
-    let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c)
-    return mat
+    let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns) { buffer in
+        cblas_zgemm_wrapper(m, n, k, alpha, a, k, b, n, beta, buffer.baseAddress!, n)
+    }
+    return c
 }
 
 /// Element-wise matrix multiplication for single precision matrices. Matrices must have same dimensions.
@@ -152,8 +149,10 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
 /// - Returns: Matrix of the same dimensions.
 public func .* (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = vDSP.multiply(lhs.values, rhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise matrix multiplication for double precision matrices. Matrices must have same dimensions.
@@ -164,8 +163,10 @@ public func .* (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix of the same dimensions.
 public func .* (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = vDSP.multiply(lhs.values, rhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise matrix multiplication for single precision matrices. Matrices must have same dimensions.
@@ -176,8 +177,10 @@ public func .* (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 /// - Returns: Matrix of the same dimensions.
 public func ⊙ (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = vDSP.multiply(lhs.values, rhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise matrix multiplication for double precision matrices. Matrices must have same dimensions.
@@ -188,6 +191,8 @@ public func ⊙ (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix of the same dimensions.
 public func ⊙ (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = vDSP.multiply(lhs.values, rhs.values)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }

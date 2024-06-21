@@ -18,8 +18,10 @@ import Accelerate
 ///   - matrix: The input matrix B in A / B[i] = C[i].
 /// - Returns: The output matrix C in A / B[i] = C[i].
 public func divide(_ scalar: Double, _ matrix: Matrix<Double>) -> Matrix<Double> {
-    let result = vDSP.divide(scalar, matrix.values)
-    return Matrix(rows: matrix.rows, columns: matrix.columns, values: result)
+    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
+        vDSP.divide(scalar, matrix.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise division of a scalar by a matrix using double precision.
@@ -33,7 +35,10 @@ public func divide(_ scalar: Double, _ matrix: Matrix<Double>) -> Matrix<Double>
 ///   - rhs: The input matrix B in A / B[i] = C[i].
 /// - Returns: The output matrix C in A / B[i] = C[i].
 public func / (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
-    return divide(lhs, rhs)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.divide(lhs, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise division of a matrix by a scalar using double precision.
@@ -47,8 +52,10 @@ public func / (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
 ///   - scalar: The input scalar B in A[i] / B = C[i].
 /// - Returns: The output matrix C in A[i] / B = C[i].
 public func divide(_ matrix: Matrix<Double>, _ scalar: Double) -> Matrix<Double> {
-    let result = vDSP.divide(matrix.values, scalar)
-    return Matrix(rows: matrix.rows, columns: matrix.columns, values: result)
+    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
+        vDSP.divide(matrix.values, scalar, result: &buffer)
+    }
+    return result
 }
 
 /// Element-wise division of a matrix by a scalar using double precision.
@@ -62,5 +69,8 @@ public func divide(_ matrix: Matrix<Double>, _ scalar: Double) -> Matrix<Double>
 ///   - rhs: The input scalar B in A[i] / B = C[i].
 /// - Returns: The output matrix C in A[i] / B = C[i].
 public func / (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
-    return divide(lhs, rhs)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.divide(lhs.values, rhs, result: &buffer)
+    }
+    return result
 }

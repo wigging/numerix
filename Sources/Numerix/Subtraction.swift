@@ -49,34 +49,46 @@ public func - (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 
 public func - (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
     let arr = Array(repeating: lhs, count: rhs.values.count)
-    let result = vDSP.subtract(arr, rhs.values)
-    return Matrix(rows: rhs.rows, columns: rhs.columns, values: result)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.subtract(arr, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func - (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
     let arr = Array(repeating: lhs, count: rhs.values.count)
-    let result = vDSP.subtract(arr, rhs.values)
-    return Matrix(rows: rhs.rows, columns: rhs.columns, values: result)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.subtract(arr, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func - (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
     let arr = Array(repeating: rhs, count: lhs.values.count)
-    let result = vDSP.subtract(lhs.values, arr)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.subtract(lhs.values, arr, result: &buffer)
+    }
+    return result
 }
 
 public func - (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
     let arr = Array(repeating: rhs, count: lhs.values.count)
-    let result = vDSP.subtract(lhs.values, arr)
-    return Matrix(rows: lhs.rows, columns: lhs.columns, values: result)
+    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+        vDSP.subtract(lhs.values, arr, result: &buffer)
+    }
+    return result
 }
 
 public func - (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
-    let result = vDSP.subtract(lhs.values, rhs.values)
-    return Matrix(rows: rhs.rows, columns: rhs.columns, values: result)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.subtract(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }
 
 public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
-    let result = vDSP.subtract(lhs.values, rhs.values)
-    return Matrix(rows: rhs.rows, columns: rhs.columns, values: result)
+    let result = Matrix(rows: rhs.rows, columns: rhs.columns) { buffer in
+        vDSP.subtract(lhs.values, rhs.values, result: &buffer)
+    }
+    return result
 }

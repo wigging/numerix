@@ -19,7 +19,7 @@ public struct Matrix<T> {
     /// Underlying matrix values as an array.
     public var values: [T]
 
-    /// Create a Matrix with size m x n where m is number of rows and n is number of columns.
+    /// Create a matrix with size m x n where m is number of rows and n is number of columns.
     /// - Parameters:
     ///   - rows: Number of rows in the matrix.
     ///   - columns: Number of columns in the matrix.
@@ -47,6 +47,20 @@ public struct Matrix<T> {
         self.rows = content.count
         self.columns = content[0].count
         self.values = content.flatMap { $0 }
+    }
+    
+    /// Create a matrix using a mutable buffer.
+    /// - Parameters:
+    ///   - rows: Number of rows in the matrix.
+    ///   - columns: Number of columns in the matrix.
+    ///   - source: Mutable buffer reference.
+    public init(rows: Int, columns: Int, source: (inout UnsafeMutableBufferPointer<T>) -> Void) {
+        self.rows = rows
+        self.columns = columns
+        self.values = Array(unsafeUninitializedCapacity: rows * columns) { buffer, initializedCount in
+            source(&buffer)
+            initializedCount = rows * columns
+        }
     }
 
     /// Get and set value at row and column index.
