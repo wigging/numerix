@@ -30,12 +30,12 @@ public struct Matrix<T> {
         self.values = values
     }
 
-    /// Create a matrix filled with a given value. By default, this creates a matrix of zeros with double precision.
+    /// Create a matrix filled with a given value.
     /// - Parameters:
     ///   - rows: Number of rows in the matrix.
     ///   - columns: Number of columns in the matrix.
-    ///   - fill: Value to fill the matrix. Default value zero.
-    public init(rows: Int, columns: Int, fill: T = 0.0) {
+    ///   - fill: Value to fill the matrix.
+    public init(rows: Int, columns: Int, fill: T) {
         self.rows = rows
         self.columns = columns
         self.values = Array(repeating: fill, count: rows * columns)

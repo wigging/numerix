@@ -7,7 +7,7 @@ final class MatrixTests: XCTestCase {
 
     func testInit() {
         let mat1 = Matrix<Double>(rows: 2, columns: 3, values: [3, 4, 8, 10, 11, 18.2])
-        let mat2 = Matrix(rows: 2, columns: 3)
+        let mat2 = Matrix(rows: 2, columns: 3, fill: 0)
         let mat3 = Matrix([[1, 2, 3], [4, 5, 6]])
 
         XCTAssertEqual(mat1.values, [3, 4, 8, 10, 11, 18.2])

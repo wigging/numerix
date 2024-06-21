@@ -28,7 +28,7 @@ public struct Vector<T> {
     /// - Parameters:
     ///   - length: Length of the vector.
     ///   - fill: Value to fill the vector.
-    public init(length: Int, fill: T = 0.0) {
+    public init(length: Int, fill: T) {
         self.values = [T](repeating: fill, count: length)
     }
 
