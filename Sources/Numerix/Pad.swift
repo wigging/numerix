@@ -35,16 +35,17 @@ import Accelerate
 /// - Parameter value: The padded value. Default value is 0.
 /// - Returns: A padded matrix with zeros (or other value) along the border.
 public func pad(_ mat: Matrix<Float>, with value: Float = 0) -> Matrix<Float> {
-    let shape = (mat.rows + 2) * (mat.columns + 2)
-    var c: [Float] = Array(repeating: value, count: shape)
-
     let m = vDSP_Length(mat.columns)       // number of columns to copy
     let n = vDSP_Length(mat.rows)          // number of rows to copy
     let ta = vDSP_Length(mat.columns)      // number of columns in a
     let tc = vDSP_Length(mat.columns + 2)  // number of columns in c
-    vDSP_mmov(mat.values, &c[mat.columns + 3], m, n, ta, tc)
 
-    return Matrix(rows: mat.rows + 2, columns: mat.columns + 2, values: c)
+    let c = Matrix<Float>(rows: mat.rows + 2, columns: mat.columns + 2) { buffer in
+        buffer.initialize(repeating: value)
+        vDSP_mmov(mat.values, buffer.baseAddress!.advanced(by: mat.columns + 3), m, n, ta, tc)
+    }
+
+    return c
 }
 
 /// Pad a double-precision matrix with a constant value.
@@ -75,14 +76,15 @@ public func pad(_ mat: Matrix<Float>, with value: Float = 0) -> Matrix<Float> {
 /// - Parameter value: The padded value. Default value is 0.
 /// - Returns: A padded matrix with zeros (or other value) along the border.
 public func pad(_ mat: Matrix<Double>, with value: Double = 0) -> Matrix<Double> {
-    let shape = (mat.rows + 2) * (mat.columns + 2)
-    var c: [Double] = Array(repeating: value, count: shape)
-
     let m = vDSP_Length(mat.columns)       // number of columns to copy
     let n = vDSP_Length(mat.rows)          // number of rows to copy
     let ta = vDSP_Length(mat.columns)      // number of columns in a
     let tc = vDSP_Length(mat.columns + 2)  // number of columns in c
-    vDSP_mmovD(mat.values, &c[mat.columns + 3], m, n, ta, tc)
 
-    return Matrix(rows: mat.rows + 2, columns: mat.columns + 2, values: c)
+    let c = Matrix<Double>(rows: mat.rows + 2, columns: mat.columns + 2) { buffer in
+        buffer.initialize(repeating: value)
+        vDSP_mmovD(mat.values, buffer.baseAddress!.advanced(by: mat.columns + 3), m, n, ta, tc)
+    }
+
+    return c
 }
