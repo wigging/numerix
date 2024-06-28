@@ -16,29 +16,45 @@ public struct Matrix<T> {
     /// Number of matrix columns.
     public let columns: Int
 
-    /// Underlying matrix values as an array.
-    public var values: [T]
-
-    /// Create a matrix with size m x n where m is number of rows and n is number of columns.
+    // Class reference to a mutable buffer for underlying data storage.
+    private let data: DataBuffer<T>
+    
+    /// Mutable buffer for underlying data storge and access.
+    var buffer: UnsafeMutableBufferPointer<T> {
+        get { self.data.buffer }
+        set { self.data.buffer = newValue }
+    }
+    
+    /// Create an empty matrix with size m x n where m is number of rows and n is number of columns.
     /// - Parameters:
     ///   - rows: Number of rows in the matrix.
     ///   - columns: Number of columns in the matrix.
-    ///   - values: Values in the matrix as an array of scalars.
-    public init(rows: Int, columns: Int, values: [T]) {
+    public init(rows: Int, columns: Int) {
         self.rows = rows
         self.columns = columns
-        self.values = values
+        self.data = DataBuffer(count: rows * columns)
+    }
+
+    /// Create a matrix from an array of values. The matrix size is m x n where m is number of rows and n is number of columns.
+    /// - Parameters:
+    ///   - rows: Number of rows in the matrix.
+    ///   - columns: Number of columns in the matrix.
+    ///   - values: Array of values for each matrix element.
+    public init(rows: Int, columns: Int, values: Array<T>) {
+        self.rows = rows
+        self.columns = columns
+        self.data = DataBuffer(array: values)
     }
 
     /// Create a matrix filled with a given value.
     /// - Parameters:
     ///   - rows: Number of rows in the matrix.
     ///   - columns: Number of columns in the matrix.
-    ///   - fill: Value to fill the matrix.
+    ///   - fill: Value to fill each matrix element.
     public init(rows: Int, columns: Int, fill: T) {
         self.rows = rows
         self.columns = columns
-        self.values = Array(repeating: fill, count: rows * columns)
+        self.data = DataBuffer(count: rows * columns, fill: fill)
     }
 
     /// Create a matrix using embedded arrays such as [[1, 2], [3, 4]].
@@ -46,42 +62,28 @@ public struct Matrix<T> {
     public init(_ content: [[T]]) {
         self.rows = content.count
         self.columns = content[0].count
-        self.values = content.flatMap { $0 }
-    }
-    
-    /// Create a matrix using a mutable buffer.
-    /// - Parameters:
-    ///   - rows: Number of rows in the matrix.
-    ///   - columns: Number of columns in the matrix.
-    ///   - source: Mutable buffer reference.
-    public init(rows: Int, columns: Int, source: (inout UnsafeMutableBufferPointer<T>) -> Void) {
-        self.rows = rows
-        self.columns = columns
-        self.values = Array(unsafeUninitializedCapacity: rows * columns) { buffer, initializedCount in
-            source(&buffer)
-            initializedCount = rows * columns
-        }
+        self.data = DataBuffer(array: content.flatMap { $0 })
     }
 
     /// Get and set value at row and column index.
     public subscript(row: Int, column: Int) -> T {
-        get { return self.values[(row * self.columns) + column] }
-        set { self.values[(row * self.columns) + column] = newValue }
+        get { return self.buffer[(row * self.columns) + column] }
+        set { self.buffer[(row * self.columns) + column] = newValue }
     }
 
     /// Get and set values at row index.
-    public subscript(row row: Int) -> [T] {
+    public subscript(row row: Int) -> Matrix {
         get {
             let start = row * self.columns
             let end = row * self.columns + self.columns
-            let vals = Array(self.values[start..<end])
-            return vals
+            let mat = Matrix(rows: 1, columns: self.columns)
+            mat.buffer[0..<self.columns] = self.buffer[start..<end]
+            return mat
         }
-
         set {
             let start = row * self.columns
             let end = row * self.columns + self.columns
-            self.values.replaceSubrange(start..<end, with: newValue)
+            self.buffer[start..<end] = newValue.buffer[0..<self.columns]
         }
     }
 
@@ -91,7 +93,7 @@ public struct Matrix<T> {
             var result = [T](repeating: 0 as! T, count: self.rows)
             for i in 0..<self.rows {
                 let index = i * self.columns + column
-                result[i] = self.values[index]
+                result[i] = self.buffer[index]
             }
             return result
         }
@@ -99,7 +101,7 @@ public struct Matrix<T> {
         set {
             for i in 0..<rows {
                 let index = i * self.columns + column
-                self.values[index] = newValue[i]
+                self.buffer[index] = newValue[i]
             }
         }
     }
@@ -108,7 +110,8 @@ public struct Matrix<T> {
     /// - Parameter stride: Stride within the flattened matrix. Default is 1 for every element.
     /// - Returns: Row and column index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> (Int, Int) where T == Float {
-        let index = cblas_isamax(self.values.count, self.values, stride)
+        //let index = cblas_isamax(self.values.count, self.values, stride)
+        let index = cblas_isamax(self.buffer.count, self.buffer.baseAddress, stride)
         let row = index % self.rows
         let col = index / self.columns
         return (row, col)
@@ -118,7 +121,8 @@ public struct Matrix<T> {
     /// - Parameter stride: Stride within the flattened matrix. Default is 1 for every element.
     /// - Returns: Row and column index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> (Int, Int) where T == Double {
-        let index = cblas_idamax(self.values.count, self.values, stride)
+        //let index = cblas_idamax(self.values.count, self.values, stride)
+        let index = cblas_idamax(self.buffer.count, self.buffer.baseAddress, stride)
         let row = index / self.rows
         let col = index % self.columns
         return (row, col)
@@ -158,6 +162,7 @@ extension Matrix: Equatable where T: Equatable {
     ///   - rhs: The second matrix.
     /// - Returns: True if both matrices are same dimension and contain the same values.
     public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
-        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.values == rhs.values
+        //return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.values == rhs.values
+        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && Array(lhs.buffer) == Array(rhs.buffer)
     }
 }

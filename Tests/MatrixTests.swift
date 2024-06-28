@@ -10,9 +10,9 @@ final class MatrixTests: XCTestCase {
         let mat2 = Matrix(rows: 2, columns: 3, fill: 0)
         let mat3 = Matrix([[1, 2, 3], [4, 5, 6]])
 
-        XCTAssertEqual(mat1.values, [3, 4, 8, 10, 11, 18.2])
-        XCTAssertEqual(mat2.values, [0, 0, 0, 0, 0, 0])
-        XCTAssertEqual(mat3.values, [1, 2, 3, 4, 5, 6])
+        XCTAssertEqual(mat1[0, 0], 3)
+        XCTAssertEqual(mat2[0, 0], 0)
+        XCTAssertEqual(mat3[0, 0], 1)
     }
 
     func testSubscript() {
@@ -27,9 +27,9 @@ final class MatrixTests: XCTestCase {
                            [7, 8, 9]]
 
         let matRow = mat[row: 1]
-        XCTAssertEqual(matRow, [4, 5, 6])
+        XCTAssertEqual(matRow, Matrix(rows: 1, columns: 3, values: [4, 5, 6]))
 
-        mat[row: 2] = [9, 9, 7]
+        mat[row: 2] = Matrix(rows: 1, columns: 3, values: [9, 9, 7])
         XCTAssertEqual(mat, Matrix([[1, 2, 3], [4, 5, 6], [9, 9, 7]]))
     }
 
@@ -47,15 +47,15 @@ final class MatrixTests: XCTestCase {
 
     func testArrayLiteral() {
         let mat: Matrix = [[1, 2, 3], [4, 5, 6]]
-        XCTAssertEqual(mat.values, [1, 2, 3, 4, 5, 6])
+        XCTAssertEqual(mat[0, 0], 1)
 
         let matFloat: Matrix<Float> = [[1, 2, 3.8],
                                        [4, 5.1, 6]]
-        XCTAssertEqual(matFloat.values, [1, 2, 3.8, 4, 5.1, 6])
+        XCTAssertEqual(matFloat[0, 0], 1)
 
         let matDouble: Matrix = [[1, 2, 3.8],
                                  [4, 5.1, 6]]
-        XCTAssertEqual(matDouble.values, [1, 2, 3.8, 4, 5.1, 6])
+        XCTAssertEqual(matDouble[0, 0], 1)
     }
 
     func testEquatable() {

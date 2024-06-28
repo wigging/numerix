@@ -64,9 +64,8 @@ public func * (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 /// - Returns: Matrix with dimension m x p.
 public func * (lhs: Matrix<Int>, rhs: Matrix<Int>) -> Matrix<Int> {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
-    let a = lhs.values.compactMap { Double($0) }
-    let b = rhs.values.compactMap { Double($0) }
-    var c = [Double](repeating: 0.0, count: lhs.rows * rhs.columns)
+    let a = lhs.buffer.compactMap { Double($0) }
+    let b = rhs.buffer.compactMap { Double($0) }
 
     let m = lhs.rows     // rows in matrices A and C
     let n = rhs.columns  // columns in matrices B and C
@@ -75,9 +74,10 @@ public func * (lhs: Matrix<Int>, rhs: Matrix<Int>) -> Matrix<Int> {
     let beta = 0.0
 
     // matrix multiplication where C ← αAB + βC
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, &c, n)
+    let c = Matrix<Double>(rows: lhs.rows, columns: rhs.columns)
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, c.buffer.baseAddress, n)
 
-    let mat = Matrix(rows: lhs.rows, columns: rhs.columns, values: c.compactMap { Int($0) })
+    let mat = Matrix<Int>(rows: lhs.rows, columns: rhs.columns, values: c.buffer.compactMap { Int($0) })
     return mat
 }
 
@@ -89,8 +89,8 @@ public func * (lhs: Matrix<Int>, rhs: Matrix<Int>) -> Matrix<Int> {
 /// - Returns: Matrix with dimensions of m x p.
 public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
-    var a = lhs.values
-    var b = rhs.values
+    let a = lhs.buffer.baseAddress
+    let b = rhs.buffer.baseAddress
 
     let m = lhs.rows     // number of rows in matrices A and C
     let n = rhs.columns  // number of columns in matrices B and C
@@ -99,9 +99,9 @@ public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     let beta: Float = 0.0
 
     // matrix multiplication where C ← αAB + βC
-    let c = Matrix<Float>(rows: lhs.rows, columns: rhs.columns) { buffer in
-        cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, buffer.baseAddress, n)
-    }
+    let c = Matrix<Float>(rows: lhs.rows, columns: rhs.columns)
+    cblas_sgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, c.buffer.baseAddress, n)
+
     return c
 }
 
@@ -113,8 +113,8 @@ public func * (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix with dimensions of m x p.
 public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
-    var a = lhs.values
-    var b = rhs.values
+    let a = lhs.buffer.baseAddress
+    let b = rhs.buffer.baseAddress
 
     let m = lhs.rows     // number of rows in matrices A and C
     let n = rhs.columns  // number of columns in matrices B and C
@@ -123,9 +123,9 @@ public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     let beta = 0.0
 
     // matrix multiplication where C ← αAB + βC
-    let c = Matrix<Double>(rows: lhs.rows, columns: rhs.columns) { buffer in
-        cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, &a, k, &b, n, beta, buffer.baseAddress, n)
-    }
+    let c = Matrix<Double>(rows: lhs.rows, columns: rhs.columns)
+    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, c.buffer.baseAddress, n)
+
     return c
 }
 
@@ -137,8 +137,8 @@ public func * (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 /// - Returns: Matrix with dimensions of m x p.
 public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Matrix<Complex<Double>> {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
-    let a = lhs.values
-    let b = rhs.values
+    let a = lhs.buffer.baseAddress
+    let b = rhs.buffer.baseAddress
 
     let m = lhs.rows     // rows in matrices A and C
     let n = rhs.columns  // columns in matrices B and C
@@ -147,9 +147,16 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
     let alpha = [Complex(real: 1.0, imag: 0.0)]
     let beta = [Complex(real: 1.0, imag: 0.0)]
 
-    let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns) { buffer in
-        cblas_zgemm_wrapper(m, n, k, alpha, a, k, b, n, beta, buffer.baseAddress!, n)
+//    let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns) { buffer in
+//        cblas_zgemm_wrapper(m, n, k, alpha, a, k, b, n, beta, buffer.baseAddress!, n)
+//    }
+    let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns)
+    alpha.withUnsafeBytes { alphaPtr in
+        beta.withUnsafeBytes { betaPtr in
+            cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, .init(alphaPtr.baseAddress!), .init(a), k, .init(b), n, .init(betaPtr.baseAddress!), .init(c.buffer.baseAddress), n)
+        }
     }
+
     return c
 }
 
@@ -161,10 +168,12 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
 /// - Returns: Matrix of the same dimensions.
 public func .* (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-    }
-    return result
+//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+//    }
+    var mat = Matrix<Float>(rows: lhs.rows, columns: lhs.columns)
+    vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
+    return mat
 }
 
 /// Element-wise matrix multiplication for double precision matrices. Matrices must have same dimensions.
@@ -175,10 +184,12 @@ public func .* (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix of the same dimensions.
 public func .* (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-    }
-    return result
+//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+//    }
+    var mat = Matrix<Double>(rows: lhs.rows, columns: lhs.columns)
+    vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
+    return mat
 }
 
 /// Element-wise matrix multiplication for single precision matrices. Matrices must have same dimensions.
@@ -189,10 +200,12 @@ public func .* (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 /// - Returns: Matrix of the same dimensions.
 public func ⊙ (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-    }
-    return result
+//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+//    }
+    var mat = Matrix<Float>(rows: lhs.rows, columns: lhs.columns)
+    vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
+    return mat
 }
 
 /// Element-wise matrix multiplication for double precision matrices. Matrices must have same dimensions.
@@ -203,8 +216,10 @@ public func ⊙ (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix of the same dimensions.
 public func ⊙ (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-    }
-    return result
+//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
+//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
+//    }
+    var mat = Matrix<Double>(rows: lhs.rows, columns: lhs.columns)
+    vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
+    return mat
 }
