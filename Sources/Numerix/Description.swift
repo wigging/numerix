@@ -1,48 +1,78 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 3/31/24.
-//
+/*
+ Description for Vector and Matrix.
+ This determines the print output when doing things like `print(vec)` and `print(mat)`.
+ */
 
-/// String representation of a scalar value such as a Float or Double.
-public protocol ScalarStringConvertible {
-    var scalarDescription: String { get }
+/// String representation of a numeric value such as a Float or Double.
+public protocol NumberString {
+    var numberDescription: String { get }
 }
 
-extension Float: ScalarStringConvertible {
-    public var scalarDescription: String { String(format: "%6.2f", self) }
+extension Int: NumberString {
+    public var numberDescription: String {
+        "\(self)"
+    }
 }
 
-extension Double: ScalarStringConvertible {
-    public var scalarDescription: String { String(format: "%8.4f", self) }
+extension Float: NumberString {
+    public var numberDescription: String {
+        String(format: "%.2f", self)
+    }
 }
 
-extension Vector: CustomStringConvertible where T: ScalarStringConvertible {
+extension Double: NumberString {
+    public var numberDescription: String {
+        String(format: "%.4f", self)
+    }
+}
+
+extension Vector: CustomStringConvertible where T: NumberString {
 
     public var description: String {
         let desc = """
         \(values.count)-element \(type(of: self))
-        \(values.map(\.scalarDescription).joined(separator: " "))
+        \(values.map(\.numberDescription).joined(separator: " "))
         """
         return desc
     }
 }
 
-extension Matrix: CustomStringConvertible where T: ScalarStringConvertible {
+extension Matrix: CustomStringConvertible where T: NumberString, T: Comparable {
 
     public var description: String {
-        var vals = ""
-        for i in 0..<rows {
-            let rowValues = (0..<columns).map { self[i, $0] }
-            let rowString = rowValues.map(\.scalarDescription).joined(separator: " ")
-            let end = i < rows - 1 ? "\n" : ""
-            vals += rowString + end
+        var desc = ""
+
+        // Matrix size and type
+        desc += "\(self.rows)x\(self.columns) \(type(of: self))\n"
+
+        // Max column width for each matrix column
+        //
+        // This is not efficient for a large matrix. Consider transposing so
+        // that iterating over rows actually iterates over the columns then get
+        // max value for each column.
+        var colVals = [T]()
+        var maxColWidth = [Int]()
+
+        for j in 0..<self.columns {
+            for i in 0..<self.rows {
+                colVals.append(self[i, j])
+            }
+            maxColWidth.append(colVals.max()!.numberDescription.count)
+            colVals = []
         }
-        let desc = """
-        \(rows)x\(columns) \(type(of: self))
-        \(vals)
-        """
+
+        // Matrix values as strings with padding
+        for i in 0..<self.rows {
+            for j in 0..<self.columns {
+                let colWidth = maxColWidth[j]
+                let valWidth = self[i, j].numberDescription.count
+                let pad = String(repeating: " ", count: colWidth - valWidth)
+                let valDesc = pad + self[i, j].numberDescription + "  "
+                desc += valDesc
+            }
+            desc += "\n"
+        }
+
         return desc
     }
 }
