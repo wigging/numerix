@@ -91,4 +91,29 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(row2, 2)
         XCTAssertEqual(col2, 1)
     }
+
+    func testIterator() {
+        let mat = Matrix([[1, 2, 3],
+                          [4, 5, 6],
+                          [7, 8, 9.0]])
+        
+        // Iterate over rows
+        var counter = 1
+        for row in mat {
+            if counter == mat.rows {
+                XCTAssertEqual(row, [7, 8, 9.0])
+            }
+            counter += 1
+        }
+
+        // Iterate over columns
+        counter = 1
+        for col in transpose(mat) {
+            if counter == mat.columns {
+                XCTAssertEqual(col, [3, 6, 9.0])
+            }
+            counter += 1
+        }
+    }
+
 }

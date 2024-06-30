@@ -1,24 +1,25 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 3/16/24.
-//
+/*
+ Matrix structure for two-dimensional numerical data.
+ The underlying data storage is a mutable buffer handled by the DataBuffer class.
+ */
 
 import Accelerate
 
 /// A two-dimensional collection of numerical values.
 public struct Matrix<T> {
 
-    /// Number of matrix rows.
+    /// Number of rows in the matrix.
     public let rows: Int
 
-    /// Number of matrix columns.
+    /// Number of columns in the matrix.
     public let columns: Int
+
+    // This is used by the iterator, see next() function in Sequence, IteratorProtocol extension
+    private var nextRowStartIndex = 0
 
     // Class reference to a mutable buffer for underlying data storage.
     private let data: DataBuffer<T>
-    
+
     /// Mutable buffer for underlying data storge and access.
     var buffer: UnsafeMutableBufferPointer<T> {
         get { self.data.buffer }
@@ -164,5 +165,19 @@ extension Matrix: Equatable where T: Equatable {
     public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
         //return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.values == rhs.values
         return lhs.rows == rhs.rows && lhs.columns == rhs.columns && Array(lhs.buffer) == Array(rhs.buffer)
+    }
+}
+
+extension Matrix: Sequence, IteratorProtocol {
+
+    public mutating func next() -> [T]? {
+        if nextRowStartIndex == self.rows * self.columns {
+            return nil
+        } else {
+            let currentRowStartIndex = nextRowStartIndex
+            nextRowStartIndex += self.columns
+            let a = Array(self.buffer[currentRowStartIndex..<nextRowStartIndex])
+            return a
+        }
     }
 }
