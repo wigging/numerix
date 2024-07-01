@@ -9,8 +9,8 @@ final class VectorTests: XCTestCase {
     func testInit() {
         let vec1 = Vector(length: 5, fill: 0)
         let vec2 = Vector(length: 4, fill: 2.2)
-        XCTAssertEqual(vec1.values, [0, 0, 0, 0, 0])
-        XCTAssertEqual(vec2.values, [2.2, 2.2, 2.2, 2.2])
+        XCTAssertEqual(vec1, [0, 0, 0, 0, 0])
+        XCTAssertEqual(vec2, [2.2, 2.2, 2.2, 2.2])
     }
 
     func testProperties() {
@@ -25,13 +25,13 @@ final class VectorTests: XCTestCase {
 
     func testArrayLiteral() {
         let vec: Vector = [3, 4, 5, 6, 7, 8]
-        XCTAssertEqual(vec.values, [3, 4, 5, 6, 7, 8])
+        XCTAssertEqual(vec, [3, 4, 5, 6, 7, 8])
 
         let vecFloat: Vector<Float> = [1, 2, 3, 4]
-        XCTAssertEqual(vecFloat.values, [1, 2, 3, 4])
+        XCTAssertEqual(vecFloat, [1, 2, 3, 4])
 
         let vecDouble: Vector = [1.0, 2, 3, 4.9]
-        XCTAssertEqual(vecDouble.values, [1.0, 2, 3, 4.9])
+        XCTAssertEqual(vecDouble, [1.0, 2, 3, 4.9])
     }
 
     func testEquatable() {

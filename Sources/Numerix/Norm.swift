@@ -11,7 +11,7 @@ import Accelerate
 /// - Parameter vec: The input vector.
 /// - Returns: The norm of the input vector.
 public func norm(_ vec: Vector<Float>) -> Float {
-    let nrm = cblas_snrm2(vec.length, vec.values, 1)
+    let nrm = cblas_snrm2(vec.length, vec.buffer.baseAddress, 1)
     return nrm
 }
 
@@ -19,7 +19,7 @@ public func norm(_ vec: Vector<Float>) -> Float {
 /// - Parameter vec: The input vector.
 /// - Returns: The norm of the input vector.
 public func norm(_ vec: Vector<Double>) -> Double {
-    let nrm = cblas_dnrm2(vec.length, vec.values, 1)
+    let nrm = cblas_dnrm2(vec.length, vec.buffer.baseAddress, 1)
     return nrm
 }
 

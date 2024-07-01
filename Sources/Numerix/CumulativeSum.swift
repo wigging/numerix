@@ -21,10 +21,9 @@ public func cumulativeSum(_ a: Vector<Float>) -> Vector<Float> {
     let ic = 1                     // stride for C
     let n = vDSP_Length(a.length)  // number of elements to process
 
-    let result = Vector(length: a.length) { buffer in
-        vDSP_vrsum(a.values, ia, &s, buffer.baseAddress!, ic, n)
-        vDSP.add(a[0], buffer, result: &buffer)
-    }
+    var result = Vector<Float>(length: a.length)
+    vDSP_vrsum(a.buffer.baseAddress!, ia, &s, result.buffer.baseAddress!, ic, n)
+    vDSP.add(a[0], result.buffer, result: &result.buffer)
 
     return result
 }
@@ -43,10 +42,9 @@ public func cumulativeSum(_ a: Vector<Double>) -> Vector<Double> {
     let ic = 1                     // stride for C
     let n = vDSP_Length(a.length)  // number of elements to process
 
-    let result = Vector(length: a.length) { buffer in
-        vDSP_vrsumD(a.values, ia, &s, buffer.baseAddress!, ic, n)
-        vDSP.add(a[0], buffer, result: &buffer)
-    }
+    var result = Vector<Double>(length: a.length)
+    vDSP_vrsumD(a.buffer.baseAddress!, ia, &s, result.buffer.baseAddress!, ic, n)
+    vDSP.add(a[0], result.buffer, result: &result.buffer)
 
     return result
 }

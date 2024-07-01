@@ -10,77 +10,68 @@
 
 import Accelerate
 
-// MARK: - Vector exponential functions
+// MARK: - Vector exponential
 
 /// Calculate eˣ as the exponential function for all single-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise exponential function of x.
-public func exp(_ vector: Vector<Float>) -> Vector<Float> {
-    let result = Vector(length: vector.length) { buffer in
-        vForce.exp(vector.values, result: &buffer)
-    }
+public func exp(_ vec: Vector<Float>) -> Vector<Float> {
+    var result = Vector<Float>(length: vec.length)
+    vForce.exp(vec.buffer, result: &result.buffer)
     return result
 }
 
 /// Calculate eˣ as the exponential function for all double-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise exponential function of x.
-public func exp(_ vector: Vector<Double>) -> Vector<Double> {
-    let result = Vector(length: vector.length) { buffer in
-        vForce.exp(vector.values, result: &buffer)
-    }
+public func exp(_ vec: Vector<Double>) -> Vector<Double> {
+    var result = Vector<Double>(length: vec.length)
+    vForce.exp(vec.buffer, result: &result.buffer)
     return result
 }
 
 /// Calculate 2ˣ as 2 raised to the power of all single-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise 2 to the power of x.
-public func exp2(_ vector: Vector<Float>) -> Vector<Float> {
-    let result = Vector(length: vector.length) { buffer in
-        vForce.exp2(vector.values, result: &buffer)
-    }
+public func exp2(_ vec: Vector<Float>) -> Vector<Float> {
+    var result = Vector<Float>(length: vec.length)
+    vForce.exp2(vec.buffer, result: &result.buffer)
     return result
 }
 
 /// Calculate 2ˣ as 2 raised to the power of all double-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise 2 to the power of x.
-public func exp2(_ vector: Vector<Double>) -> Vector<Double> {
-    let result = Vector(length: vector.length) { buffer in
-        vForce.exp2(vector.values, result: &buffer)
-    }
+public func exp2(_ vec: Vector<Double>) -> Vector<Double> {
+    var result = Vector<Double>(length: vec.length)
+    vForce.exp2(vec.buffer, result: &result.buffer)
     return result
 }
 
 /// Calculate eˣ-1 for all single-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
-public func expm1(_ vector: Vector<Float>) -> Vector<Float> {
-    let result = Vector(length: vector.length) { buffer in
-        vForce.expm1(vector.values, result: &buffer)
-    }
+public func expm1(_ vec: Vector<Float>) -> Vector<Float> {
+    var result = Vector<Float>(length: vec.length)
+    vForce.expm1(vec.buffer, result: &result.buffer)
     return result
 }
 
 /// Calculate eˣ-1 for all double-precision values in a vector.
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
-public func expm1(_ vector: Vector<Double>) -> Vector<Double> {
-    let result = Vector(length: vector.length) { buffer in
-        vForce.expm1(vector.values, result: &buffer)
-    }
+public func expm1(_ vec: Vector<Double>) -> Vector<Double> {
+    var result = Vector<Double>(length: vec.length)
+    vForce.expm1(vec.buffer, result: &result.buffer)
     return result
 }
 
-// MARK: - Matrix exponential functions
+// MARK: - Matrix exponential
 
 /// Calculate the exponential function eˣ for all single-precision values in a matrix.
 /// - Parameter matrix: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ matrix: Matrix<Float>) -> Matrix<Float> {
-//    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
-//        vForce.exp(matrix.values, result: &buffer)
-//    }
     var mat = Matrix<Float>(rows: matrix.rows, columns: matrix.columns)
     vForce.exp(matrix.buffer, result: &mat.buffer)
     return mat
@@ -90,9 +81,6 @@ public func exp(_ matrix: Matrix<Float>) -> Matrix<Float> {
 /// - Parameter matrix: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ matrix: Matrix<Double>) -> Matrix<Double> {
-//    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
-//        vForce.exp(matrix.values, result: &buffer)
-//    }
     var mat = Matrix<Double>(rows: matrix.rows, columns: matrix.columns)
     vForce.exp(matrix.buffer, result: &mat.buffer)
     return mat
@@ -102,9 +90,6 @@ public func exp(_ matrix: Matrix<Double>) -> Matrix<Double> {
 /// - Parameter matrix: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ matrix: Matrix<Float>) -> Matrix<Float> {
-//    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
-//        vForce.exp2(matrix.values, result: &buffer)
-//    }
     var mat = Matrix<Float>(rows: matrix.rows, columns: matrix.columns)
     vForce.exp2(matrix.buffer, result: &mat.buffer)
     return mat
@@ -114,9 +99,6 @@ public func exp2(_ matrix: Matrix<Float>) -> Matrix<Float> {
 /// - Parameter matrix: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ matrix: Matrix<Double>) -> Matrix<Double> {
-//    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
-//        vForce.exp2(matrix.values, result: &buffer)
-//    }
     var mat = Matrix<Double>(rows: matrix.rows, columns: matrix.columns)
     vForce.exp2(matrix.buffer, result: &mat.buffer)
     return mat
@@ -126,9 +108,6 @@ public func exp2(_ matrix: Matrix<Double>) -> Matrix<Double> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input matrix.
 public func expm1(_ matrix: Matrix<Float>) -> Matrix<Float> {
-//    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
-//        vForce.expm1(matrix.values, result: &buffer)
-//    }
     var mat = Matrix<Float>(rows: matrix.rows, columns: matrix.columns)
     vForce.expm1(matrix.buffer, result: &mat.buffer)
     return mat
@@ -138,9 +117,6 @@ public func expm1(_ matrix: Matrix<Float>) -> Matrix<Float> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input matrix.
 public func expm1(_ matrix: Matrix<Double>) -> Matrix<Double> {
-//    let result = Matrix(rows: matrix.rows, columns: matrix.columns) { buffer in
-//        vForce.expm1(matrix.values, result: &buffer)
-//    }
     var mat = Matrix<Double>(rows: matrix.rows, columns: matrix.columns)
     vForce.expm1(matrix.buffer, result: &mat.buffer)
     return mat

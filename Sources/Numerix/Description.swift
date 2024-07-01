@@ -30,8 +30,8 @@ extension Vector: CustomStringConvertible where T: NumberString {
 
     public var description: String {
         let desc = """
-        \(values.count)-element \(type(of: self))
-        \(values.map(\.numberDescription).joined(separator: " "))
+        \(self.length)-element \(type(of: self))
+        \(self.buffer.map(\.numberDescription).joined(separator: " "))
         """
         return desc
     }

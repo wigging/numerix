@@ -13,44 +13,38 @@ infix operator ⊙
 // MARK: - Vector multiplication
 
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    let result = Vector(length: rhs.length) { buffer in
-        vDSP.multiply(lhs, rhs.values, result: &buffer)
-    }
+    var result = Vector<Float>(length: rhs.length)
+    vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.multiply(rhs, lhs.values, result: &buffer)
-    }
+    var result = Vector<Float>(length: lhs.length)
+    vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
 
 public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    let result = Vector(length: rhs.length) { buffer in
-        vDSP.multiply(lhs, rhs.values, result: &buffer)
-    }
+    var result = Vector<Double>(length: rhs.length)
+    vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.multiply(rhs, lhs.values, result: &buffer)
-    }
+    var result = Vector<Double>(length: lhs.length)
+    vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
 
 public func * (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-    }
+    var result = Vector<Float>(length: lhs.length)
+    vDSP.multiply(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func * (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-    }
+    var result = Vector<Double>(length: lhs.length)
+    vDSP.multiply(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
@@ -147,9 +141,6 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
     let alpha = [Complex(real: 1.0, imag: 0.0)]
     let beta = [Complex(real: 1.0, imag: 0.0)]
 
-//    let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns) { buffer in
-//        cblas_zgemm_wrapper(m, n, k, alpha, a, k, b, n, beta, buffer.baseAddress!, n)
-//    }
     let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns)
     alpha.withUnsafeBytes { alphaPtr in
         beta.withUnsafeBytes { betaPtr in
@@ -168,9 +159,6 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
 /// - Returns: Matrix of the same dimensions.
 public func .* (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-//    }
     var mat = Matrix<Float>(rows: lhs.rows, columns: lhs.columns)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
     return mat
@@ -184,9 +172,6 @@ public func .* (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix of the same dimensions.
 public func .* (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-//    }
     var mat = Matrix<Double>(rows: lhs.rows, columns: lhs.columns)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
     return mat
@@ -200,9 +185,6 @@ public func .* (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
 /// - Returns: Matrix of the same dimensions.
 public func ⊙ (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-//    }
     var mat = Matrix<Float>(rows: lhs.rows, columns: lhs.columns)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
     return mat
@@ -216,9 +198,6 @@ public func ⊙ (lhs: Matrix<Float>, rhs: Matrix<Float>) -> Matrix<Float> {
 /// - Returns: Matrix of the same dimensions.
 public func ⊙ (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
-//    let result = Matrix(rows: lhs.rows, columns: lhs.columns) { buffer in
-//        vDSP.multiply(lhs.values, rhs.values, result: &buffer)
-//    }
     var mat = Matrix<Double>(rows: lhs.rows, columns: lhs.columns)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
     return mat

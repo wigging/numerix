@@ -40,10 +40,6 @@ public func pad(_ mat: Matrix<Float>, with value: Float = 0) -> Matrix<Float> {
     let ta = vDSP_Length(mat.columns)      // number of columns in a
     let tc = vDSP_Length(mat.columns + 2)  // number of columns in c
 
-//    let c = Matrix<Float>(rows: mat.rows + 2, columns: mat.columns + 2) { buffer in
-//        buffer.initialize(repeating: value)
-//        vDSP_mmov(mat.values, buffer.baseAddress!.advanced(by: mat.columns + 3), m, n, ta, tc)
-//    }
     let c = Matrix<Float>(rows: mat.rows + 2, columns: mat.columns + 2, fill: value)
     vDSP_mmov(mat.buffer.baseAddress!, c.buffer.baseAddress! + (mat.columns + 3), m, n, ta, tc)
 
@@ -83,10 +79,6 @@ public func pad(_ mat: Matrix<Double>, with value: Double = 0) -> Matrix<Double>
     let ta = vDSP_Length(mat.columns)      // number of columns in a
     let tc = vDSP_Length(mat.columns + 2)  // number of columns in c
 
-//    let c = Matrix<Double>(rows: mat.rows + 2, columns: mat.columns + 2) { buffer in
-//        buffer.initialize(repeating: value)
-//        vDSP_mmovD(mat.values, buffer.baseAddress!.advanced(by: mat.columns + 3), m, n, ta, tc)
-//    }
     let c = Matrix<Double>(rows: mat.rows + 2, columns: mat.columns + 2, fill: value)
     vDSP_mmovD(mat.buffer.baseAddress!, c.buffer.baseAddress! + (mat.columns + 3), m, n, ta, tc)
 

@@ -24,8 +24,8 @@ infix operator ⋅
 public func ⋅ (lhs: Vector<Float>, rhs: Vector<Float>) -> Float {
     precondition(lhs.length == rhs.length, "Vectors must be same length")
     let n = lhs.length
-    let x = lhs.values
-    let y = rhs.values
+    let x = lhs.buffer.baseAddress
+    let y = rhs.buffer.baseAddress
     let c = cblas_sdot(n, x, 1, y, 1)
     return c
 }
@@ -43,8 +43,8 @@ public func ⋅ (lhs: Vector<Float>, rhs: Vector<Float>) -> Float {
 public func ⋅ (lhs: Vector<Double>, rhs: Vector<Double>) -> Double {
     precondition(lhs.length == rhs.length, "Vectors must be same length")
     let n = lhs.length
-    let x = lhs.values
-    let y = rhs.values
+    let x = lhs.buffer.baseAddress
+    let y = rhs.buffer.baseAddress
     let c = cblas_ddot(n, x, 1, y, 1)
     return c
 }

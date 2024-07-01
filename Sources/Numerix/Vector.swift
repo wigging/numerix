@@ -11,17 +11,33 @@ import Accelerate
 public struct Vector<T> {
 
     /// Scalar elements in the vector.
-    public var values: [T]
+    //public var values: [T]
 
     /// Number of elements in the vector.
     public var length: Int {
-        self.values.count
+        self.buffer.count
+    }
+
+    // Class reference to a mutable buffer for underlying data storage
+    private let data: DataBuffer<T>
+
+    /// Mutable buffer for underlying data storge and access.
+    var buffer: UnsafeMutableBufferPointer<T> {
+        get { self.data.buffer }
+        set { self.data.buffer = newValue }
+    }
+    
+    /// Create an empty vector of a certain length.
+    /// - Parameter length: Length of the vector.
+    public init(length: Int) {
+        self.data = DataBuffer(count: length)
     }
 
     /// Create a vector from an array of values.
     /// - Parameter values: Values of the vector.
     public init(_ values: [T]) {
-        self.values = values
+        //self.values = values
+        self.data = DataBuffer(array: values)
     }
 
     /// Create a vector of a certain length filled with the given value.
@@ -29,30 +45,20 @@ public struct Vector<T> {
     ///   - length: Length of the vector.
     ///   - fill: Value to fill the vector.
     public init(length: Int, fill: T) {
-        self.values = [T](repeating: fill, count: length)
-    }
-
-    /// Create a vector using a mutable buffer.
-    /// - Parameters:
-    ///   - length: Length of the vector.
-    ///   - source: Mutable buffer reference.
-    public init(length: Int, source: (inout UnsafeMutableBufferPointer<T>) -> Void) {
-        self.values = Array(unsafeUninitializedCapacity: length) { buffer, initializedCount in
-            source(&buffer)
-            initializedCount = length
-        }
+        //self.values = [T](repeating: fill, count: length)
+        self.data = DataBuffer(count: length, fill: fill)
     }
 
     public subscript(item: Int) -> T {
-        get { return self.values[item] }
-        set { self.values[item] = newValue }
+        get { return self.buffer[item] }
+        set { self.buffer[item] = newValue }
     }
 
     /// Find the index of the largest absolute value in the vector with single precision.
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> Int where T == Float {
-        let index = cblas_isamax(self.length, self.values, stride)
+        let index = cblas_isamax(self.length, self.buffer.baseAddress, stride)
         return index
     }
 
@@ -60,7 +66,7 @@ public struct Vector<T> {
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> Int where T == Double {
-        let index = cblas_idamax(self.length, self.values, stride)
+        let index = cblas_idamax(self.length, self.buffer.baseAddress, stride)
         return index
     }
 }
@@ -96,6 +102,6 @@ extension Vector: Equatable where T: Equatable {
     ///   - rhs: The second vector.
     /// - Returns: True if both vectors are same length and contain the same values.
     public static func == (lhs: Vector, rhs: Vector) -> Bool {
-        return lhs.length == rhs.length && lhs.values == rhs.values
+        return lhs.length == rhs.length && Array(lhs.buffer) == Array(rhs.buffer)
     }
 }

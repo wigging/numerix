@@ -7,57 +7,55 @@
 
 import Accelerate
 
-// MARK: Vector subtraction
+// MARK: -  Vector subtraction
 
 public func - (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    let arr = Array(repeating: lhs, count: rhs.values.count)
-    let result = Vector(length: rhs.length) { buffer in
-        vDSP.subtract(arr, rhs.values, result: &buffer)
-    }
+//    let arr = Array(repeating: lhs, count: rhs.values.count)
+//    let result = Vector(length: rhs.length) { buffer in
+//        vDSP.subtract(arr, rhs.values, result: &buffer)
+//    }
+    let arr = Array(repeating: lhs, count: rhs.length)
+    var result = Vector<Float>(length: rhs.length)
+    vDSP.subtract(arr, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    let arr = Array(repeating: lhs, count: rhs.values.count)
-    let result = Vector(length: rhs.length) { buffer in
-        vDSP.subtract(arr, rhs.values, result: &buffer)
-    }
+    let arr = Array(repeating: lhs, count: rhs.length)
+    var result = Vector<Double>(length: rhs.length)
+    vDSP.subtract(arr, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    let arr = Array(repeating: rhs, count: lhs.values.count)
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.subtract(lhs.values, arr, result: &buffer)
-    }
+    let arr = Array(repeating: rhs, count: lhs.length)
+    var result = Vector<Float>(length: lhs.length)
+    vDSP.subtract(lhs.buffer, arr, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    let arr = Array(repeating: rhs, count: lhs.values.count)
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.subtract(lhs.values, arr, result: &buffer)
-    }
+    let arr = Array(repeating: rhs, count: lhs.length)
+    var result = Vector<Double>(length: lhs.length)
+    vDSP.subtract(lhs.buffer, arr, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.values.count == rhs.values.count, "Vectors must be same length")
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.subtract(lhs.values, rhs.values, result: &buffer)
-    }
+    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    var result = Vector<Float>(length: lhs.length)
+    vDSP.subtract(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.values.count == rhs.values.count, "Vectors must be same length")
-    let result = Vector(length: lhs.length) { buffer in
-        vDSP.subtract(lhs.values, rhs.values, result: &buffer)
-    }
+    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    var result = Vector<Double>(length: lhs.length)
+    vDSP.subtract(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
-// MARK: Matrix subtraction
+// MARK: - Matrix subtraction
 
 public func - (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
     var mat = Matrix<Float>(rows: rhs.rows, columns: rhs.columns)
