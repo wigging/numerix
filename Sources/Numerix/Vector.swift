@@ -102,6 +102,8 @@ extension Vector: Equatable where T: Equatable {
     ///   - rhs: The second vector.
     /// - Returns: True if both vectors are same length and contain the same values.
     public static func == (lhs: Vector, rhs: Vector) -> Bool {
-        return lhs.length == rhs.length && Array(lhs.buffer) == Array(rhs.buffer)
+        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * lhs.length)
+        let buffersEqual = cmp == 0 ? true : false
+        return lhs.length == rhs.length && buffersEqual
     }
 }

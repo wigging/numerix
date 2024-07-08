@@ -163,8 +163,10 @@ extension Matrix: Equatable where T: Equatable {
     ///   - rhs: The second matrix.
     /// - Returns: True if both matrices are same dimension and contain the same values.
     public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
-        //return lhs.rows == rhs.rows && lhs.columns == rhs.columns && lhs.values == rhs.values
-        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && Array(lhs.buffer) == Array(rhs.buffer)
+        let n = lhs.rows * lhs.columns
+        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * n)
+        let buffersEqual = cmp == 0 ? true : false
+        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && buffersEqual
     }
 }
 
