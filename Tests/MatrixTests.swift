@@ -1,4 +1,6 @@
-// Tests for matrix initialization, subscript, addition, and multiplication.
+/*
+ Tests for the Matrix structure.
+ */
 
 import XCTest
 import Numerix

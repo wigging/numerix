@@ -1,5 +1,6 @@
-// Tests for vector initialization, properties, subscript, addition,
-// subtraction, and multiplication.
+/*
+ Tests for the Vector structure.
+ */
 
 import XCTest
 import Numerix

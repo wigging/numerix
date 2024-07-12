@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/4/24.
-//
+/*
+ Transpose functions for Matrix structures. Single and double precision values
+ are supported.
+ */
 
 import Accelerate
 

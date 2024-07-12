@@ -1,5 +1,6 @@
-// Tests for the isApprox() function which determines if two vectors or two
-// matrices are approximately equal.
+/*
+ Tests for isApprox() function.
+ */
 
 import XCTest
 import Numerix

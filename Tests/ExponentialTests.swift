@@ -1,9 +1,6 @@
-//
-//  ExponentialTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 5/21/24.
-//
+/*
+ Tests for exponential functions.
+ */
 
 import XCTest
 import Numerix

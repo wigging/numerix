@@ -1,4 +1,6 @@
-// Tests for creating a random matrix.
+/*
+ Tests for the Matrix random() function.
+ */
 
 import XCTest
 import Numerix

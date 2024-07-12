@@ -1,6 +1,6 @@
 /*
- Tests for vector and matrix addition.
-*/
+ Tests for Vector and Matrix addition.
+ */
 
 import XCTest
 import Numerix

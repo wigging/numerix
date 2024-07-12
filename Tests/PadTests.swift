@@ -1,9 +1,6 @@
-//
-//  PadTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/7/24.
-//
+/*
+ Tests for the Matrix pad() function.
+ */
 
 import XCTest
 import Numerix

@@ -1,5 +1,6 @@
-// Tests for matrix and vector string description. This description is the
-// string that is printed to screen by the print function.
+/*
+ Tests for Vector and Matrix description.
+ */
 
 import XCTest
 import Numerix

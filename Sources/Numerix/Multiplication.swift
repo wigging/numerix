@@ -1,26 +1,18 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 5/18/24.
-//
+/*
+ Multiplication operators for Vector and Matrix structures. Single and double
+ precision operations are supported.
+ */
 
 import Accelerate
 
 infix operator .*
 infix operator ⊙
 
-// MARK: - Vector multiplication
+// MARK: Scalar-Vector multiplication
 
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(length: rhs.length)
     vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
-    return result
-}
-
-public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    var result = Vector<Float>(length: lhs.length)
-    vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
 
@@ -30,11 +22,21 @@ public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
     return result
 }
 
+// MARK: Vector-Scalar multiplication
+
+public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
+    var result = Vector<Float>(length: lhs.length)
+    vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
+    return result
+}
+
 public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
     var result = Vector<Double>(length: lhs.length)
     vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
+
+// MARK: Vector-Vector multiplication
 
 public func * (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(length: lhs.length)
@@ -48,7 +50,7 @@ public func * (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
     return result
 }
 
-// MARK: - Matrix multiplication
+// MARK: Matrix multiplication
 
 /// Matrix multiplication for integer values. Number of columns in left matrix must equal
 /// number of rows in right matrix.

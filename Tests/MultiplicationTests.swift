@@ -1,6 +1,6 @@
 /*
- Tests for vector and matrix multiplication.
-*/
+ Tests for Vector and Matrix multiplication.
+ */
 
 import XCTest
 import Numerix

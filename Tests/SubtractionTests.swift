@@ -1,6 +1,6 @@
 /*
- Tests for vector substraction.
-*/
+ Tests for Vector substraction.
+ */
 
 import XCTest
 import Numerix

@@ -1,6 +1,6 @@
 /*
- Matrix structure for two-dimensional numerical data.
- The underlying data storage is a mutable buffer handled by the DataBuffer class.
+ Matrix structure for two-dimensional numerical data. The underlying data storage
+ is a mutable buffer handled by the DataBuffer class.
  */
 
 import Accelerate

@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 3/26/24.
-//
+/*
+ Vector structure for one-dimensional numerical data. The underlying data storage
+ is a mutable buffer handled by the DataBuffer class.
+ */
 
 import Accelerate
 

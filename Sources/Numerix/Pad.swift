@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/6/24.
-//
+/*
+ Pad functions for Matrix structures. Single and double precision values are
+ supported.
+ */
 
 import Accelerate
 

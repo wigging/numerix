@@ -1,9 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/11/24.
-//
+/*
+ Cumulative sum for single and double precision Vector.
+ */
 
 import Accelerate
 

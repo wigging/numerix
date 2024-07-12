@@ -1,16 +1,14 @@
 /*
- Exponential functions for vector and matrix types.
+ Exponential functions for Vector and Matrix structures. The following single
+ and double precision operations are supported:
  • exp() for eˣ
  • exp2() for 2ˣ
- • expm1() for eˣ-1
-
- Uses functions from Accelerate vForce
- https://developer.apple.com/documentation/accelerate/veclib/vforce
+ • expm1() for eˣ - 1
 */
 
 import Accelerate
 
-// MARK: - Vector exponential
+// MARK: Vector exponential
 
 /// Calculate eˣ as the exponential function for all single-precision values in a vector.
 /// - Parameter vector: The input values.
@@ -66,7 +64,7 @@ public func expm1(_ vec: Vector<Double>) -> Vector<Double> {
     return result
 }
 
-// MARK: - Matrix exponential
+// MARK: Matrix exponential
 
 /// Calculate the exponential function eˣ for all single-precision values in a matrix.
 /// - Parameter matrix: The input values.

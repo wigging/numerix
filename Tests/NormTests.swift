@@ -1,4 +1,6 @@
-// Tests for calculating the norm of a vector.
+/*
+ Tests for Vector norm() function.
+ */
 
 import XCTest
 import Numerix

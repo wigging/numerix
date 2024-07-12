@@ -1,6 +1,6 @@
 /*
- Tests for matrix division.
-*/
+ Tests for Matrix division.
+ */
 
 import XCTest
 import Numerix

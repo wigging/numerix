@@ -1,9 +1,6 @@
-//
-//  DotProductTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/3/24.
-//
+/*
+ Tests for Vector dot product.
+ */
 
 import XCTest
 import Numerix

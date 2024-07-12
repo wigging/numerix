@@ -1,9 +1,6 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 5/12/24.
-//
+/*
+ Complex structure that represents complex numbers.
+ */
 
 import Foundation
 

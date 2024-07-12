@@ -1,11 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 4/15/24.
-//
+/*
+ Norm functions for Vector and Matrix structures. Single and double precision
+ values are supported.
+ */
 
 import Accelerate
+
+// MARK: Vector norm
 
 /// Calculate the L² norm, also known as Euclidean norm, of a vector with single precision.
 /// - Parameter vec: The input vector.
@@ -22,6 +22,8 @@ public func norm(_ vec: Vector<Double>) -> Double {
     let nrm = cblas_dnrm2(vec.length, vec.buffer.baseAddress, 1)
     return nrm
 }
+
+// MARK: Matrix norm
 
 /// Calculate the L² norm, also known as Euclidean norm, of a matrix with double precision.
 /// - Parameter mat: The input matrix.

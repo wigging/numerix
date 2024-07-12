@@ -1,15 +1,11 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/3/24.
-//
+/*
+ Dot product for Vector structures. When NumPy does dot product on matrices, it
+ just performs matrix multiplication.
+ */
 
 import Accelerate
 
 infix operator ⋅
-
-// MARK: - Vector dot product
 
 /// Calculate the dot product of two vectors with single precision. Vectors must be same length.
 /// ```swift
@@ -80,8 +76,3 @@ public func dot(_ a: Vector<Double>, _ b: Vector<Double>) -> Double {
     let c = a ⋅ b
     return c
 }
-
-// MARK: - Matrix dot product
-
-// Dot product seems to be an operation only for vectors. When NumPy does dot
-// product on matrices, it just performs matrix multiplication.

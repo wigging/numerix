@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/26/24.
-//
+/*
+ DataBuffer class for storing underlying Vector and Matrix data in a mutable
+ memory buffer.
+ */
 
 class DataBuffer<T> {
     var buffer: UnsafeMutableBufferPointer<T>

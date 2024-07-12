@@ -1,9 +1,6 @@
-//
-//  CumulativeSumTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/11/24.
-//
+/*
+ Tests for cumulativeSum() function.
+ */
 
 import XCTest
 import Numerix

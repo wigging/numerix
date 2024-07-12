@@ -1,9 +1,6 @@
-//
-//  TransposeTests.swift
-//  
-//
-//  Created by Gavin Wiggins on 6/4/24.
-//
+/*
+ Tests for the Matrix transpose() function.
+ */
 
 import XCTest
 import Numerix

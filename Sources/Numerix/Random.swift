@@ -1,9 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Gavin Wiggins on 3/24/24.
-//
+/*
+ Extensions for the Matrix structure to generate a matrix containing random
+ numbers. Single and double precision values are supported.
+ */
 
 import Accelerate
 
