@@ -13,6 +13,11 @@ public struct Matrix<T> {
 
     /// Number of columns in the matrix.
     public let columns: Int
+    
+    /// Number of elements in the matrix.
+    public var count: Int {
+        self.rows * self.columns
+    }
 
     // This is used by the iterator, see next() function in Sequence, IteratorProtocol extension
     private var nextRowStartIndex = 0
@@ -163,7 +168,7 @@ extension Matrix: Equatable where T: Equatable {
     ///   - rhs: The second matrix.
     /// - Returns: True if both matrices are same dimension and contain the same values.
     public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
-        let n = lhs.rows * lhs.columns
+        let n = lhs.count
         let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * n)
         let buffersEqual = cmp == 0 ? true : false
         return lhs.rows == rhs.rows && lhs.columns == rhs.columns && buffersEqual
@@ -173,7 +178,7 @@ extension Matrix: Equatable where T: Equatable {
 extension Matrix: Sequence, IteratorProtocol {
 
     public mutating func next() -> [T]? {
-        if nextRowStartIndex == self.rows * self.columns {
+        if nextRowStartIndex == self.count {
             return nil
         } else {
             let currentRowStartIndex = nextRowStartIndex

@@ -17,6 +17,12 @@ final class MatrixTests: XCTestCase {
         XCTAssertEqual(mat3[0, 0], 1)
     }
 
+    func testCount() {
+        let mat: Matrix = [[1, 2, 3],
+                           [4, 5, 6]]
+        XCTAssertEqual(mat.count, 6)
+    }
+
     func testSubscript() {
         let mat = Matrix(rows: 2, columns: 3, values: [3, 4, 8, 10, 11, 18.2])
         XCTAssertEqual(mat[0, 0], 3.0)
