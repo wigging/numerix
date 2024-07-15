@@ -14,51 +14,26 @@ final class ExponentialTests: XCTestCase {
     let matD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
 
     func testExponential() {
-        let resultVecF = Vector<Float>([2.71828183, 7.3890561, 20.08553692, 54.59815003, 148.4131591])
-        let resultVecD = Vector<Double>([2.71828183, 7.3890561, 20.08553692, 54.59815003, 148.4131591])
+        XCTAssert(isApprox(exp(vecF), [2.718281, 7.389056, 20.085536, 54.598150, 148.413159], rtol: 1e-4))
+        XCTAssert(isApprox(exp(vecD), [2.718281, 7.389056, 20.085536, 54.598150, 148.413159], rtol: 1e-4))
 
-        XCTAssert(isApprox(exp(vecF), resultVecF))
-        XCTAssert(isApprox(exp(vecD), resultVecD))
-
-        let resultMatF = Matrix<Float>([[2.71828183, 7.3890561, 20.08553692],
-                                        [54.59815003, 148.4131591, 403.42879349]])
-
-        let resultMatD = Matrix<Double>([[2.71828183, 7.3890561, 20.08553692],
-                                        [54.59815003, 148.4131591, 403.42879349]])
-
-        XCTAssert(isApprox(exp(matF), resultMatF))
-        XCTAssert(isApprox(exp(matD), resultMatD))
+        XCTAssert(isApprox(exp(matF), [[2.718281, 7.389056, 20.085536], [54.598150, 148.413159, 403.428793]], rtol: 1e-4))
+        XCTAssert(isApprox(exp(matD), [[2.718281, 7.389056, 20.085536], [54.598150, 148.413159, 403.428793]], rtol: 1e-4))
     }
 
     func testExponentialTwo() {
-        let resultVecF = Vector<Float>([2, 4, 8, 16, 32])
-        let resultVecD = Vector<Double>([2, 4, 8, 16, 32])
+        XCTAssert(isApprox(exp2(vecF), [2, 4, 8, 16, 32]))
+        XCTAssert(isApprox(exp2(vecD), [2, 4, 8, 16, 32]))
 
-        XCTAssert(isApprox(exp2(vecF), resultVecF))
-        XCTAssert(isApprox(exp2(vecD), resultVecD))
-
-        let resultMatF = Matrix<Float>([[2, 4, 8], [16, 32, 64]])
-        let resultMatD = Matrix<Double>([[2, 4, 8], [16, 32, 64]])
-
-        XCTAssert(isApprox(exp2(matF), resultMatF))
-        XCTAssert(isApprox(exp2(matD), resultMatD))
+        XCTAssert(isApprox(exp2(matF), [[2, 4, 8], [16, 32, 64]]))
+        XCTAssert(isApprox(exp2(matD), [[2, 4, 8], [16, 32, 64]]))
     }
 
     func testExponentialMinusOne() {
-        let resF: Vector<Float> = [1.7182, 6.3890, 19.0855, 53.5981, 147.4131]
-        let checkF = isApprox(expm1(vecF), resF, rtol: 1e-4)
-        XCTAssert(checkF)
+        XCTAssert(isApprox(expm1(vecF), [1.7182, 6.3890, 19.0855, 53.5981, 147.4131], rtol: 1e-4))
+        XCTAssert(isApprox(expm1(vecD), [1.7182, 6.3890, 19.0855, 53.5981, 147.4131], rtol: 1e-4))
 
-        let resD: Vector<Double> = [1.7182, 6.3890, 19.0855, 53.5981, 147.4131]
-        let checkD = isApprox(expm1(vecD), resD, rtol: 1e-4)
-        XCTAssert(checkD)
-
-        let resMatF: Matrix<Float> = [[1.7182, 6.3890, 19.0855], [53.5981, 147.4130, 402.4290]]
-        let checkMatF = isApprox(expm1(matF), resMatF, rtol: 1e-4)
-        XCTAssert(checkMatF)
-
-        let resMatD: Matrix<Double> = [[1.7182, 6.3890, 19.0855], [53.5981, 147.4130, 402.4290]]
-        let checkMatD = isApprox(expm1(matD), resMatD, rtol: 1e-4)
-        XCTAssert(checkMatD)
+        XCTAssert(isApprox(expm1(matF), [[1.7182, 6.3890, 19.0855], [53.5981, 147.4130, 402.4290]], rtol: 1e-4))
+        XCTAssert(isApprox(expm1(matD), [[1.7182, 6.3890, 19.0855], [53.5981, 147.4130, 402.4290]], rtol: 1e-4))
     }
 }
