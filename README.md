@@ -1,10 +1,10 @@
 # Numerix
 
-Numerix is an open-source Swift package that provides vector and matrix types for performing linear algebra and other numerical computations on Apple devices. It uses the Accelerate framework to perform high-performance and energy-efficient calculations. See the sections below to learn more about the package.
+Numerix is an open-source Swift package that provides Vector and Matrix structures for performing linear algebra and other numerical computations on Apple devices. It uses the Accelerate framework to perform high-performance and energy-efficient calculations. See the sections below to learn more about the package.
 
 ## Installation
 
-If using Xcode, select File and choose Add Package Dependencies..., then enter the URL for the Numerix GitHub repository which is <https://github.com/wigging/numerix>.
+If using Xcode, select File and choose Add Package Dependencies... from the menu, then enter the URL for the Numerix GitHub repository which is <https://github.com/wigging/numerix>.
 
 If editing a `Package.swift` manifest, add Numerix as a dependency such as:
 
@@ -18,9 +18,7 @@ targets: [
 ]
 ```
 
-The final step is to import the package in a Swift file.
-
-The final step is to `import Numerix` in a Swift file.
+The final step is to import the package in a Swift file by using `import Numerix`.
 
 ## Usage
 
@@ -50,4 +48,4 @@ Documentation for the Numerix package can be viewed [online](https://apple.com) 
 
 ## Contributing
 
-If you would like to contribute to this package, fork this repository and create a new branch with your contributions. Then create a pull request to the main branch to submit your changes. Please use [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift code styles and conventions.
+If you would like to contribute to the Numerix package, fork this repository and create a new branch with your contributions. Then create a pull request to the main branch to submit your changes. Please use [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift code styles and conventions.
