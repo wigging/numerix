@@ -9,7 +9,6 @@ final class DescriptionTests: XCTestCase {
 
     func testVectorDescription() {
         let vec = Vector([3, 5.8, 402.89, 1])
-        print(vec)
         let desc = """
         4-element Vector<Double>
         3.0000 5.8000 402.8900 1.0000
@@ -17,7 +16,6 @@ final class DescriptionTests: XCTestCase {
         XCTAssertEqual(String(describing: vec), desc)
 
         let vec2 = Vector<Float>([3, 5.8, 402.89, 1])
-        print(vec2)
         let desc2 = """
         4-element Vector<Float>
         3.00 5.80 402.89 1.00
