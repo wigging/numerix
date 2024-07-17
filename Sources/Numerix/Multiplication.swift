@@ -146,7 +146,11 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
     let c = Matrix<Complex<Double>>(rows: lhs.rows, columns: rhs.columns)
     alpha.withUnsafeBytes { alphaPtr in
         beta.withUnsafeBytes { betaPtr in
-            cblas_zgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, .init(alphaPtr.baseAddress!), .init(a), k, .init(b), n, .init(betaPtr.baseAddress!), .init(c.buffer.baseAddress), n)
+            cblas_zgemm(
+                CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k,
+                .init(alphaPtr.baseAddress!), .init(a), k, .init(b), n,
+                .init(betaPtr.baseAddress!), .init(c.buffer.baseAddress), n
+            )
         }
     }
 

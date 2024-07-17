@@ -24,7 +24,7 @@ public func transpose(_ a: Matrix<Float>) -> Matrix<Float> {
 public func transpose(_ a: Matrix<Double>) -> Matrix<Double> {
     let m = vDSP_Length(a.columns)
     let n = vDSP_Length(a.rows)
-    
+
     let mat = Matrix<Double>(rows: a.columns, columns: a.rows)
     vDSP_mtransD(a.buffer.baseAddress!, 1, mat.buffer.baseAddress!, 1, m, n)
 

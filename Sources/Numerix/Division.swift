@@ -5,12 +5,6 @@
 
 import Accelerate
 
-// TODO: Scalar-Vector division
-
-// TODO: Vector-Scalar division
-
-// TODO: Vector-Vector division
-
 // MARK: Scalar-Matrix division
 
 /// Element-wise division of a scalar by a matrix using single precision.
@@ -94,5 +88,3 @@ public func /= (lhs: inout Matrix<Float>, rhs: Float) {
 public func /= (lhs: inout Matrix<Double>, rhs: Double) {
     lhs = lhs / rhs
 }
-
-// TODO: Matrix-Matrix division

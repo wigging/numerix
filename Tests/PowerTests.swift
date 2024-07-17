@@ -6,7 +6,7 @@ import XCTest
 import Numerix
 
 final class PowerTests: XCTestCase {
-    
+
     func testVectorFloat() {
         let vec = Vector<Float>([1, 2, 3, 4])
 

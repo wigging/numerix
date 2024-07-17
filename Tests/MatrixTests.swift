@@ -104,7 +104,7 @@ final class MatrixTests: XCTestCase {
         let mat = Matrix([[1, 2, 3],
                           [4, 5, 6],
                           [7, 8, 9.0]])
-        
+
         // Iterate over rows
         var counter = 1
         for row in mat {

@@ -14,11 +14,11 @@ final class ExponentialTests: XCTestCase {
     let matD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
 
     func testExponential() {
-        XCTAssert(isApprox(exp(vecF), [2.718281, 7.389056, 20.085536, 54.598150, 148.413159], rtol: 1e-4))
-        XCTAssert(isApprox(exp(vecD), [2.718281, 7.389056, 20.085536, 54.598150, 148.413159], rtol: 1e-4))
+        XCTAssert(isApprox(exp(vecF), [2.7182, 7.3890, 20.0855, 54.5981, 148.4131], rtol: 1e-4))
+        XCTAssert(isApprox(exp(vecD), [2.7182, 7.3890, 20.0855, 54.5981, 148.4131], rtol: 1e-4))
 
-        XCTAssert(isApprox(exp(matF), [[2.718281, 7.389056, 20.085536], [54.598150, 148.413159, 403.428793]], rtol: 1e-4))
-        XCTAssert(isApprox(exp(matD), [[2.718281, 7.389056, 20.085536], [54.598150, 148.413159, 403.428793]], rtol: 1e-4))
+        XCTAssert(isApprox(exp(matF), [[2.7182, 7.3890, 20.0855], [54.5981, 148.4131, 403.4287]], rtol: 1e-4))
+        XCTAssert(isApprox(exp(matD), [[2.7182, 7.3890, 20.0855], [54.5981, 148.4131, 403.4287]], rtol: 1e-4))
     }
 
     func testExponentialTwo() {

@@ -14,7 +14,7 @@ import Accelerate
 /// - Returns: Vector of bases raised to the power of the exponent.
 public func pow(_ vec: Vector<Float>, _ exp: Float) -> Vector<Float> {
     var result = Vector<Float>(length: vec.length)
-    let alpha = Array<Float>(repeating: exp, count: vec.length)
+    let alpha = [Float](repeating: exp, count: vec.length)
     vForce.pow(bases: vec.buffer, exponents: alpha, result: &result.buffer)
     return result
 }
@@ -26,7 +26,7 @@ public func pow(_ vec: Vector<Float>, _ exp: Float) -> Vector<Float> {
 /// - Returns: Vector of bases raised to the power of the exponent.
 public func pow(_ vec: Vector<Double>, _ exp: Double) -> Vector<Double> {
     var result = Vector<Double>(length: vec.length)
-    let alpha = Array<Double>(repeating: exp, count: vec.length)
+    let alpha = [Double](repeating: exp, count: vec.length)
     vForce.pow(bases: vec.buffer, exponents: alpha, result: &result.buffer)
     return result
 }
@@ -64,7 +64,7 @@ public func pow(_ vec: Vector<Double>, _ exp: [Double]) -> Vector<Double> {
 /// - Returns: Matrix of bases raised to the power of the exponent.
 public func pow(_ mat: Matrix<Float>, _ exp: Float) -> Matrix<Float> {
     var result = Matrix<Float>(rows: mat.rows, columns: mat.columns)
-    let alpha = Array<Float>(repeating: exp, count: mat.count)
+    let alpha = [Float](repeating: exp, count: mat.count)
     vForce.pow(bases: mat.buffer, exponents: alpha, result: &result.buffer)
     return result
 }
@@ -76,7 +76,7 @@ public func pow(_ mat: Matrix<Float>, _ exp: Float) -> Matrix<Float> {
 /// - Returns: Matrix of bases raised to the power of the exponent.
 public func pow(_ mat: Matrix<Double>, _ exp: Double) -> Matrix<Double> {
     var result = Matrix<Double>(rows: mat.rows, columns: mat.columns)
-    let alpha = Array<Double>(repeating: exp, count: mat.count)
+    let alpha = [Double](repeating: exp, count: mat.count)
     vForce.pow(bases: mat.buffer, exponents: alpha, result: &result.buffer)
     return result
 }

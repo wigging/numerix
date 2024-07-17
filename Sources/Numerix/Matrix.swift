@@ -13,7 +13,7 @@ public struct Matrix<T> {
 
     /// Number of columns in the matrix.
     public let columns: Int
-    
+
     /// Number of elements in the matrix.
     public var count: Int {
         self.rows * self.columns
@@ -30,7 +30,7 @@ public struct Matrix<T> {
         get { self.data.buffer }
         set { self.data.buffer = newValue }
     }
-    
+
     /// Create an empty matrix with size m x n where m is number of rows and n is number of columns.
     /// - Parameters:
     ///   - rows: Number of rows in the matrix.
@@ -41,12 +41,13 @@ public struct Matrix<T> {
         self.data = DataBuffer(count: rows * columns)
     }
 
-    /// Create a matrix from an array of values. The matrix size is m x n where m is number of rows and n is number of columns.
+    /// Create a matrix from an array of values. The matrix size is m x n where
+    /// m is number of rows and n is number of columns.
     /// - Parameters:
     ///   - rows: Number of rows in the matrix.
     ///   - columns: Number of columns in the matrix.
     ///   - values: Array of values for each matrix element.
-    public init(rows: Int, columns: Int, values: Array<T>) {
+    public init(rows: Int, columns: Int, values: [T]) {
         self.rows = rows
         self.columns = columns
         self.data = DataBuffer(array: values)
@@ -116,7 +117,6 @@ public struct Matrix<T> {
     /// - Parameter stride: Stride within the flattened matrix. Default is 1 for every element.
     /// - Returns: Row and column index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> (Int, Int) where T == Float {
-        //let index = cblas_isamax(self.values.count, self.values, stride)
         let index = cblas_isamax(self.buffer.count, self.buffer.baseAddress, stride)
         let row = index % self.rows
         let col = index / self.columns
@@ -127,7 +127,6 @@ public struct Matrix<T> {
     /// - Parameter stride: Stride within the flattened matrix. Default is 1 for every element.
     /// - Returns: Row and column index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> (Int, Int) where T == Double {
-        //let index = cblas_idamax(self.values.count, self.values, stride)
         let index = cblas_idamax(self.buffer.count, self.buffer.baseAddress, stride)
         let row = index / self.rows
         let col = index % self.columns

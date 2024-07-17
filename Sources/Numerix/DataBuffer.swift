@@ -17,7 +17,7 @@ class DataBuffer<T> {
         self.buffer = UnsafeMutableBufferPointer(start: start, count: count)
     }
 
-    init(array: Array<T>) {
+    init(array: [T]) {
         let count = array.count
         let start = UnsafeMutablePointer<T>.allocate(capacity: count)
         self.buffer = UnsafeMutableBufferPointer(start: start, count: count)

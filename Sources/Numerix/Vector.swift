@@ -8,9 +8,6 @@ import Accelerate
 /// A one-dimensional collection of numerical values.
 public struct Vector<T> {
 
-    /// Scalar elements in the vector.
-    //public var values: [T]
-
     /// Number of elements in the vector.
     public var length: Int {
         self.buffer.count
@@ -24,7 +21,7 @@ public struct Vector<T> {
         get { self.data.buffer }
         set { self.data.buffer = newValue }
     }
-    
+
     /// Create an empty vector of a certain length.
     /// - Parameter length: Length of the vector.
     public init(length: Int) {
@@ -34,7 +31,6 @@ public struct Vector<T> {
     /// Create a vector from an array of values.
     /// - Parameter values: Values of the vector.
     public init(_ values: [T]) {
-        //self.values = values
         self.data = DataBuffer(array: values)
     }
 
@@ -43,7 +39,6 @@ public struct Vector<T> {
     ///   - length: Length of the vector.
     ///   - fill: Value to fill the vector.
     public init(length: Int, fill: T) {
-        //self.values = [T](repeating: fill, count: length)
         self.data = DataBuffer(count: length, fill: fill)
     }
 
