@@ -14,6 +14,23 @@ final class VectorTests: XCTestCase {
         XCTAssertEqual(vec2, [2.2, 2.2, 2.2, 2.2])
     }
 
+    func testInitRange() {
+        // Integer tests
+        let vecInt = Vector<Int>(0 ..< 10)
+        XCTAssertEqual(vecInt, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+        // Float tests
+        let vecFloat = Vector<Float>(0 ..< 10)
+        XCTAssertEqual(vecFloat, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+        let vecFloat2 = Vector<Float>(-6 ..< 3)
+        XCTAssertEqual(vecFloat2, [-6, -5, -4, -3, -2, -1, 0, 1, 2])
+
+        // Double tests
+        let vecDouble = Vector<Double>(5 ..< 12)
+        XCTAssertEqual(vecDouble, [5, 6, 7, 8, 9, 10, 11])
+    }
+
     func testProperties() {
         let vec = Vector([3, 4, 5, 6])
         XCTAssertEqual(vec.length, 4)
