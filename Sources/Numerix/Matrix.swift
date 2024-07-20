@@ -22,13 +22,21 @@ public struct Matrix<T> {
     // This is used by the iterator, see next() function in Sequence, IteratorProtocol extension
     private var nextRowStartIndex = 0
 
-    // Class reference to a mutable buffer for underlying data storage.
+    // Private reference to mutable buffer for underlying data storage
     private let data: DataBuffer<T>
 
     /// Mutable buffer for underlying data storge and access.
     var buffer: UnsafeMutableBufferPointer<T> {
         get { self.data.buffer }
         set { self.data.buffer = newValue }
+    }
+
+    /// Create a matrix using embedded arrays such as [[1, 2], [3, 4]].
+    /// - Parameter content: Embedded arrays.
+    public init(_ content: [[T]]) {
+        self.rows = content.count
+        self.columns = content[0].count
+        self.data = DataBuffer(array: content.flatMap { $0 })
     }
 
     /// Create an empty matrix with size m x n where m is number of rows and n is number of columns.
@@ -63,13 +71,16 @@ public struct Matrix<T> {
         self.columns = columns
         self.data = DataBuffer(count: rows * columns, fill: fill)
     }
-
-    /// Create a matrix using embedded arrays such as [[1, 2], [3, 4]].
-    /// - Parameter content: Embedded arrays.
-    public init(_ content: [[T]]) {
-        self.rows = content.count
-        self.columns = content[0].count
-        self.data = DataBuffer(array: content.flatMap { $0 })
+    
+    /// Create a matrix from a mutable memory buffer.
+    /// - Parameters:
+    ///   - rows: Number of rows.
+    ///   - columns: Number of columns.
+    ///   - buffer: Mutable memory buffer.
+    init(rows: Int, columns: Int, buffer: UnsafeMutableBufferPointer<T>) {
+        self.rows = rows
+        self.columns = columns
+        self.data = DataBuffer(buffer: buffer)
     }
 
     /// Get and set value at row and column index.
@@ -131,6 +142,12 @@ public struct Matrix<T> {
         let row = index / self.rows
         let col = index % self.columns
         return (row, col)
+    }
+    
+    /// Make a copy of a matrix and its underlying data buffer.
+    /// - Returns: Copy of a matrix.
+    public func copy() -> Matrix {
+        Matrix(rows: self.rows, columns: self.columns, buffer: self.buffer)
     }
 }
 
