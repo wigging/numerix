@@ -1,6 +1,6 @@
 /*
- Tests for Vector and Matrix multiplication.
- */
+Tests for Vector and Matrix multiplication.
+*/
 
 import XCTest
 import Numerix
@@ -85,5 +85,15 @@ final class MultiplicationTests: XCTestCase {
                            [0.0, 72.0, -10.0]])
 
         XCTAssertEqual(mat3 ⊙ mat4, res2)
+    }
+
+    func testCompoundAssignment() {
+        var matF = Matrix<Float>([[1.0, 2.0], [4.0, 5.0]])
+        matF *= Matrix([[2.0, 2.0, 3.0], [8.0, 5.0, 6.0]])
+        XCTAssertEqual(matF, [[18.0, 12.0, 15.0], [48.0, 33.0, 42.0]])
+
+        var matD = Matrix([[1.0, 2.0], [4.0, 5.0]])
+        matD *= Matrix([[2.0, 2.0, 3.0], [8.0, 5.0, 6.0]])
+        XCTAssertEqual(matD, [[18.0, 12.0, 15.0], [48.0, 33.0, 42.0]])
     }
 }
