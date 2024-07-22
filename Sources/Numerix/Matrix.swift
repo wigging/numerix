@@ -71,7 +71,7 @@ public struct Matrix<T> {
         self.columns = columns
         self.data = DataBuffer(count: rows * columns, fill: fill)
     }
-    
+
     /// Create a matrix from a mutable memory buffer.
     /// - Parameters:
     ///   - rows: Number of rows.
@@ -143,7 +143,7 @@ public struct Matrix<T> {
         let col = index % self.columns
         return (row, col)
     }
-    
+
     /// Make a copy of a matrix and its underlying data buffer.
     /// - Returns: Copy of a matrix.
     public func copy() -> Matrix {
