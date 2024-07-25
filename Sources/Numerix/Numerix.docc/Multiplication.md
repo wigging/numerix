@@ -19,6 +19,8 @@ Vector and matrix multiplication using single and double precision values. Eleme
 - ``*(_:_:)-3dhox``
 - ``*(_:_:)-16bxl``
 - ``*(_:_:)-9iigj``
+- ``*=(_:_:)-7ccv4``
+- ``*=(_:_:)-7bvjy``
 
 - ``.*(_:_:)-1fnxr``
 - ``.*(_:_:)-1isgw``

@@ -31,3 +31,4 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 - <doc:Pad>
 - <doc:Transpose>
 - <doc:CumulativeSum>
+- <doc:Power>

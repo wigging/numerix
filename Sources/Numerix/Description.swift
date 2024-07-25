@@ -1,9 +1,9 @@
 /*
- Description for Vector and Matrix structures. This determines the print output
- when doing things like `print(vec)` and `print(mat)`.
- */
+Description for Vector and Matrix structures. This determines the print output
+when doing things like `print(vec)` and `print(mat)`.
+*/
 
-/// String representation of a numeric value such as a Float or Double.
+/// String representation of an Integer, Float, or Double.
 public protocol NumberString {
     var numberDescription: String { get }
 }
