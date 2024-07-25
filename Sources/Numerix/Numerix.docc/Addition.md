@@ -22,8 +22,10 @@ Vector and matrix addition using single and double precision values. These are e
 
 ### Vector-Vector addition
 
+- ``+(_:_:)-4ha2a``
 - ``+(_:_:)-8dcbr``
 - ``+(_:_:)-51b0c``
+- ``+=(_:_:)-3khoz``
 - ``+=(_:_:)-3qvn8``
 - ``+=(_:_:)-4vq4i``
 

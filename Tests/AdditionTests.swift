@@ -32,6 +32,10 @@ final class AdditionTests: XCTestCase {
     }
 
     func testVectorVector() {
+        let vecAint32 = Vector<Int32>([1, 2, 3, 4])
+        let vecBint32 = Vector<Int32>([4, 5, 6, 7])
+        XCTAssertEqual(vecAint32 + vecBint32, [5, 7, 9, 11])
+
         let vecF1 = Vector<Float>([5, 4, 3, 2])
         let vecF2 = Vector<Float>([6, 5, 4, 3])
         XCTAssertEqual(vecF1 + vecF2, [11, 9, 7, 5])
@@ -39,6 +43,10 @@ final class AdditionTests: XCTestCase {
         let vecD1 = Vector<Double>([5, 4, 3, 2])
         let vecD2 = Vector<Double>([6, 5, 4, 3])
         XCTAssertEqual(vecD1 + vecD2, [11, 9, 7, 5])
+
+        var vecI32 = Vector<Int32>([1, 2, 3, 4])
+        vecI32 += [5, 6, 7, 8]
+        XCTAssertEqual(vecI32, [6, 8, 10, 12])
 
         var vecFF = Vector<Float>([5, 4, 3, 2])
         vecFF += Vector<Float>([6, 5, 4, 3])

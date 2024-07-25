@@ -71,6 +71,32 @@ public func += (lhs: inout Vector<Double>, rhs: Double) {
 
 // MARK: Vector-Vector addition
 
+/// Element-wise addition of two integer vectors.
+///
+/// Add the elements in two 32-bit integer vectors. The vectors must be the same length.
+/// ```swift
+/// let vecA = Vector<Int32>([1, 2, 3, 4])
+/// let vecB = Vector<Int32>([4, 5, 6, 7])
+/// let vecC = vecA + vecB
+/// // vecC is [5, 7, 9, 11]
+/// ```
+///
+/// - Parameters:
+///   - lhs: Input vector `A`.
+///   - rhs: Input vector `B`.
+/// - Returns: Output vector `C` that represents `A[i] + B[i]`.
+public func + (lhs: Vector<Int32>, rhs: Vector<Int32>) -> Vector<Int32> {
+    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    let vec = Vector<Int32>(length: lhs.length)
+    vDSP_vaddi(
+        lhs.buffer.baseAddress!, 1,
+        rhs.buffer.baseAddress!, 1,
+        vec.buffer.baseAddress!, 1,
+        vDSP_Length(lhs.length)
+    )
+    return vec
+}
+
 /// Element-wise addition of two vectors with single precision. Vectors must be same length.
 /// - Parameters:
 ///   - lhs: Vector of length n.
@@ -93,6 +119,23 @@ public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
     var vec = Vector<Double>(length: lhs.length)
     vDSP.add(lhs.buffer, rhs.buffer, result: &vec.buffer)
     return vec
+}
+
+/// In-place element-wise addition of integer vectors.
+///
+/// Perform in-place addition of 32-bit integer vectors. The vectors must be the same length.
+/// ```swift
+/// var vec = Vector<Int32>([1, 2, 3, 4])
+/// vec += Vector<Int32>([5, 6, 7, 8])
+/// // vec becomes [6, 8, 10, 12])
+/// ```
+///
+/// - Parameters:
+///   - lhs: Mutable input vector.
+///   - rhs: Vector to add to the mutable vector.
+public func += (lhs: inout Vector<Int32>, rhs: Vector<Int32>) {
+    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    lhs = lhs + rhs
 }
 
 /// In-place element-wise addition of two vectors with single precision.
