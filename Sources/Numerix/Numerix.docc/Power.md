@@ -1,10 +1,10 @@
 # Power
 
-Power functions for Vector and Matrix structures.
+Power functions and operators for Vector and Matrix structures.
 
 ## Overview
 
-Raise each element of in a vector or matrix to the power of the given exponent.
+Raise each element in a vector or matrix to the power of the given exponent. An array of exponents is also supported.
 
 ## Topics
 
@@ -14,6 +14,8 @@ Raise each element of in a vector or matrix to the power of the given exponent.
 - ``pow(_:_:)-6g69x``
 - ``pow(_:_:)-3czzt``
 - ``pow(_:_:)-4ox3u``
+- ``^(_:_:)-1014e``
+- ``^(_:_:)-1bj2u``
 
 ### Matrix power
 
@@ -21,3 +23,5 @@ Raise each element of in a vector or matrix to the power of the given exponent.
 - ``pow(_:_:)-3erz5``
 - ``pow(_:_:)-3f7ks``
 - ``pow(_:_:)-22bxq``
+- ``^(_:_:)-66rql``
+- ``^(_:_:)-9kh6e``

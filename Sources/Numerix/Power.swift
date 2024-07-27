@@ -13,10 +13,13 @@ import Accelerate
 ///   - exp: The exponent.
 /// - Returns: Vector of bases raised to the power of the exponent.
 public func pow(_ vec: Vector<Float>, _ exp: Float) -> Vector<Float> {
-    var result = Vector<Float>(length: vec.length)
-    let alpha = [Float](repeating: exp, count: vec.length)
-    vForce.pow(bases: vec.buffer, exponents: alpha, result: &result.buffer)
-    return result
+    let output = Vector<Float>(length: vec.length)
+    withUnsafePointer(to: exp) { expPtr in
+        withUnsafePointer(to: Int32(vec.length)) { lengthPtr in
+            vvpowsf(output.buffer.baseAddress!, expPtr, vec.buffer.baseAddress!, lengthPtr)
+        }
+    }
+    return output
 }
 
 /// Raise each element in a double-precision vector to the power of the exponent.
@@ -25,10 +28,13 @@ public func pow(_ vec: Vector<Float>, _ exp: Float) -> Vector<Float> {
 ///   - exp: The exponent.
 /// - Returns: Vector of bases raised to the power of the exponent.
 public func pow(_ vec: Vector<Double>, _ exp: Double) -> Vector<Double> {
-    var result = Vector<Double>(length: vec.length)
-    let alpha = [Double](repeating: exp, count: vec.length)
-    vForce.pow(bases: vec.buffer, exponents: alpha, result: &result.buffer)
-    return result
+    let output = Vector<Double>(length: vec.length)
+    withUnsafePointer(to: exp) { expPtr in
+        withUnsafePointer(to: Int32(vec.length)) { lengthPtr in
+            vvpows(output.buffer.baseAddress!, expPtr, vec.buffer.baseAddress!, lengthPtr)
+        }
+    }
+    return output
 }
 
 /// Raise each element in a single-precision vector to the power of each exponent.
@@ -55,35 +61,59 @@ public func pow(_ vec: Vector<Double>, _ exp: [Double]) -> Vector<Double> {
     return result
 }
 
+/// Raise each element in a single-precision vector to the power of the exponent.
+/// - Parameters:
+///   - lhs: The input vector.
+///   - rhs: The exponent.
+/// - Returns: Vector raised to the power of the exponent.
+public func ^ (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
+    pow(lhs, rhs)
+}
+
+/// Raise each element in a double-precision vector to the power of the exponent.
+/// - Parameters:
+///   - lhs: The input vector.
+///   - rhs: The exponent.
+/// - Returns: Vector raised to the power of the exponent.
+public func ^ (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
+    pow(lhs, rhs)
+}
+
 // MARK: Matrix power
 
 /// Raise each element in a single-precision matrix to the power of the exponent.
 /// - Parameters:
-///   - vec: Matrix of bases.
-///   - exp: The exponent.
+///   - mat: The input matrix of bases.
+///   - exp: The exponent value.
 /// - Returns: Matrix of bases raised to the power of the exponent.
 public func pow(_ mat: Matrix<Float>, _ exp: Float) -> Matrix<Float> {
-    var result = Matrix<Float>(rows: mat.rows, columns: mat.columns)
-    let alpha = [Float](repeating: exp, count: mat.count)
-    vForce.pow(bases: mat.buffer, exponents: alpha, result: &result.buffer)
-    return result
+    let output = Matrix<Float>(rows: mat.rows, columns: mat.columns)
+    withUnsafePointer(to: exp) { expPtr in
+        withUnsafePointer(to: Int32(mat.count)) { lengthPtr in
+            vvpowsf(output.buffer.baseAddress!, expPtr, mat.buffer.baseAddress!, lengthPtr)
+        }
+    }
+    return output
 }
 
 /// Raise each element in a double-precision matrix to the power of the exponent.
 /// - Parameters:
-///   - vec: Matrix of bases.
-///   - exp: The exponent.
+///   - mat: The input matrix of bases.
+///   - exp: The exponent value.
 /// - Returns: Matrix of bases raised to the power of the exponent.
 public func pow(_ mat: Matrix<Double>, _ exp: Double) -> Matrix<Double> {
-    var result = Matrix<Double>(rows: mat.rows, columns: mat.columns)
-    let alpha = [Double](repeating: exp, count: mat.count)
-    vForce.pow(bases: mat.buffer, exponents: alpha, result: &result.buffer)
-    return result
+    let output = Matrix<Double>(rows: mat.rows, columns: mat.columns)
+    withUnsafePointer(to: exp) { expPtr in
+        withUnsafePointer(to: Int32(mat.count)) { lengthPtr in
+            vvpows(output.buffer.baseAddress!, expPtr, mat.buffer.baseAddress!, lengthPtr)
+        }
+    }
+    return output
 }
 
 /// Raise each element in a single-precision matrix to the power of each exponent.
 /// - Parameters:
-///   - vec: Matrix of bases.
+///   - mat: Matrix of bases.
 ///   - exp: Array of exponents.
 /// - Returns: Matrix of bases raised to the power of each exponent.
 public func pow(_ mat: Matrix<Float>, _ exp: [Float]) -> Matrix<Float> {
@@ -95,7 +125,7 @@ public func pow(_ mat: Matrix<Float>, _ exp: [Float]) -> Matrix<Float> {
 
 /// Raise each element in a double-precision matrix to the power of each exponent.
 /// - Parameters:
-///   - vec: Matrix of bases.
+///   - mat: Matrix of bases.
 ///   - exp: Array of exponents.
 /// - Returns: Matrix of bases raised to the power of each exponent.
 public func pow(_ mat: Matrix<Double>, _ exp: [Double]) -> Matrix<Double> {
@@ -103,4 +133,22 @@ public func pow(_ mat: Matrix<Double>, _ exp: [Double]) -> Matrix<Double> {
     var result = Matrix<Double>(rows: mat.rows, columns: mat.columns)
     vForce.pow(bases: mat.buffer, exponents: exp, result: &result.buffer)
     return result
+}
+
+/// Raise each element in a single-precision vector to the power of the exponent.
+/// - Parameters:
+///   - lhs: The input vector.
+///   - rhs: The exponent.
+/// - Returns: Vector raised to the power of the exponent.
+public func ^ (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
+    pow(lhs, rhs)
+}
+
+/// Raise each element in a double-precision vector to the power of the exponent.
+/// - Parameters:
+///   - lhs: The input vector.
+///   - rhs: The exponent.
+/// - Returns: Vector raised to the power of the exponent.
+public func ^ (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
+    pow(lhs, rhs)
 }

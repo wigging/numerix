@@ -138,6 +138,26 @@ public struct Vector<T> {
         let index = cblas_idamax(self.length, self.buffer.baseAddress, stride)
         return index
     }
+    
+    /// Raise each element to the power of the exponent for single-precision vector.
+    /// - Parameter exp: The exponent.
+    public mutating func pow(_ exp: Float) where T == Float {
+        withUnsafePointer(to: exp) { expPtr in
+            withUnsafePointer(to: Int32(self.length)) { lengthPtr in
+                vvpowsf(self.buffer.baseAddress!, expPtr, self.buffer.baseAddress!, lengthPtr)
+            }
+        }
+    }
+
+    /// Raise each element to the power of the exponent for double-precision vector.
+    /// - Parameter exp: The exponent.
+    public mutating func pow(_ exp: Double) where T == Double {
+        withUnsafePointer(to: exp) { expPtr in
+            withUnsafePointer(to: Int32(self.length)) { lengthPtr in
+                vvpows(self.buffer.baseAddress!, expPtr, self.buffer.baseAddress!, lengthPtr)
+            }
+        }
+    }
 }
 
 extension Vector: ExpressibleByArrayLiteral {
