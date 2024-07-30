@@ -138,7 +138,7 @@ public struct Vector<T> {
         let index = cblas_idamax(self.length, self.buffer.baseAddress, stride)
         return index
     }
-    
+
     /// Raise each element to the power of the exponent for single-precision vector.
     /// - Parameter exp: The exponent.
     public mutating func pow(_ exp: Float) where T == Float {

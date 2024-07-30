@@ -30,5 +30,6 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 - <doc:DotProduct>
 - <doc:Pad>
 - <doc:Transpose>
+- <doc:Trigonometry>
 - <doc:CumulativeSum>
 - <doc:Power>
