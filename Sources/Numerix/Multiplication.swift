@@ -1,7 +1,7 @@
 /*
- Multiplication operators for Vector and Matrix structures. Single and double
- precision operations are supported.
- */
+Multiplication operators for Vector and Matrix structures. Single and double
+precision operations are supported.
+*/
 
 import Accelerate
 
@@ -10,12 +10,22 @@ infix operator ⊙
 
 // MARK: Scalar-Vector multiplication
 
+/// Element-wise multiplication of a scalar value and a vector with single-precision.
+/// - Parameters:
+///   - lhs: The left scalar value `A`.
+///   - rhs: The right vector `B[i]`.
+/// - Returns: A vector representing the result of `A × B[i]`.
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(length: rhs.length)
     vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
     return result
 }
 
+/// Element-wise multiplication of a scalar value and a vector with double-precision.
+/// - Parameters:
+///   - lhs: The left scalar value `A`.
+///   - rhs: The right vector `B[i]`.
+/// - Returns: A vector representing the result of `A × B[i]`.
 public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
     var result = Vector<Double>(length: rhs.length)
     vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
@@ -24,12 +34,22 @@ public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
 
 // MARK: Vector-Scalar multiplication
 
+/// Element-wise multiplication of a vector and a scalar value with single-precision.
+/// - Parameters:
+///   - lhs: The left vector `A[i]`.
+///   - rhs: The right scalar value `B`.
+/// - Returns: A vector representing the result of `A[i] × B`.
 public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
     var result = Vector<Float>(length: lhs.length)
     vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
 
+/// Element-wise multiplication of a vector and a scalar value with double-precision.
+/// - Parameters:
+///   - lhs: The left vector `A[i]`.
+///   - rhs: The right scalar value `B`.
+/// - Returns: A vector representing the result of `A[i] × B`.
 public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
     var result = Vector<Double>(length: lhs.length)
     vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
@@ -38,44 +58,53 @@ public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 
 // MARK: Vector-Vector multiplication
 
+/// Element-wise multiplication of two vectors with single-precision.
+/// - Parameters:
+///   - lhs: The left vector `A[i]`.
+///   - rhs: The right vector `B[i]`.
+/// - Returns: A vector representing the result of `A[i] × B[i]`.
 public func * (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(length: lhs.length)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
+/// Element-wise multiplication of two vectors with double-precision.
+/// - Parameters:
+///   - lhs: The vector `A[i]`.
+///   - rhs: The vector `B[i]`.
+/// - Returns: A vector representing the result of `A[i] × B[i]`.
 public func * (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
     var result = Vector<Double>(length: lhs.length)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
-// MARK: Matrix multiplication
+// MARK: Scalar-Matrix multiplication
 
-/// Matrix multiplication for integer values. Number of columns in left matrix must equal
-/// number of rows in right matrix.
+/// Element-wise multiplication of a scalar value and a matrix with single-precision.
 /// - Parameters:
-///   - lhs: Left matrix with dimension m x n.
-///   - rhs: Right matrix with dimension n x p.
-/// - Returns: Matrix with dimension m x p.
-public func * (lhs: Matrix<Int>, rhs: Matrix<Int>) -> Matrix<Int> {
-    precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
-    let a = lhs.buffer.compactMap { Double($0) }
-    let b = rhs.buffer.compactMap { Double($0) }
-
-    let m = lhs.rows     // rows in matrices A and C
-    let n = rhs.columns  // columns in matrices B and C
-    let k = lhs.columns  // columns in matrix A and rows in matrix B
-    let alpha = 1.0
-    let beta = 0.0
-
-    // matrix multiplication where C ← αAB + βC
-    let c = Matrix<Double>(rows: lhs.rows, columns: rhs.columns)
-    cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, m, n, k, alpha, a, k, b, n, beta, c.buffer.baseAddress, n)
-
-    let mat = Matrix<Int>(rows: lhs.rows, columns: rhs.columns, values: c.buffer.compactMap { Int($0) })
-    return mat
+///   - lhs: The left scalar value `A`.
+///   - rhs: The right matrix `B[i]`.
+/// - Returns: A matrix representing the result of `A × B[i]`.
+public func * (lhs: Float, rhs: Matrix<Float>) -> Matrix<Float> {
+    var result = Matrix<Float>(rows: rhs.rows, columns: rhs.columns)
+    vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
+    return result
 }
+
+/// Element-wise multiplication of a scalar value and a matrix with double-precision.
+/// - Parameters:
+///   - lhs: The left scalar value `A`.
+///   - rhs: The right matrix `B[i]`.
+/// - Returns: A matrix representing the result of `A × B[i]`.
+public func * (lhs: Double, rhs: Matrix<Double>) -> Matrix<Double> {
+    var result = Matrix<Double>(rows: rhs.rows, columns: rhs.columns)
+    vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
+    return result
+}
+
+// MARK: Matrix-Matrix multiplication
 
 /// Matrix multiplication for single precision. Number of columns in the left matrix must be
 /// equal to the number of rows in the right matrix.

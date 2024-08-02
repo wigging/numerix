@@ -40,17 +40,6 @@ final class MultiplicationTests: XCTestCase {
 
         XCTAssertEqual(mat1 * mat2, result1)
 
-        let mat3 = Matrix([[1, 2],
-                           [3, 4]])
-
-        let mat4 = Matrix([[1, 2],
-                           [3, 4]])
-
-        let result2 = Matrix([[7, 10],
-                             [15, 22]])
-
-        XCTAssertEqual(mat3 * mat4, result2)
-
         let mat5 = Matrix([[Complex(real: 1.0, imag: 2.0), Complex(real: 2.0, imag: 3.0)],
                            [Complex(real: 5.0, imag: 6.0), Complex(real: 7.0, imag: 8.0)]])
 
