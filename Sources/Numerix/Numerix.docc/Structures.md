@@ -11,3 +11,4 @@ Here.
 - ``Complex``
 - ``Vector``
 - ``Matrix``
+- ``ShapedArray``
