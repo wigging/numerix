@@ -3,6 +3,8 @@ ShapedArray structure for working with N-dimensional numerical data.
 The underlying data storage is a mutable buffer handled by the DataBuffer class.
 */
 
+import Accelerate
+
 /// An N-dimensional array for working with numerical data.
 public struct ShapedArray<T> {
 
@@ -59,5 +61,20 @@ public struct ShapedArray<T> {
             let idx = flatIndex(indices: index, shape: self.shape)
             self.buffer[idx] = newValue
         }
+    }
+}
+
+extension ShapedArray: Equatable where T: Equatable {
+
+    /// Compare two matrices for equality.
+    /// - Parameters:
+    ///   - lhs: The first matrix.
+    ///   - rhs: The second matrix.
+    /// - Returns: True if both matrices are same dimension and contain the same values.
+    public static func == (lhs: ShapedArray, rhs: ShapedArray) -> Bool {
+        let n = lhs.buffer.count
+        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * n)
+        let buffersEqual = cmp == 0 ? true : false
+        return lhs.shape == rhs.shape && buffersEqual
     }
 }

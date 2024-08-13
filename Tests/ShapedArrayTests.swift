@@ -53,4 +53,13 @@ final class ShapedArrayTests: XCTestCase {
         XCTAssertEqual(b.shape, [2, 3, 2, 4])
         XCTAssertEqual(b[1, 0, 1, 3], 32)
     }
+
+    func testEquatable() {
+        let arr1 = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        let arr2 = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        XCTAssert(arr1 == arr2)
+
+        let arr3 = ShapedArray<Double>([[1, 2, 3], [8, 9, 10]])
+        XCTAssert(arr1 != arr3)
+    }
 }
