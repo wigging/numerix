@@ -1,5 +1,5 @@
 /*
- Addition operators for Vector and Matrix structures. Single and double
+ Addition operators for Vector, Matrix, and ShapedArray structures. Single and double
  precision operations are supported.
  */
 
@@ -261,5 +261,109 @@ public func += (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
 ///   - rhs: The second input matrix.
 public func += (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must be same shape")
+    lhs = lhs + rhs
+}
+
+// MARK: Scalar-ShapedArray addition
+
+/// Element-wise addition of a scalar value and a shaped array with single precision.
+/// - Parameters:
+///   - lhs: The scalar value `k`
+///   - rhs: The shaped array `A`.
+/// - Returns: Shaped array that is the result of `k + A`.
+public func + (lhs: Float, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: rhs.shape)
+    vDSP.add(lhs, rhs.buffer, result: &result.buffer)
+    return result
+}
+
+/// Element-wise addition of a scalar value and a shaped array with double precision.
+/// - Parameters:
+///   - lhs: The scalar value `k`
+///   - rhs: The shaped array `A`.
+/// - Returns: Shaped array that is the result of `k + A`.
+public func + (lhs: Double, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: rhs.shape)
+    vDSP.add(lhs, rhs.buffer, result: &result.buffer)
+    return result
+}
+
+// MARK: ShapedArray-Scalar addition
+
+/// Element-wise addition of a shaped array and a scalar value with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The scalar value `k`.
+/// - Returns: Shaped array that is the result of `A + k`.
+public func + (lhs: ShapedArray<Float>, rhs: Float) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: lhs.shape)
+    vDSP.add(rhs, lhs.buffer, result: &result.buffer)
+    return result
+}
+
+/// Element-wise addition of a shaped array and a scalar value with double precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The scalar value `k`.
+/// - Returns: Shaped array that is the result of `A + k`.
+public func + (lhs: ShapedArray<Double>, rhs: Double) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: lhs.shape)
+    vDSP.add(rhs, lhs.buffer, result: &result.buffer)
+    return result
+}
+
+/// In-place element-wise addition of a shaped array and a scalar value with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The scalar value `k`.
+public func += (lhs: inout ShapedArray<Float>, rhs: Float) {
+    lhs = lhs + rhs
+}
+
+/// In-place element-wise addition of a shaped array and a scalar value with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The scalar value `k`.
+public func += (lhs: inout ShapedArray<Double>, rhs: Double) {
+    lhs = lhs + rhs
+}
+
+// MARK: ShapedArray-ShapedArray addition
+
+/// Element-wise addition of two shaped arrays with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The shaped array `B`.
+/// - Returns: Shaped array that is the result of `A + B`.
+public func + (lhs: ShapedArray<Float>, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: lhs.shape)
+    vDSP.add(lhs.buffer, rhs.buffer, result: &result.buffer)
+    return result
+}
+
+/// Element-wise addition of two shaped arrays with double precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The shaped array `B`.
+/// - Returns: Shaped array that is the result of `A + B`.
+public func + (lhs: ShapedArray<Double>, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: lhs.shape)
+    vDSP.add(lhs.buffer, rhs.buffer, result: &result.buffer)
+    return result
+}
+
+/// In-place element-wise addition of two shaped arrays with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The shaped array `B`.
+public func += (lhs: inout ShapedArray<Float>, rhs: ShapedArray<Float>) {
+    lhs = lhs + rhs
+}
+
+/// In-place element-wise addition of two shaped arrays with double precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The shaped array `B`.
+public func += (lhs: inout ShapedArray<Double>, rhs: ShapedArray<Double>) {
     lhs = lhs + rhs
 }

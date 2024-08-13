@@ -1,10 +1,10 @@
 # Addition
 
-Addition operators for Vector and Matrix structures.
+Addition operators for Vector, Matrix, and ShapedArray structures.
 
 ## Overview
 
-Vector and matrix addition using single and double precision values. These are element-wise operations.
+Vector, matrix, and shaped array addition using single and double precision values. These are element-wise operations.
 
 ## Topics
 
@@ -47,3 +47,22 @@ Vector and matrix addition using single and double precision values. These are e
 - ``+(_:_:)-37mz0``
 - ``+=(_:_:)-2p9o2``
 - ``+=(_:_:)-55xxz``
+
+### Scalar-ShapedArray addition
+
+- ``+(_:_:)-bt1``
+- ``+(_:_:)-8oz0l``
+
+### ShapedArray-Scalar addition
+
+- ``+(_:_:)-3ipb4``
+- ``+(_:_:)-2ro96``
+- ``+=(_:_:)-6eceu``
+- ``+=(_:_:)-3fqqv``
+
+### ShapedArray-ShapedArray addition
+
+- ``+(_:_:)-wxvs``
+- ``+(_:_:)-1chpq``
+- ``+=(_:_:)-9cfya``
+- ``+=(_:_:)-4umpr``

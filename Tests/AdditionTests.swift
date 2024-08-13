@@ -58,44 +58,86 @@ final class AdditionTests: XCTestCase {
     }
 
     func testScalarMatrix() {
-        let matF = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
-        XCTAssertEqual(2.0 + matF, Matrix<Float>([[3, 4, 5], [6, 7, 8]]))
+        let matF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(2.0 + matF, ShapedArray<Float>([[3, 4, 5], [6, 7, 8]]))
 
-        let matD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
-        XCTAssertEqual(2.0 + matD, Matrix<Double>([[3, 4, 5], [6, 7, 8]]))
+        let matD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(2.0 + matD, ShapedArray<Double>([[3, 4, 5], [6, 7, 8]]))
     }
 
     func testMatrixScalar() {
-        let matF = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
-        XCTAssertEqual(matF + 2.0, Matrix<Float>([[3, 4, 5], [6, 7, 8]]))
+        let matF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(matF + 2.0, ShapedArray<Float>([[3, 4, 5], [6, 7, 8]]))
 
-        let matD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
-        XCTAssertEqual(matD + 2.0, Matrix<Double>([[3, 4, 5], [6, 7, 8]]))
+        let matD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(matD + 2.0, ShapedArray<Double>([[3, 4, 5], [6, 7, 8]]))
 
-        var matFF = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
+        var matFF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
         matFF += 2.0
-        XCTAssertEqual(matFF, Matrix<Float>([[3, 4, 5], [6, 7, 8]]))
+        XCTAssertEqual(matFF, ShapedArray<Float>([[3, 4, 5], [6, 7, 8]]))
 
-        var matDD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
+        var matDD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
         matDD += 2.0
-        XCTAssertEqual(matDD, Matrix<Double>([[3, 4, 5], [6, 7, 8]]))
+        XCTAssertEqual(matDD, ShapedArray<Double>([[3, 4, 5], [6, 7, 8]]))
     }
 
     func testMatrixMatrix() {
-        let matF1 = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
-        let matF2 = Matrix<Float>([[7, 8, 9], [2, 3, 4]])
-        XCTAssertEqual(matF1 + matF2, Matrix<Float>([[8, 10, 12], [6, 8, 10]]))
+        let matF1 = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        let matF2 = ShapedArray<Float>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(matF1 + matF2, ShapedArray<Float>([[8, 10, 12], [6, 8, 10]]))
 
-        let matD1 = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
-        let matD2 = Matrix<Double>([[7, 8, 9], [2, 3, 4]])
-        XCTAssertEqual(matD1 + matD2, Matrix<Double>([[8, 10, 12], [6, 8, 10]]))
+        let matD1 = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        let matD2 = ShapedArray<Double>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(matD1 + matD2, ShapedArray<Double>([[8, 10, 12], [6, 8, 10]]))
 
-        var matFF = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
-        matFF += Matrix<Float>([[7, 8, 9], [2, 3, 4]])
-        XCTAssertEqual(matFF, Matrix<Float>([[8, 10, 12], [6, 8, 10]]))
+        var matFF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        matFF += ShapedArray<Float>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(matFF, ShapedArray<Float>([[8, 10, 12], [6, 8, 10]]))
 
-        var matDD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
-        matDD += Matrix<Double>([[7, 8, 9], [2, 3, 4]])
-        XCTAssertEqual(matDD, Matrix<Double>([[8, 10, 12], [6, 8, 10]]))
+        var matDD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        matDD += ShapedArray<Double>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(matDD, ShapedArray<Double>([[8, 10, 12], [6, 8, 10]]))
+    }
+
+    func testScalarShapedArray() {
+        let arrF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(2.0 + arrF, ShapedArray<Float>([[3, 4, 5], [6, 7, 8]]))
+
+        let arrD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(2.0 + arrD, ShapedArray<Double>([[3, 4, 5], [6, 7, 8]]))
+    }
+
+    func testShapedArrayScalar() {
+        let arrF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(arrF + 2.0, ShapedArray<Float>([[3, 4, 5], [6, 7, 8]]))
+
+        let arrD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        XCTAssertEqual(arrD + 2.0, ShapedArray<Double>([[3, 4, 5], [6, 7, 8]]))
+
+        var arrFF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        arrFF += 2.0
+        XCTAssertEqual(arrFF, ShapedArray<Float>([[3, 4, 5], [6, 7, 8]]))
+
+        var arrDD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        arrDD += 2.0
+        XCTAssertEqual(arrDD, ShapedArray<Double>([[3, 4, 5], [6, 7, 8]]))
+    }
+
+    func testShapedArrayShapedArray() {
+        let arrF1 = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        let arrF2 = ShapedArray<Float>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(arrF1 + arrF2, ShapedArray<Float>([[8, 10, 12], [6, 8, 10]]))
+
+        let arrD1 = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        let arrD2 = ShapedArray<Double>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(arrD1 + arrD2, ShapedArray<Double>([[8, 10, 12], [6, 8, 10]]))
+
+        var arrFF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+        arrFF += ShapedArray<Float>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(arrFF, ShapedArray<Float>([[8, 10, 12], [6, 8, 10]]))
+
+        var arrDD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+        arrDD += ShapedArray<Double>([[7, 8, 9], [2, 3, 4]])
+        XCTAssertEqual(arrDD, ShapedArray<Double>([[8, 10, 12], [6, 8, 10]]))
     }
 }
