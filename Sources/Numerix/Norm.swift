@@ -25,7 +25,7 @@ public func norm(_ vec: Vector<Double>) -> Double {
 
 // MARK: Matrix norm
 
-/// Calculate the L² norm, also known as Euclidean norm, of a matrix with double precision.
+/// Calculate the L² norm, also known as Euclidean norm, of a matrix with single precision.
 /// - Parameter mat: The input matrix.
 /// - Returns: The norm of the input matrix.
 public func norm(_ mat: Matrix<Float>) -> Float {
@@ -38,5 +38,23 @@ public func norm(_ mat: Matrix<Float>) -> Float {
 /// - Returns: The norm of the input matrix.
 public func norm(_ mat: Matrix<Double>) -> Double {
     let nrm = cblas_dnrm2(mat.buffer.count, mat.buffer.baseAddress, 1)
+    return nrm
+}
+
+// MARK: ShapedArray norm
+
+/// Calculate the L² norm, also known as Euclidean norm, of a shaped array with single precision.
+/// - Parameter arr: The shaped array input.
+/// - Returns: The norm of the shaped array.
+public func norm(_ arr: ShapedArray<Float>) -> Float {
+    let nrm = cblas_snrm2(arr.buffer.count, arr.buffer.baseAddress, 1)
+    return nrm
+}
+
+/// Calculate the L² norm, also known as Euclidean norm, of a shaped array with double precision.
+/// - Parameter arr: The shaped array input.
+/// - Returns: The norm of the shaped array.
+public func norm(_ arr: ShapedArray<Double>) -> Double {
+    let nrm = cblas_dnrm2(arr.buffer.count, arr.buffer.baseAddress, 1)
     return nrm
 }
