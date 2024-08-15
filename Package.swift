@@ -5,7 +5,8 @@ import PackageDescription
 let package = Package(
     name: "Numerix",
     platforms: [
-        .macOS("13.3")
+        .macOS(.v14),
+        .iOS(.v16)
     ],
     products: [
         .library(name: "Numerix", targets: ["Numerix"])

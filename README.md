@@ -1,6 +1,6 @@
 # Numerix
 
-Numerix is an open-source Swift package that provides Vector and Matrix structures for performing linear algebra and other numerical computations on Apple devices. It uses the Accelerate framework to perform high-performance and energy-efficient calculations. See the sections below to learn more about the package.
+Numerix is an open-source Swift package that provides Complex, Vector, Matrix, and ShapedArray structures for performing linear algebra and other numerical computations on Apple devices. It uses the Accelerate framework to perform high-performance and energy-efficient calculations. See the sections below to learn more about the package.
 
 ## Installation
 
