@@ -1,10 +1,10 @@
 # Subtraction
 
-Subtraction operators for Vector and Matrix structures.
+Subtraction operators for Vector, Matrix, and ShapedArray structures.
 
 ## Overview
 
-Vector and matrix subtraction using single and double precision values. These are element-wise operations.
+Vector, matrix, shaped array subtraction using single and double precision values. These are element-wise operations.
 
 ## Topics
 
@@ -21,3 +21,10 @@ Vector and matrix subtraction using single and double precision values. These ar
 - ``-(_:_:)-pr89``
 - ``-(_:_:)-1pmmz``
 - ``-(_:_:)-4dl1``
+
+- ``-(_:_:)-9seks``
+- ``-(_:_:)-898e2``
+- ``-(_:_:)-fa3g``
+- ``-(_:_:)-3szad``
+- ``-(_:_:)-19ara``
+- ``-(_:_:)-5cq4q``

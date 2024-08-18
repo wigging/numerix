@@ -94,3 +94,75 @@ public func - (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     vDSP.subtract(lhs.buffer, rhs.buffer, result: &mat.buffer)
     return mat
 }
+
+// MARK: Scalar-ShapedArray subtraction
+
+/// Element-wise subtraction of a scalar value and a shaped array with single precision.
+/// - Parameters:
+///   - lhs: The scalar value `k`.
+///   - rhs: The shaped array `A`.
+/// - Returns: Shaped array that is the result of `k - A`.
+public func - (lhs: Float, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    var arr = ShapedArray<Float>(shape: rhs.shape)
+    vDSP.subtract(arr.buffer, rhs.buffer, result: &arr.buffer)
+    return arr
+}
+
+/// Element-wise subtraction of a scalar value and a shaped array with double precision.
+/// - Parameters:
+///   - lhs: The scalar value `k`.
+///   - rhs: The shaped array `A`.
+/// - Returns: Shaped array that is the result of `k - A`.
+public func - (lhs: Double, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    var arr = ShapedArray<Double>(shape: rhs.shape)
+    vDSP.subtract(arr.buffer, rhs.buffer, result: &arr.buffer)
+    return arr
+}
+
+// MARK: ShapedArray-Scalar subtraction
+
+/// Element-wise subtraction of a shaped array and a scalar value with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The scalar value `k`.
+/// - Returns: Shaped array that is the result of `A - k`.
+public func - (lhs: ShapedArray<Float>, rhs: Float) -> ShapedArray<Float> {
+    var arr = ShapedArray<Float>(shape: lhs.shape)
+    vDSP.subtract(lhs.buffer, arr.buffer, result: &arr.buffer)
+    return arr
+}
+
+/// Element-wise subtraction of a shaped array and a scalar value with double precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The scalar value `k`.
+/// - Returns: Shaped array that is the result of `A - k`.
+public func - (lhs: ShapedArray<Double>, rhs: Double) -> ShapedArray<Double> {
+    var arr = ShapedArray<Double>(shape: lhs.shape)
+    vDSP.subtract(lhs.buffer, arr.buffer, result: &arr.buffer)
+    return arr
+}
+
+// MARK: ShapedArray-ShapedArray subtraction
+
+/// Element-wise subtraction of two shaped arrays with single precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The shaped array `B`.
+/// - Returns: Shaped array that is the result of `A - B`.
+public func - (lhs: ShapedArray<Float>, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    var arr = ShapedArray<Float>(shape: lhs.shape)
+    vDSP.subtract(lhs.buffer, rhs.buffer, result: &arr.buffer)
+    return arr
+}
+
+/// Element-wise subtraction of two shaped arrays with double precision.
+/// - Parameters:
+///   - lhs: The shaped array `A`.
+///   - rhs: The shaped array `B`.
+/// - Returns: Shaped array that is the result of `A - B`.
+public func - (lhs: ShapedArray<Double>, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    var arr = ShapedArray<Double>(shape: lhs.shape)
+    vDSP.subtract(lhs.buffer, rhs.buffer, result: &arr.buffer)
+    return arr
+}
