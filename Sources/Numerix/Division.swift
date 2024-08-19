@@ -1,7 +1,7 @@
 /*
- Division operators for Vector and Matrix structures. Single and double
- precision operations are supported.
- */
+Division operators for Vector, Matrix, and ShapedArray structures. Single and double
+precision operations are supported.
+*/
 
 import Accelerate
 
@@ -87,4 +87,77 @@ public func /= (lhs: inout Matrix<Float>, rhs: Float) {
 ///   - rhs: Scalar value.
 public func /= (lhs: inout Matrix<Double>, rhs: Double) {
     lhs = lhs / rhs
+}
+
+// MARK: Scalar-ShapedArray division
+
+/// Element-wise division of a scalar value by a shaped array using single precision.
+/// - Parameters:
+///   - lhs: The scalar value numerator.
+///   - rhs: The shaped array denominator.
+/// - Returns: The shaped array quotient.
+public func / (lhs: Float, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    var arr = ShapedArray<Float>(shape: rhs.shape)
+    vDSP.divide(lhs, rhs.buffer, result: &arr.buffer)
+    return arr
+}
+
+/// Element-wise division of a scalar value by a shaped array using double precision.
+/// - Parameters:
+///   - lhs: The scalar value numerator.
+///   - rhs: The shaped array denominator.
+/// - Returns: The shaped array quotient.
+public func / (lhs: Double, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    var arr = ShapedArray<Double>(shape: rhs.shape)
+    vDSP.divide(lhs, rhs.buffer, result: &arr.buffer)
+    return arr
+}
+
+// MARK: ShapedArray-Scalar division
+
+/// Element-wise division of a shaped array by a scalar value using single precision.
+/// - Parameters:
+///   - lhs: The shaped array numerator.
+///   - rhs: The scalar value denominator.
+/// - Returns: The shaped array quotient.
+public func / (lhs: ShapedArray<Float>, rhs: Float) -> ShapedArray<Float> {
+    var arr = ShapedArray<Float>(shape: lhs.shape)
+    vDSP.divide(lhs.buffer, rhs, result: &arr.buffer)
+    return arr
+}
+
+/// Element-wise division of a shaped array by a scalar value using double precision.
+/// - Parameters:
+///   - lhs: The shaped array numerator.
+///   - rhs: The scalar value denominator.
+/// - Returns: The shaped array quotient.
+public func / (lhs: ShapedArray<Double>, rhs: Double) -> ShapedArray<Double> {
+    var arr = ShapedArray<Double>(shape: lhs.shape)
+    vDSP.divide(lhs.buffer, rhs, result: &arr.buffer)
+    return arr
+}
+
+// MARK: ShapedArray-ShapedArray division
+
+/// Element-wise division of two shaped arrays using single precision.
+/// - Parameters:
+///   - lhs: The shaped array numerator.
+///   - rhs: The shaped array denominator.
+/// - Returns: The shaped array quotient.
+public func / (lhs: ShapedArray<Float>, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    var arr = ShapedArray<Float>(shape: lhs.shape)
+    vDSP.divide(lhs.buffer, rhs.buffer, result: &arr.buffer)
+    return arr
+}
+
+/// Element-wise division of two shaped arrays using double precision.
+/// - Parameters:
+///   - lhs: The shaped array numerator.
+///   - rhs: The shaped array denominator.
+/// - Returns: The shaped array quotient.
+public func / (lhs: ShapedArray<Double>, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    precondition(lhs.shape == rhs.shape, "Shapes must be similar")
+    var arr = ShapedArray<Double>(shape: lhs.shape)
+    vDSP.divide(lhs.buffer, rhs.buffer, result: &arr.buffer)
+    return arr
 }
