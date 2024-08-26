@@ -34,11 +34,20 @@ public struct ShapedArray<T> {
         self.data = DataBuffer(array: array)
     }
 
-    /// Create a ShapedArray from a one-dimensional array literal with a given shape.
+    /// Create a ShapedArray from a one-dimension array literal with a given shape.
     /// - Parameters:
     ///   - array: An array literal with one dimension.
     ///   - shape: The shape of the ShapedArray.
     public init(_ array: [T], shape: Int...) {
+        self.shape = shape
+        self.data = DataBuffer(array: array)
+    }
+
+    /// Create a ShapedArray from a one-dimension array literal with a given shape.
+    /// - Parameters:
+    ///   - array: An array literal with one dimension.
+    ///   - shape: The shape of the ShapedArray.
+    public init(_ array: [T], shape: [Int]) {
         self.shape = shape
         self.data = DataBuffer(array: array)
     }
@@ -76,5 +85,12 @@ extension ShapedArray: Equatable where T: Equatable {
         let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * n)
         let buffersEqual = cmp == 0 ? true : false
         return lhs.shape == rhs.shape && buffersEqual
+    }
+}
+
+extension ShapedArray: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: [T]...) {
+        self.init(elements)
     }
 }
