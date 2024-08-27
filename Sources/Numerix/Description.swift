@@ -1,30 +1,7 @@
 /*
-Description for Vector and Matrix structures. This determines the print output
-when doing things like `print(vec)` and `print(mat)`.
+Description for Vector, Matrix, ShapedArray structures. This determines the
+print output when doing things like `print(vec)` and `print(mat)`.
 */
-
-/// String representation of an Integer, Float, or Double.
-public protocol NumberString {
-    var numberDescription: String { get }
-}
-
-extension Int: NumberString {
-    public var numberDescription: String {
-        "\(self)"
-    }
-}
-
-extension Float: NumberString {
-    public var numberDescription: String {
-        String(format: "%.2f", self)
-    }
-}
-
-extension Double: NumberString {
-    public var numberDescription: String {
-        String(format: "%.4f", self)
-    }
-}
 
 // Get the last row for each sub-matrix.
 // This accounts for the empty line between each sub-matrix.
@@ -131,62 +108,28 @@ func arrayDescription<T>(for buffer: UnsafeMutableBufferPointer<T>, with shape: 
     return descr
 }
 
-extension Vector: CustomStringConvertible where T: NumberString {
+extension Vector: CustomStringConvertible {
 
     public var description: String {
-        let desc = """
-        \(self.length)-element \(type(of: self))
-        \(self.buffer.map(\.numberDescription).joined(separator: " "))
-        """
-        return desc
+        var descr = "\(self.length)-element \(type(of: self))\n"
+        descr += arrayDescription(for: self.buffer, with: [self.length])
+        return descr
     }
 }
 
-extension Matrix: CustomStringConvertible where T: NumberString, T: Comparable {
+extension Matrix: CustomStringConvertible {
 
     public var description: String {
-        var desc = ""
-
-        // Matrix size and type
-        desc += "\(self.rows)x\(self.columns) \(type(of: self))\n"
-
-        // Max column width for each matrix column
-        //
-        // This is not efficient for a large matrix. Consider transposing so
-        // that iterating over rows actually iterates over the columns then get
-        // max value for each column.
-        var colVals = [T]()
-        var maxColWidth = [Int]()
-
-        for j in 0..<self.columns {
-            for i in 0..<self.rows {
-                colVals.append(self[i, j])
-            }
-            maxColWidth.append(colVals.max()!.numberDescription.count)
-            colVals = []
-        }
-
-        // Matrix values as strings with padding
-        for i in 0..<self.rows {
-            for j in 0..<self.columns {
-                let colWidth = maxColWidth[j]
-                let valWidth = self[i, j].numberDescription.count
-                let pad = String(repeating: " ", count: colWidth - valWidth)
-                let valDesc = pad + self[i, j].numberDescription + "  "
-                desc += valDesc
-            }
-            desc += "\n"
-        }
-
-        return desc
+        var descr = "\(self.rows)x\(self.columns) \(type(of: self))\n"
+        descr += arrayDescription(for: self.buffer, with: [self.rows, self.columns])
+        return descr
     }
 }
 
 extension ShapedArray: CustomStringConvertible {
 
     public var description: String {
-        var descr = ""
-        descr += self.shape.map { "\($0)" }.joined(separator: "x") + " \(type(of: self))\n"
+        var descr = self.shape.map { "\($0)" }.joined(separator: "x") + " \(type(of: self))\n"
         descr += arrayDescription(for: self.buffer, with: self.shape)
         return descr
     }
