@@ -1,9 +1,9 @@
 /*
- Exponential functions for Vector and Matrix structures. The following single
- and double precision operations are supported:
- • exp() for eˣ
- • exp2() for 2ˣ
- • expm1() for eˣ - 1
+Exponential functions for Vector, Matrix, and ShapedArray structures.
+Single and double precision operations are supported.
+• exp() is eˣ
+• exp2() is 2ˣ
+• expm1() is eˣ - 1
 */
 
 import Accelerate
@@ -118,4 +118,60 @@ public func expm1(_ matrix: Matrix<Double>) -> Matrix<Double> {
     var mat = Matrix<Double>(rows: matrix.rows, columns: matrix.columns)
     vForce.expm1(matrix.buffer, result: &mat.buffer)
     return mat
+}
+
+// MARK: ShapedArray exponential
+
+/// Calculate the exponential function eˣ for all single-precision values in a shaped array.
+/// - Parameter array: The input values.
+/// - Returns: Element-wise exponential function of x.
+public func exp(_ array: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.exp(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate the exponential function eˣ for all double-precision values in a shaped array.
+/// - Parameter array: The input values.
+/// - Returns: Element-wise exponential function of x.
+public func exp(_ array: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.exp(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate 2ˣ as 2 raised to the power of all single-precision values in a shaped array.
+/// - Parameter array: The input values.
+/// - Returns: Element-wise 2 to the power of x.
+public func exp2(_ array: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.exp2(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate 2ˣ as 2 raised to the power of all double-precision values in a shaped array.
+/// - Parameter array: The input values.
+/// - Returns: Element-wise 2 to the power of x.
+public func exp2(_ array: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.exp2(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate eˣ-1 for all single-precision values in a shaped array.
+/// - Parameter array: The input values.
+/// - Returns: Element-wise eˣ-1 where x is each value of the input shaped array.
+public func expm1(_ array: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.expm1(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate eˣ-1 for all double-precision values in a shaped array.
+/// - Parameter array: The input values.
+/// - Returns: Element-wise eˣ-1 where x is each value of the input shaped array.
+public func expm1(_ array: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.expm1(array.buffer, result: &result.buffer)
+    return result
 }
