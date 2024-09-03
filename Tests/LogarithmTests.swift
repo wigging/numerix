@@ -13,6 +13,9 @@ final class LogarithmTests: XCTestCase {
     let matF = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
     let matD = Matrix<Double>([[1, 2, 3], [4, 5, 6]])
 
+    let arrF = ShapedArray<Float>([[1, 2, 3], [4, 5, 6]])
+    let arrD = ShapedArray<Double>([[1, 2, 3], [4, 5, 6]])
+
     func testVector() {
         XCTAssert(isApprox(log(vecF), [0, 0.693147, 1.098612, 1.386294, 1.609437], rtol: 1e-4))
         XCTAssert(isApprox(log(vecD), [0, 0.693147, 1.098612, 1.386294, 1.609437], rtol: 1e-4))
@@ -45,5 +48,22 @@ final class LogarithmTests: XCTestCase {
 
         XCTAssert(isApprox(logb(matF), [[0, 1, 1], [2, 2, 2]], rtol: 1e-4))
         XCTAssert(isApprox(logb(matD), [[0, 1, 1], [2, 2, 2]], rtol: 1e-4))
+    }
+
+    func testShapedArray() {
+        XCTAssert(isApprox(log(arrF), [[0, 0.693147, 1.098612], [1.386294, 1.609437, 1.791759]], rtol: 1e-4))
+        XCTAssert(isApprox(log(arrD), [[0, 0.693147, 1.098612], [1.386294, 1.609437, 1.791759]], rtol: 1e-4))
+
+        XCTAssert(isApprox(log1p(arrF), [[0.693147, 1.098612, 1.386294], [1.609437, 1.791759, 1.945910]], rtol: 1e-4))
+        XCTAssert(isApprox(log1p(arrD), [[0.693147, 1.098612, 1.386294], [1.609437, 1.791759, 1.945910]], rtol: 1e-4))
+
+        XCTAssert(isApprox(log10(arrF), [[0, 0.30103, 0.47712125], [0.60205999, 0.69897, 0.778151]], rtol: 1e-4))
+        XCTAssert(isApprox(log10(arrD), [[0, 0.30103, 0.47712125], [0.60205999, 0.69897, 0.778151]], rtol: 1e-4))
+
+        XCTAssert(isApprox(log2(arrF), [[0, 1, 1.5849625], [2, 2.321928, 2.584962]], rtol: 1e-4))
+        XCTAssert(isApprox(log2(arrD), [[0, 1, 1.5849625], [2, 2.321928, 2.584962]], rtol: 1e-4))
+
+        XCTAssert(isApprox(logb(arrF), [[0, 1, 1], [2, 2, 2]], rtol: 1e-4))
+        XCTAssert(isApprox(logb(arrD), [[0, 1, 1], [2, 2, 2]], rtol: 1e-4))
     }
 }
