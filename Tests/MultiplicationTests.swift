@@ -7,7 +7,7 @@ import Numerix
 
 final class MultiplicationTests: XCTestCase {
 
-    func testVectorMultiplication() {
+    func testVector() {
         let vec1 = Vector<Double>([1, 2, 3, 4])
         let vec2 = Vector<Double>([2, 3, 4, 5])
 
@@ -23,7 +23,7 @@ final class MultiplicationTests: XCTestCase {
         XCTAssertEqual(vec3 * 2.0, Vector<Float>([2, 4, 6, 8]))
     }
 
-    func testMatrixMultiplication() {
+    func testMatrix() {
         let mat1 = Matrix<Double>([[1, 0, 1],
                                    [2, 1, 1],
                                    [0, 1, 1],
@@ -52,7 +52,7 @@ final class MultiplicationTests: XCTestCase {
         XCTAssertEqual(c[0, 0].imag, 31.0)
     }
 
-    func testElementwiseMatrixMultiplication() {
+    func testElementwiseMatrix() {
         let mat1 = Matrix([[1.0, 2.0, 3.0],
                            [4.0, 5.0, 6.0]])
 
@@ -84,5 +84,49 @@ final class MultiplicationTests: XCTestCase {
         var matD = Matrix([[1.0, 2.0], [4.0, 5.0]])
         matD *= Matrix([[2.0, 2.0, 3.0], [8.0, 5.0, 6.0]])
         XCTAssertEqual(matD, [[18.0, 12.0, 15.0], [48.0, 33.0, 42.0]])
+    }
+
+    func testShapedArrayFloat() {
+        let k: Float = 2.0
+        let A = ShapedArray<Float>([1, 2, 3, 4, 5, 6])
+        let result = ShapedArray<Float>([2, 4, 6, 8, 10, 12])
+        let result2 = ShapedArray<Float>([1, 4, 9, 16, 25, 36])
+
+        let B = multiply(k, A)
+        XCTAssertEqual(B, result)
+
+        let BB = multiply(A, k)
+        XCTAssertEqual(BB, result)
+
+        let C = k * A
+        XCTAssertEqual(C, result)
+
+        let CC = A * k
+        XCTAssertEqual(CC, result)
+
+        let D = A * A
+        XCTAssertEqual(D, result2)
+    }
+
+    func testShapedArrayDouble() {
+        let k = 2.0
+        let A = ShapedArray<Double>([1, 2, 3, 4, 5, 6])
+        let result = ShapedArray<Double>([2, 4, 6, 8, 10, 12])
+        let result2 = ShapedArray<Double>([1, 4, 9, 16, 25, 36])
+
+        let B = multiply(k, A)
+        XCTAssertEqual(B, result)
+
+        let BB = multiply(A, k)
+        XCTAssertEqual(BB, result)
+
+        let C = k * A
+        XCTAssertEqual(C, result)
+
+        let CC = A * k
+        XCTAssertEqual(CC, result)
+
+        let D = A * A
+        XCTAssertEqual(D, result2)
     }
 }

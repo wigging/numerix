@@ -1,19 +1,10 @@
 # Multiplication
 
-Multiplication operators for Vector and Matrix structures.
+Multiplication functions and operators for Vector, Matrix, and ShapedArray structures.
 
 ## Overview
 
-Most of the vector and matrix multiplication operators use `*` but there are some differences that should be noted. For example, element-wise vector multiplication is performed with the `*` operator while element-wise matrix multiplication uses the `.*` operator. See the table below for a summary of the multiplication operators. In the table, scalars are represented by `s`, vectors by lower case letters such as `a` and `b`, and matrices by upper case letters `A` and `B`.
-
-Description                                      | Operation
------------------------------------------------- | ---------
-Element-wise multiplication of scalar and vector | `s * b`   
-Element-wise multiplication of vector and scalar | `a * s`   
-Element-wise multiplication of two vectors       | `a * b`
-Element-wise multiplication of two matrices      | `A .* B`   
-Multiplication of two matrices                   | `A * B`   
-
+Functions and operators for multiplication of vectors, matrices, and shaped arrays are listed below. Notice that some of these operations are element-wise multiplication while others are vector or matrix multiplication. See the documentation for each function or operator for more details.
 
 ## Topics
 
@@ -51,3 +42,24 @@ Multiplication of two matrices                   | `A * B`
 
 - ``⊙(_:_:)-3cut5``
 - ``⊙(_:_:)-73mgh``
+
+### Scalar-ShapedArray multiplication
+
+- ``multiply(_:_:)-9b402``
+- ``multiply(_:_:)-5waof``
+- ``*(_:_:)-44j4w``
+- ``*(_:_:)-8hzpo``
+
+### ShapedArray-Scalar multiplication
+
+- ``multiply(_:_:)-8ht0a``
+- ``multiply(_:_:)-85jtc``
+- ``*(_:_:)-20pnt``
+- ``*(_:_:)-7nhdg``
+
+### ShapedArray-ShapedArray multiplication
+
+- ``multiply(_:_:)-2we2l``
+- ``multiply(_:_:)-4zivd``
+- ``*(_:_:)-107mf``
+- ``*(_:_:)-4afe8``

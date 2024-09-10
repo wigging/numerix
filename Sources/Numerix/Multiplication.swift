@@ -1,8 +1,3 @@
-/*
-Multiplication operators for Vector and Matrix structures. Single and double
-precision operations are supported.
-*/
-
 import Accelerate
 
 infix operator .*
@@ -258,4 +253,130 @@ public func ⊙ (lhs: Matrix<Double>, rhs: Matrix<Double>) -> Matrix<Double> {
     var mat = Matrix<Double>(rows: lhs.rows, columns: lhs.columns)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &mat.buffer)
     return mat
+}
+
+// MARK: Scalar-ShapedArray multiplication
+
+/// Element-wise multiplication of a scalar value and a shaped array using single precision.
+/// - Parameters:
+///   - k: The input scalar value `k`.
+///   - A: The input shaped array `A`.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func multiply(_ k: Float, _ A: ShapedArray<Float>) -> ShapedArray<Float> {
+    var array = ShapedArray<Float>(shape: A.shape)
+    vDSP.multiply(k, A.buffer, result: &array.buffer)
+    return array
+}
+
+/// Element-wise multiplication of a scalar value and a shaped array using double precision.
+/// - Parameters:
+///   - k: The input scalar value `k`.
+///   - A: The input shaped array `A`.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func multiply(_ k: Double, _ A: ShapedArray<Double>) -> ShapedArray<Double> {
+    var array = ShapedArray<Double>(shape: A.shape)
+    vDSP.multiply(k, A.buffer, result: &array.buffer)
+    return array
+}
+
+/// Element-wise multiplication of a scalar value and a shaped array using single precision.
+/// - Parameters:
+///   - lhs: The input scalar value `k` on the left-hand side.
+///   - rhs: The input shaped array `A` on the right-hand side.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func * (lhs: Float, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    multiply(lhs, rhs)
+}
+
+/// Element-wise multiplication of a scalar value and a shaped array using double precision.
+/// - Parameters:
+///   - lhs: The input scalar value `k` on the left-hand side.
+///   - rhs: The input shaped array `A` on the right-hand side.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func * (lhs: Double, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    multiply(lhs, rhs)
+}
+
+// MARK: ShapedArray-Scalar multiplication
+
+/// Element-wise multiplication of a shaped array and a scalar value using single precision.
+/// - Parameters:
+///   - A: The input shaped array `A`.
+///   - k: The input scalar value `k`.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func multiply(_ A: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
+    var array = ShapedArray<Float>(shape: A.shape)
+    vDSP.multiply(k, A.buffer, result: &array.buffer)
+    return array
+}
+
+/// Element-wise multiplication of a shaped array and a scalar value using double precision.
+/// - Parameters:
+///   - A: The input shaped array `A`.
+///   - k: The input scalar value `k`.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func multiply(_ A: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
+    var array = ShapedArray<Double>(shape: A.shape)
+    vDSP.multiply(k, A.buffer, result: &array.buffer)
+    return array
+}
+
+/// Element-wise multiplication of a shaped array and a scalar value using single precision.
+/// - Parameters:
+///   - lhs: The input shaped array `A` on the left-hand side.
+///   - rhs: The input scalar value `k` on the right-hand side.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func * (lhs: ShapedArray<Float>, rhs: Float) -> ShapedArray<Float> {
+    multiply(lhs, rhs)
+}
+
+/// Element-wise multiplication of a shaped array and a scalar value using double precision.
+/// - Parameters:
+///   - lhs: The input shaped array `A` on the left-hand side.
+///   - rhs: The input scalar value `k` on the right-hand side.
+/// - Returns: The output shaped array `B` where `k * A = B`.
+public func * (lhs: ShapedArray<Double>, rhs: Double) -> ShapedArray<Double> {
+    multiply(lhs, rhs)
+}
+
+// MARK: ShapedArray-ShapedArray multiplication
+
+/// Element-wise multiplication of two shaped arrays using single precision.
+/// - Parameters:
+///   - A: The input shaped array `A`.
+///   - B: The input shaped array `B`.
+/// - Returns: The output shaped array `C` where `A * B = C`.
+public func multiply(_ A: ShapedArray<Float>, _ B: ShapedArray<Float>) -> ShapedArray<Float> {
+    var array = ShapedArray<Float>(shape: A.shape)
+    vDSP.multiply(A.buffer, B.buffer, result: &array.buffer)
+    return array
+}
+
+/// Element-wise multiplication of two shaped arrays using double precision.
+/// - Parameters:
+///   - A: The input shaped array `A`.
+///   - B: The input shaped array `B`.
+/// - Returns: The output shaped array `C` where `A * B = C`.
+public func multiply(_ A: ShapedArray<Double>, _ B: ShapedArray<Double>) -> ShapedArray<Double> {
+    var array = ShapedArray<Double>(shape: A.shape)
+    vDSP.multiply(A.buffer, B.buffer, result: &array.buffer)
+    return array
+}
+
+/// Element-wise multiplication of two shaped arrays using single precision.
+/// - Parameters:
+///   - lhs: The input shaped array `A` on the left-hand side.
+///   - rhs: The input shaped array `B` on the right-hand side.
+/// - Returns: The output shaped array `C` where `A * B = C`.
+public func * (lhs: ShapedArray<Float>, rhs: ShapedArray<Float>) -> ShapedArray<Float> {
+    multiply(lhs, rhs)
+}
+
+/// Element-wise multiplication of two shaped arrays using double precision.
+/// - Parameters:
+///   - lhs: The input shaped array `A` on the left-hand side.
+///   - rhs: The input shaped array `B` on the right-hand side.
+/// - Returns: The output shaped array `C` where `A * B = C`.
+public func * (lhs: ShapedArray<Double>, rhs: ShapedArray<Double>) -> ShapedArray<Double> {
+    multiply(lhs, rhs)
 }
