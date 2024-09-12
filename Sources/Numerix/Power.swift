@@ -152,3 +152,79 @@ public func ^ (lhs: Matrix<Float>, rhs: Float) -> Matrix<Float> {
 public func ^ (lhs: Matrix<Double>, rhs: Double) -> Matrix<Double> {
     pow(lhs, rhs)
 }
+
+// MARK: ShapedArray power
+
+/// Raise each element in a single-precision shaped array to the power of the exponent.
+/// - Parameters:
+///   - array: The input shaped array of bases.
+///   - exp: The exponent value.
+/// - Returns: Shaped array of bases raised to the power of the exponent.
+public func pow(_ array: ShapedArray<Float>, _ exp: Float) -> ShapedArray<Float> {
+    let result = ShapedArray<Float>(shape: array.shape)
+    withUnsafePointer(to: exp) { expPtr in
+        withUnsafePointer(to: Int32(array.buffer.count)) { lengthPtr in
+            vvpowsf(result.buffer.baseAddress!, expPtr, array.buffer.baseAddress!, lengthPtr)
+        }
+    }
+    return result
+}
+
+/// Raise each element in a double-precision shaped array to the power of the exponent.
+/// - Parameters:
+///   - array: The input shaped array of bases.
+///   - exp: The exponent value.
+/// - Returns: Shaped array of bases raised to the power of the exponent.
+public func pow(_ array: ShapedArray<Double>, _ exp: Double) -> ShapedArray<Double> {
+    let result = ShapedArray<Double>(shape: array.shape)
+    withUnsafePointer(to: exp) { expPtr in
+        withUnsafePointer(to: Int32(array.buffer.count)) { lengthPtr in
+            vvpows(result.buffer.baseAddress!, expPtr, array.buffer.baseAddress!, lengthPtr)
+        }
+    }
+    return result
+}
+
+/// Raise each element in a single-precision shaped array to the power of each exponent.
+/// - Parameters:
+///   - array: The input shaped array of bases.
+///   - exp: The array of exponents.
+/// - Returns: Shaped array of bases raised to the power of each exponent.
+public func pow(_ array: ShapedArray<Float>, _ exp: [Float]) -> ShapedArray<Float> {
+    let count = array.shape.reduce(1, *)
+    precondition(count == exp.count, "ShapedArray count must correspond to number of exponents")
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.pow(bases: array.buffer, exponents: exp, result: &result.buffer)
+    return result
+}
+
+/// Raise each element in a double-precision shaped array to the power of each exponent.
+/// - Parameters:
+///   - array: The input shaped array of bases.
+///   - exp: The array of exponents.
+/// - Returns: Shaped array of bases raised to the power of each exponent.
+public func pow(_ array: ShapedArray<Double>, _ exp: [Double]) -> ShapedArray<Double> {
+    let count = array.shape.reduce(1, *)
+    precondition(count == exp.count, "ShapedArray count must correspond to number of exponents")
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.pow(bases: array.buffer, exponents: exp, result: &result.buffer)
+    return result
+}
+
+/// Raise each element in a single-precision shaped array to the power of the exponent.
+/// - Parameters:
+///   - lhs: The input shaped array on the left-hand side.
+///   - rhs: The exponent on the right-hand side.
+/// - Returns: Shaped array raised to the power of the exponent.
+public func ^ (lhs: ShapedArray<Float>, rhs: Float) -> ShapedArray<Float> {
+    pow(lhs, rhs)
+}
+
+/// Raise each element in a double-precision shaped array to the power of the exponent.
+/// - Parameters:
+///   - lhs: The input shaped array on the left-hand side.
+///   - rhs: The exponent on the right-hand side.
+/// - Returns: Shaped array raised to the power of the exponent.
+public func ^ (lhs: ShapedArray<Double>, rhs: Double) -> ShapedArray<Double> {
+    pow(lhs, rhs)
+}

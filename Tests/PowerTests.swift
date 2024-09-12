@@ -50,4 +50,18 @@ final class PowerTests: XCTestCase {
         let matP: Matrix<Double> = [[2, 3], [4, 5]]
         XCTAssertEqual(matP^2, [[4, 9], [16, 25]])
     }
+
+    func testShapedArrayFloat() {
+        let array = ShapedArray<Float>([1, 2, 3, 4, 5])
+        XCTAssertEqual(pow(array, 2), ShapedArray<Float>([1, 4, 9, 16, 25]))
+        XCTAssertEqual(pow(array, [1, 2, 1, 2, 2]), ShapedArray<Float>([1, 4, 3, 16, 25]))
+        XCTAssertEqual(array^2, ShapedArray<Float>([1, 4, 9, 16, 25]))
+    }
+
+    func testShapedArrayDouble() {
+        let array = ShapedArray<Double>([1, 2, 3, 4, 5])
+        XCTAssertEqual(pow(array, 2), ShapedArray<Double>([1, 4, 9, 16, 25]))
+        XCTAssertEqual(pow(array, [1, 2, 1, 2, 2]), ShapedArray<Double>([1, 4, 3, 16, 25]))
+        XCTAssertEqual(array^2, ShapedArray<Double>([1, 4, 9, 16, 25]))
+    }
 }

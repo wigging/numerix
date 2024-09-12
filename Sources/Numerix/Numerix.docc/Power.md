@@ -1,10 +1,10 @@
 # Power
 
-Power functions and operators for Vector and Matrix structures.
+Power functions and operators for Vector, Matrix, and ShapedArray structures.
 
 ## Overview
 
-Raise each element in a vector or matrix to the power of the given exponent. An array of exponents is also supported.
+Raise each element in a vector, matrix, or shaped array to the power of the given exponent. An array of exponents is also supported.
 
 ## Topics
 
@@ -25,3 +25,12 @@ Raise each element in a vector or matrix to the power of the given exponent. An 
 - ``pow(_:_:)-22bxq``
 - ``^(_:_:)-66rql``
 - ``^(_:_:)-9kh6e``
+
+### ShapedArray power
+
+- ``pow(_:_:)-9p20``
+- ``pow(_:_:)-9vhu5``
+- ``pow(_:_:)-34zjk``
+- ``pow(_:_:)-21qtg``
+- ``^(_:_:)-7gtct``
+- ``^(_:_:)-3aay8``
