@@ -30,4 +30,16 @@ final class TrigonometricTests: XCTestCase {
         XCTAssert(isApprox(cos(matD), [[0.540302, -0.416147], [-0.989992, -0.653644]], rtol: 1e-4))
         XCTAssert(isApprox(tan(matD), [[1.55741, -2.18504], [-0.142547, 1.15782]], rtol: 1e-4))
     }
+
+    func testShapedArray() {
+        let arrayF = ShapedArray<Float>([[1, 2], [3, 4]])
+        XCTAssert(isApprox(sin(arrayF), [[0.841471, 0.909297], [0.14112, -0.756802]], rtol: 1e-4))
+        XCTAssert(isApprox(cos(arrayF), [[0.540302, -0.416147], [-0.989992, -0.653644]], rtol: 1e-4))
+        XCTAssert(isApprox(tan(arrayF), [[1.55741, -2.18504], [-0.142547, 1.15782]], rtol: 1e-4))
+
+        let arrayD = ShapedArray<Double>([[1, 2], [3, 4]])
+        XCTAssert(isApprox(sin(arrayD), [[0.841471, 0.909297], [0.14112, -0.756802]], rtol: 1e-4))
+        XCTAssert(isApprox(cos(arrayD), [[0.540302, -0.416147], [-0.989992, -0.653644]], rtol: 1e-4))
+        XCTAssert(isApprox(tan(arrayD), [[1.55741, -2.18504], [-0.142547, 1.15782]], rtol: 1e-4))
+    }
 }

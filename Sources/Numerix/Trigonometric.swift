@@ -163,3 +163,59 @@ public func tan(_ mat: Matrix<Double>) -> Matrix<Double> {
     vForce.tan(mat.buffer, result: &output.buffer)
     return output
 }
+
+// MARK: ShapedArray trig functions
+
+/// Calculate the sine of each element in a single-precision shaped array.
+/// - Parameter array: The input shaped array.
+/// - Returns: A shaped array where each element is the sine of the input.
+public func sin(_ array: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.sin(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate the sine of each element in a double-precision shaped array.
+/// - Parameter array: The input shaped array.
+/// - Returns: A shaped array where each element is the sine of the input.
+public func sin(_ array: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.sin(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate the cosine of each element in a single-precision shaped array.
+/// - Parameter array: The input shaped array.
+/// - Returns: A shaped array where each element is the cosine of the input.
+public func cos(_ array: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.cos(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate the cosine of each element in a double-precision shaped array.
+/// - Parameter array: The input shaped array.
+/// - Returns: A shaped array where each element is the cosine of the input.
+public func cos(_ array: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.cos(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate the tangent of each element in a single-precision shaped array.
+/// - Parameter array: The input shaped array.
+/// - Returns: A shaped array where each element is the tangent of the input.
+public func tan(_ array: ShapedArray<Float>) -> ShapedArray<Float> {
+    var result = ShapedArray<Float>(shape: array.shape)
+    vForce.tan(array.buffer, result: &result.buffer)
+    return result
+}
+
+/// Calculate the tangent of each element in a double-precision shaped array.
+/// - Parameter array: The input shaped array.
+/// - Returns: A shaped array where each element is the tangent of the input.
+public func tan(_ array: ShapedArray<Double>) -> ShapedArray<Double> {
+    var result = ShapedArray<Double>(shape: array.shape)
+    vForce.tan(array.buffer, result: &result.buffer)
+    return result
+}

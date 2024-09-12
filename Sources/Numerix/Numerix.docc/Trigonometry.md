@@ -1,10 +1,10 @@
 # Trigonometry
 
-Trigonometric functions for Vector and Matrix structures.
+Trigonometric functions for Vector, Matrix, and ShapedArray structures.
 
 ## Overview
 
-Basic trigonometric functions such as `sin`, `cos`, and `tan` for Vector and Matrix structures.
+Basic trigonometric functions such as `sin`, `cos`, and `tan` for Vector, Matrix, and ShapedArray structures.
 
 ## Topics
 
@@ -25,3 +25,12 @@ Basic trigonometric functions such as `sin`, `cos`, and `tan` for Vector and Mat
 - ``cos(_:)-852rt``
 - ``tan(_:)-5oaf4``
 - ``tan(_:)-2tn6h``
+
+### ShapedArray trig functions
+
+- ``sin(_:)-5hr0x``
+- ``sin(_:)-2myxi``
+- ``cos(_:)-7b03a``
+- ``cos(_:)-5drux``
+- ``tan(_:)-7dszq``
+- ``tan(_:)-5gkvt``
