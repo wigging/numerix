@@ -29,7 +29,7 @@ final class DescriptionTests: XCTestCase {
     func testShapedArray2D() {
         let shape = [3, 2]
         let nums = Array(1...shape.reduce(1, *)).map { Float($0) }
-        let arr = ShapedArray<Float>(nums, shape: shape)
+        let arr = ShapedArray<Float>(shape: shape, array: nums)
 
         let descr = """
         3x2 ShapedArray<Float>
@@ -43,7 +43,7 @@ final class DescriptionTests: XCTestCase {
     func testShapedArray3D() {
         let shape = [2, 3, 5]
         let nums = Array(1...shape.reduce(1, *)).map { Float($0) }
-        let arr = ShapedArray<Float>(nums, shape: shape)
+        let arr = ShapedArray<Float>(shape: shape, array: nums)
 
         let descr = """
         2x3x5 ShapedArray<Float>
