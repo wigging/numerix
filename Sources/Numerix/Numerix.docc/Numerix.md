@@ -16,20 +16,38 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 
 - <doc:GettingStarted>
 
-### API Documentation
+### Numeric types
 
-- <doc:Structures>
+- ``Complex``
+- ``Vector``
+- ``Matrix``
+- ``ShapedArray``
+
+### Mathematical functions
+
+- <doc:Trigonometry>
+- <doc:Exponential>
+- <doc:Logarithm>
+- <doc:CumulativeSum>
+
+### Arithmetic operations
+
 - <doc:Addition>
 - <doc:Subtraction>
 - <doc:Multiplication>
 - <doc:Division>
-- <doc:Exponential>
-- <doc:Logarithm>
+- <doc:Power>
+
+### Linear algebra
+
 - <doc:Norm>
-- <doc:ApproxEquality>
 - <doc:DotProduct>
+
+### Manipulation functions
+
 - <doc:Pad>
 - <doc:Transpose>
-- <doc:Trigonometry>
-- <doc:CumulativeSum>
-- <doc:Power>
+
+### Logic functions
+
+- <doc:ApproxEquality>
