@@ -1,10 +1,13 @@
 # Numerix
 
-Numerix is an open-source Swift package that provides Complex, Vector, Matrix, and ShapedArray structures for performing linear algebra and other numerical computations on Apple devices. It uses the Accelerate framework to perform high-performance and energy-efficient calculations. See the sections below to learn more about the package.
+Numerix is an open-source Swift package that provides Complex, Vector, Matrix, and ShapedArray structures for performing linear algebra and other numerical computations on Apple devices. It uses the Accelerate framework to perform high-performance and energy-efficient calculations.
+
+> [!WARNING]
+> Numerix is under heavy development. Many things are missing and breaking changes will likely happen.
 
 ## Installation
 
-If using Xcode, select File and choose Add Package Dependencies... from the menu, then enter the URL for the Numerix GitHub repository which is <https://github.com/wigging/numerix>.
+If using Xcode, select *File* and choose *Add Package Dependencies...* from the menu, then enter the URL for the Numerix GitHub repository which is `https://github.com/wigging/numerix`.
 
 If editing a `Package.swift` manifest, add Numerix as a dependency such as:
 
@@ -22,29 +25,33 @@ The final step is to import the package in a Swift file by using `import Numerix
 
 ## Usage
 
-The example below uses the Numerix package to perform element-wise matrix multiplication of two 2x3 matrices. See the documentation for more examples.
+The example below uses the Numerix package to perform matrix multiplication of two 3x3 matrices. The printed result is shown in the comments.
 
 ```swift
 import Numerix
 
-let a: Matrix = [[1, 2.5, 3],
-                 [4, 5, 6.8]]
+let a: Matrix = [[1, 2, 3],
+                 [4, 5, 6.0],
+                 [2, 3, 4]]
 
-let b: Matrix = [[0.1, 2.5, 3],
-                 [4.2, 5, 6.8]]
+let b: Matrix = [[1, 2, 3.5],
+                 [4, 5, 6],
+                 [4, 5, 9.1]]
 
-let c = a .* b
-
+let c = a * b
 print(c)
-// This prints the following result:
-// 2x3 Matrix<Double>
-//   0.1000   6.2500   9.0000
-//  16.8000  25.0000  46.2400
+
+// This prints the following:
+//
+// 3x3 Matrix<Double>
+// ⎛ 21.0  27.0  42.8 ⎞
+// ⎜ 48.0  63.0  98.6 ⎟
+// ⎝ 30.0  39.0  61.4 ⎠
 ```
 
 ## Documentation
 
-Documentation for the Numerix package can be viewed [online](https://apple.com) via the [Swift Package Index](https://swiftpackageindex.com). The documentation can also be built and viewed in Xcode by selecting Product then Build Documentation.
+Documentation for the Numerix package can be viewed online via the [Swift Package Index](https://swiftpackageindex.com) (coming soon). The documentation can also be built and viewed in Xcode by selecting *Product* then *Build Documentation* from the Xcode menu.
 
 ## Contributing
 
