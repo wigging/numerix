@@ -42,6 +42,7 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 
 - <doc:Norm>
 - <doc:DotProduct>
+- <doc:Inverse>
 
 ### Manipulation functions
 
