@@ -40,9 +40,10 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 
 ### Linear algebra
 
-- <doc:Norm>
+- <doc:Determinant>
 - <doc:DotProduct>
 - <doc:Inverse>
+- <doc:Norm>
 
 ### Manipulation functions
 
