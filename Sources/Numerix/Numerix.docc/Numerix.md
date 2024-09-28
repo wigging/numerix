@@ -23,13 +23,6 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 - ``Matrix``
 - ``ShapedArray``
 
-### Mathematical functions
-
-- <doc:Trigonometry>
-- <doc:Exponential>
-- <doc:Logarithm>
-- <doc:CumulativeSum>
-
 ### Arithmetic operations
 
 - <doc:Addition>
@@ -37,6 +30,13 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 - <doc:Multiplication>
 - <doc:Division>
 - <doc:Power>
+
+### Mathematical functions
+
+- <doc:Trigonometry>
+- <doc:Exponential>
+- <doc:Logarithm>
+- <doc:CumulativeSum>
 
 ### Linear algebra
 
