@@ -74,4 +74,28 @@ final class VectorTests: XCTestCase {
         let idx2 = vec2.maxAbsIndex()
         XCTAssertEqual(idx2, 5)
     }
+
+    func testReverse() {
+        var a = Vector<Float>([1, 2, 5, 3, 19, 0.2])
+        a.reverse()
+        XCTAssertEqual(a, [0.2, 19.0, 3.0, 5.0, 2.0, 1.0])
+
+        var b = Vector<Double>([1, 2, 5, 3, 19, 0.2])
+        b.reverse()
+        XCTAssertEqual(b, [0.2, 19.0, 3.0, 5.0, 2.0, 1.0])
+    }
+
+    func testSort() {
+        var a = Vector<Float>([3, 8, 5, 10, 6, 7, 8])
+        a.sort(order: .ascending)
+        XCTAssertEqual(a, [3, 5, 6, 7, 8, 8, 10])
+        a.sort(order: .descending)
+        XCTAssertEqual(a, [10, 8, 8, 7, 6, 5, 3])
+
+        var b = Vector<Double>([3, 8, 5, 10, 6, 7, 8])
+        b.sort(order: .ascending)
+        XCTAssertEqual(b, [3, 5, 6, 7, 8, 8, 10])
+        b.sort(order: .descending)
+        XCTAssertEqual(b, [10, 8, 8, 7, 6, 5, 3])
+    }
 }

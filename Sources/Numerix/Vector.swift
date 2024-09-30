@@ -158,6 +158,28 @@ public struct Vector<T> {
             }
         }
     }
+
+    /// Reverse the elements in a single-precision vector.
+    public mutating func reverse() where T == Float {
+        vDSP.reverse(&self.buffer)
+    }
+
+    /// Reverse the elements in a double-precision vector.
+    public mutating func reverse() where T == Double {
+        vDSP.reverse(&self.buffer)
+    }
+
+    /// Sort the elements in a single-precision vector.
+    /// - Parameter order: Ascending or descending sorting order.
+    public mutating func sort(order: vDSP.SortOrder) where T == Float {
+        vDSP.sort(&self.buffer, sortOrder: order)
+    }
+
+    /// Sort the elements in a double-precision vector.
+    /// - Parameter order: Ascending or descending sorting order.
+    public mutating func sort(order: vDSP.SortOrder) where T == Double {
+        vDSP.sort(&self.buffer, sortOrder: order)
+    }
 }
 
 extension Vector: ExpressibleByArrayLiteral {
