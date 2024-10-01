@@ -180,6 +180,18 @@ public struct Vector<T> {
     public mutating func sort(order: vDSP.SortOrder) where T == Double {
         vDSP.sort(&self.buffer, sortOrder: order)
     }
+
+    /// Sum the values in a single-precision vector.
+    /// - Returns: Sum of the vector values.
+    public func sum() -> Float where T == Float {
+        vDSP.sum(self.buffer)
+    }
+
+    /// Sum the values in a double-precision vector.
+    /// - Returns: Sum of the vector values
+    public func sum() -> Double where T == Double {
+        vDSP.sum(self.buffer)
+    }
 }
 
 extension Vector: ExpressibleByArrayLiteral {
