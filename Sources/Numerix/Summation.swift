@@ -1,6 +1,6 @@
 /*
- Cumulative sum for single and double precision Vector.
- */
+Summation functions for single and double-precision vectors.
+*/
 
 import Accelerate
 

@@ -36,7 +36,7 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 - <doc:Trigonometry>
 - <doc:Exponential>
 - <doc:Logarithm>
-- <doc:CumulativeSum>
+- <doc:Summation>
 
 ### Linear algebra
 

@@ -1,6 +1,6 @@
 /*
- Tests for cumulativeSum() function.
- */
+Tests for summation functions.
+*/
 
 import XCTest
 import Numerix
