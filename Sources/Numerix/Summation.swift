@@ -4,7 +4,7 @@ Summation functions for single and double-precision vectors.
 
 import Accelerate
 
-/// Sum the values in a single-precision vector.
+/// Sum of the values in a single-precision vector.
 ///
 /// This function returns the sum of the vector values.
 /// ```swift
@@ -17,7 +17,7 @@ public func sum(_ vec: Vector<Float>) -> Float {
     return vDSP.sum(vec.buffer)
 }
 
-/// Sum the values in a double-precision vector.
+/// Sum of the values in a double-precision vector.
 ///
 /// This function returns the sum of the vector values.
 /// ```swift
@@ -28,6 +28,32 @@ public func sum(_ vec: Vector<Float>) -> Float {
 /// - Returns: Sum of the vector values.
 public func sum(_ vec: Vector<Double>) -> Double {
     return vDSP.sum(vec.buffer)
+}
+
+/// Sum of the absolute values in a single-precision vector.
+///
+/// This function returns the absolute sum of the vector values.
+/// ```swift
+/// let a = Vector<Float>([1, 2, -3, 4, -6.8])
+/// let absA = absoluteSum(a)  // absA is 16.8
+/// ```
+/// - Parameter vec: The input vector.
+/// - Returns: Absolute sum of the vector values.
+public func absoluteSum(_ vec: Vector<Float>) -> Float {
+    return cblas_sasum(vec.length, vec.buffer.baseAddress, 1)
+}
+
+/// Sum of the absolute values in a double-precision vector.
+///
+/// This function returns the absolute sum of the vector values.
+/// ```swift
+/// let a = Vector<Double>([1, 2, -3, 4, -6.8])
+/// let absA = absoluteSum(a)  // absA is 16.8
+/// ```
+/// - Parameter vec: The input vector.
+/// - Returns: Absolute sum of the vector values.
+public func absoluteSum(_ vec: Vector<Double>) -> Double {
+    return cblas_dasum(vec.length, vec.buffer.baseAddress, 1)
 }
 
 /// Cumulative sum of a single-precision vector.

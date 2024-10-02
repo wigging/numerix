@@ -25,6 +25,20 @@ final class CumulativeSumTests: XCTestCase {
         XCTAssertEqual(sumD, 15.0)
     }
 
+    func testAbsoluteSum() {
+        let a = Vector<Float>([1, 2, -3, 4, -6.8])
+        XCTAssertEqual(absoluteSum(a), 16.8)
+
+        let b = Vector<Double>([1, 2, -3, 4, -6.8])
+        XCTAssertEqual(absoluteSum(b), 16.8)
+
+        let c = Vector<Float>([1, 2, -3, 4, -6.8])
+        XCTAssertEqual(c.absoluteSum(), 16.8)
+
+        let d = Vector<Double>([1, 2, -3, 4, -6.8])
+        XCTAssertEqual(d.absoluteSum(), 16.8)
+    }
+
     func testVectorFloat() {
         let a: Vector<Float> = [1, 2, 3, 4, 5]
         let cumulSumA = cumulativeSum(a)

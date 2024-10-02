@@ -5,7 +5,7 @@
 
 import Accelerate
 
-/// A one-dimensional collection of numerical values.
+/// A one-dimensional array for numerical data.
 ///
 /// Create a vector of integers:
 /// ```swift
@@ -181,16 +181,28 @@ public struct Vector<T> {
         vDSP.sort(&self.buffer, sortOrder: order)
     }
 
-    /// Sum the values in a single-precision vector.
+    /// Sum of the values in a single-precision vector.
     /// - Returns: Sum of the vector values.
     public func sum() -> Float where T == Float {
-        vDSP.sum(self.buffer)
+        return vDSP.sum(self.buffer)
     }
 
-    /// Sum the values in a double-precision vector.
+    /// Sum of the values in a double-precision vector.
     /// - Returns: Sum of the vector values
     public func sum() -> Double where T == Double {
-        vDSP.sum(self.buffer)
+        return vDSP.sum(self.buffer)
+    }
+
+    /// Sum of the absolute values in a single-precision vector.
+    /// - Returns: Absolute sum of the vector values.
+    public func absoluteSum() -> Float where T == Float {
+        return cblas_sasum(self.length, self.buffer.baseAddress, 1)
+    }
+
+    /// Sum of the absolute values in a double-precision vector.
+    /// - Returns: Absolute sum of the vector values.
+    public func absoluteSum() -> Double where T == Double {
+        return cblas_dasum(self.length, self.buffer.baseAddress, 1)
     }
 }
 
