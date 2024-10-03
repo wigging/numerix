@@ -8,8 +8,8 @@ import Numerix
 final class VectorTests: XCTestCase {
 
     func testInit() {
-        let vec1 = Vector(length: 5, fill: 0)
-        let vec2 = Vector(length: 4, fill: 2.2)
+        let vec1 = Vector(size: 5, fill: 0)
+        let vec2 = Vector(size: 4, fill: 2.2)
         XCTAssertEqual(vec1, [0, 0, 0, 0, 0])
         XCTAssertEqual(vec2, [2.2, 2.2, 2.2, 2.2])
     }
@@ -33,7 +33,7 @@ final class VectorTests: XCTestCase {
 
     func testProperties() {
         let vec = Vector([3, 4, 5, 6])
-        XCTAssertEqual(vec.length, 4)
+        XCTAssertEqual(vec.size, 4)
     }
 
     func testSubscript() {

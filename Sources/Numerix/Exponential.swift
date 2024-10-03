@@ -14,7 +14,7 @@ import Accelerate
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ vec: Vector<Float>) -> Vector<Float> {
-    var result = Vector<Float>(length: vec.length)
+    var result = Vector<Float>(size: vec.size)
     vForce.exp(vec.buffer, result: &result.buffer)
     return result
 }
@@ -23,7 +23,7 @@ public func exp(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ vec: Vector<Double>) -> Vector<Double> {
-    var result = Vector<Double>(length: vec.length)
+    var result = Vector<Double>(size: vec.size)
     vForce.exp(vec.buffer, result: &result.buffer)
     return result
 }
@@ -32,7 +32,7 @@ public func exp(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ vec: Vector<Float>) -> Vector<Float> {
-    var result = Vector<Float>(length: vec.length)
+    var result = Vector<Float>(size: vec.size)
     vForce.exp2(vec.buffer, result: &result.buffer)
     return result
 }
@@ -41,7 +41,7 @@ public func exp2(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ vec: Vector<Double>) -> Vector<Double> {
-    var result = Vector<Double>(length: vec.length)
+    var result = Vector<Double>(size: vec.size)
     vForce.exp2(vec.buffer, result: &result.buffer)
     return result
 }
@@ -50,7 +50,7 @@ public func exp2(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
 public func expm1(_ vec: Vector<Float>) -> Vector<Float> {
-    var result = Vector<Float>(length: vec.length)
+    var result = Vector<Float>(size: vec.size)
     vForce.expm1(vec.buffer, result: &result.buffer)
     return result
 }
@@ -59,7 +59,7 @@ public func expm1(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vector: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
 public func expm1(_ vec: Vector<Double>) -> Vector<Double> {
-    var result = Vector<Double>(length: vec.length)
+    var result = Vector<Double>(size: vec.size)
     vForce.expm1(vec.buffer, result: &result.buffer)
     return result
 }

@@ -111,8 +111,8 @@ func arrayDescription<T>(for buffer: UnsafeMutableBufferPointer<T>, with shape: 
 extension Vector: CustomStringConvertible {
 
     public var description: String {
-        var descr = "\(self.length)-element \(type(of: self))\n"
-        descr += arrayDescription(for: self.buffer, with: [self.length])
+        var descr = "\(self.size)-element \(type(of: self))\n"
+        descr += arrayDescription(for: self.buffer, with: [self.size])
         return descr
     }
 }

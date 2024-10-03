@@ -13,9 +13,9 @@ import Accelerate
 ///   - exp: The exponent.
 /// - Returns: Vector of bases raised to the power of the exponent.
 public func pow(_ vec: Vector<Float>, _ exp: Float) -> Vector<Float> {
-    let output = Vector<Float>(length: vec.length)
+    let output = Vector<Float>(size: vec.size)
     withUnsafePointer(to: exp) { expPtr in
-        withUnsafePointer(to: Int32(vec.length)) { lengthPtr in
+        withUnsafePointer(to: Int32(vec.size)) { lengthPtr in
             vvpowsf(output.buffer.baseAddress!, expPtr, vec.buffer.baseAddress!, lengthPtr)
         }
     }
@@ -28,9 +28,9 @@ public func pow(_ vec: Vector<Float>, _ exp: Float) -> Vector<Float> {
 ///   - exp: The exponent.
 /// - Returns: Vector of bases raised to the power of the exponent.
 public func pow(_ vec: Vector<Double>, _ exp: Double) -> Vector<Double> {
-    let output = Vector<Double>(length: vec.length)
+    let output = Vector<Double>(size: vec.size)
     withUnsafePointer(to: exp) { expPtr in
-        withUnsafePointer(to: Int32(vec.length)) { lengthPtr in
+        withUnsafePointer(to: Int32(vec.size)) { lengthPtr in
             vvpows(output.buffer.baseAddress!, expPtr, vec.buffer.baseAddress!, lengthPtr)
         }
     }
@@ -43,8 +43,8 @@ public func pow(_ vec: Vector<Double>, _ exp: Double) -> Vector<Double> {
 ///   - exp: Array of exponents.
 /// - Returns: Vector of bases raised to the power of each exponent.
 public func pow(_ vec: Vector<Float>, _ exp: [Float]) -> Vector<Float> {
-    precondition(vec.length == exp.count, "Vector length must correspond to number of exponents")
-    var result = Vector<Float>(length: vec.length)
+    precondition(vec.size == exp.count, "Vector size must correspond to number of exponents")
+    var result = Vector<Float>(size: vec.size)
     vForce.pow(bases: vec.buffer, exponents: exp, result: &result.buffer)
     return result
 }
@@ -55,8 +55,8 @@ public func pow(_ vec: Vector<Float>, _ exp: [Float]) -> Vector<Float> {
 ///   - exp: Array of exponents.
 /// - Returns: Vector of bases raised to the power of each exponent.
 public func pow(_ vec: Vector<Double>, _ exp: [Double]) -> Vector<Double> {
-    precondition(vec.length == exp.count, "Vector length must correspond to number of exponents")
-    var result = Vector<Double>(length: vec.length)
+    precondition(vec.size == exp.count, "Vector size must correspond to number of exponents")
+    var result = Vector<Double>(size: vec.size)
     vForce.pow(bases: vec.buffer, exponents: exp, result: &result.buffer)
     return result
 }

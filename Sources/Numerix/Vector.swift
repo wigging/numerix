@@ -1,20 +1,24 @@
 /*
- Vector structure for one-dimensional numerical data. The underlying data storage
- is a mutable buffer handled by the DataBuffer class.
- */
+Vector structure for one-dimensional numerical data.
+The underlying data storage is a mutable buffer handled by the DataBuffer class.
+*/
 
 import Accelerate
 
-/// A one-dimensional array for numerical data.
+/// A one-dimensional structure for numerical data.
 ///
-/// Create a vector of integers:
+/// Create a vector with double-precision values:
 /// ```swift
-/// let vec = Vector([1, 2, 3, 4, 5])
+/// let vec = Vector<Double>([1, 2, 3, 4, 5])
+/// ```
+/// Array literal syntax is also supported:
+/// ```swift
+/// let vec: Vector<Double> = [2, 3, 4, 5, 6, 7]
 /// ```
 public struct Vector<T> {
 
     /// Number of elements in the vector.
-    public var length: Int {
+    public var size: Int {
         self.buffer.count
     }
 
@@ -27,10 +31,10 @@ public struct Vector<T> {
         set { self.data.buffer = newValue }
     }
 
-    /// Create an empty vector of a certain length.
-    /// - Parameter length: Length of the vector.
-    public init(length: Int) {
-        self.data = DataBuffer(count: length)
+    /// Create an empty vector of a certain size.
+    /// - Parameter size: Number of elements in the vector.
+    public init(size: Int) {
+        self.data = DataBuffer(count: size)
     }
 
     /// Create a vector from an array of values.
@@ -39,12 +43,12 @@ public struct Vector<T> {
         self.data = DataBuffer(array: values)
     }
 
-    /// Create a vector of a certain length filled with the given value.
+    /// Create a vector of a certain size filled with the given value.
     /// - Parameters:
-    ///   - length: Length of the vector.
+    ///   - size: Numbers of elements in the vector.
     ///   - fill: Value to fill the vector.
-    public init(length: Int, fill: T) {
-        self.data = DataBuffer(count: length, fill: fill)
+    public init(size: Int, fill: T) {
+        self.data = DataBuffer(count: size, fill: fill)
     }
 
     /// Create a vector of integers from a range of values.
@@ -127,7 +131,7 @@ public struct Vector<T> {
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> Int where T == Float {
-        let index = cblas_isamax(self.length, self.buffer.baseAddress, stride)
+        let index = cblas_isamax(self.size, self.buffer.baseAddress, stride)
         return index
     }
 
@@ -135,7 +139,7 @@ public struct Vector<T> {
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
     public func maxAbsIndex(stride: Int = 1) -> Int where T == Double {
-        let index = cblas_idamax(self.length, self.buffer.baseAddress, stride)
+        let index = cblas_idamax(self.size, self.buffer.baseAddress, stride)
         return index
     }
 
@@ -143,7 +147,7 @@ public struct Vector<T> {
     /// - Parameter exp: The exponent.
     public mutating func pow(_ exp: Float) where T == Float {
         withUnsafePointer(to: exp) { expPtr in
-            withUnsafePointer(to: Int32(self.length)) { lengthPtr in
+            withUnsafePointer(to: Int32(self.size)) { lengthPtr in
                 vvpowsf(self.buffer.baseAddress!, expPtr, self.buffer.baseAddress!, lengthPtr)
             }
         }
@@ -153,7 +157,7 @@ public struct Vector<T> {
     /// - Parameter exp: The exponent.
     public mutating func pow(_ exp: Double) where T == Double {
         withUnsafePointer(to: exp) { expPtr in
-            withUnsafePointer(to: Int32(self.length)) { lengthPtr in
+            withUnsafePointer(to: Int32(self.size)) { lengthPtr in
                 vvpows(self.buffer.baseAddress!, expPtr, self.buffer.baseAddress!, lengthPtr)
             }
         }
@@ -196,13 +200,13 @@ public struct Vector<T> {
     /// Sum of the absolute values in a single-precision vector.
     /// - Returns: Absolute sum of the vector values.
     public func absoluteSum() -> Float where T == Float {
-        return cblas_sasum(self.length, self.buffer.baseAddress, 1)
+        return cblas_sasum(self.size, self.buffer.baseAddress, 1)
     }
 
     /// Sum of the absolute values in a double-precision vector.
     /// - Returns: Absolute sum of the vector values.
     public func absoluteSum() -> Double where T == Double {
-        return cblas_dasum(self.length, self.buffer.baseAddress, 1)
+        return cblas_dasum(self.size, self.buffer.baseAddress, 1)
     }
 }
 
@@ -235,10 +239,10 @@ extension Vector: Equatable where T: Equatable {
     /// - Parameters:
     ///   - lhs: The first vector.
     ///   - rhs: The second vector.
-    /// - Returns: True if both vectors are same length and contain the same values.
+    /// - Returns: True if both vectors are same size and contain the same values.
     public static func == (lhs: Vector, rhs: Vector) -> Bool {
-        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * lhs.length)
+        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<T>.size * lhs.size)
         let buffersEqual = cmp == 0 ? true : false
-        return lhs.length == rhs.length && buffersEqual
+        return lhs.size == rhs.size && buffersEqual
     }
 }

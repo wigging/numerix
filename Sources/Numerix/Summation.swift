@@ -40,7 +40,7 @@ public func sum(_ vec: Vector<Double>) -> Double {
 /// - Parameter vec: The input vector.
 /// - Returns: Absolute sum of the vector values.
 public func absoluteSum(_ vec: Vector<Float>) -> Float {
-    return cblas_sasum(vec.length, vec.buffer.baseAddress, 1)
+    return cblas_sasum(vec.size, vec.buffer.baseAddress, 1)
 }
 
 /// Sum of the absolute values in a double-precision vector.
@@ -53,7 +53,7 @@ public func absoluteSum(_ vec: Vector<Float>) -> Float {
 /// - Parameter vec: The input vector.
 /// - Returns: Absolute sum of the vector values.
 public func absoluteSum(_ vec: Vector<Double>) -> Double {
-    return cblas_dasum(vec.length, vec.buffer.baseAddress, 1)
+    return cblas_dasum(vec.size, vec.buffer.baseAddress, 1)
 }
 
 /// Cumulative sum of a single-precision vector.
@@ -69,9 +69,9 @@ public func cumulativeSum(_ vec: Vector<Float>) -> Vector<Float> {
     let ia = 1                       // stride for A
     var s: Float = 1.0               // scalar weighting factor for A
     let ic = 1                       // stride for C
-    let n = vDSP_Length(vec.length)  // number of elements to process
+    let n = vDSP_Length(vec.size)  // number of elements to process
 
-    var result = Vector<Float>(length: vec.length)
+    var result = Vector<Float>(size: vec.size)
     vDSP_vrsum(vec.buffer.baseAddress!, ia, &s, result.buffer.baseAddress!, ic, n)
     vDSP.add(vec[0], result.buffer, result: &result.buffer)
 
@@ -91,9 +91,9 @@ public func cumulativeSum(_ vec: Vector<Double>) -> Vector<Double> {
     let ia = 1                       // stride for A
     var s = 1.0                      // scalar weighting factor for A
     let ic = 1                       // stride for C
-    let n = vDSP_Length(vec.length)  // number of elements to process
+    let n = vDSP_Length(vec.size)  // number of elements to process
 
-    var result = Vector<Double>(length: vec.length)
+    var result = Vector<Double>(size: vec.size)
     vDSP_vrsumD(vec.buffer.baseAddress!, ia, &s, result.buffer.baseAddress!, ic, n)
     vDSP.add(vec[0], result.buffer, result: &result.buffer)
 

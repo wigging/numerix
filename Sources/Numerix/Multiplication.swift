@@ -11,7 +11,7 @@ infix operator ⊙
 ///   - rhs: The right vector `B[i]`.
 /// - Returns: A vector representing the result of `A × B[i]`.
 public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    var result = Vector<Float>(length: rhs.length)
+    var result = Vector<Float>(size: rhs.size)
     vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
     return result
 }
@@ -22,7 +22,7 @@ public func * (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
 ///   - rhs: The right vector `B[i]`.
 /// - Returns: A vector representing the result of `A × B[i]`.
 public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    var result = Vector<Double>(length: rhs.length)
+    var result = Vector<Double>(size: rhs.size)
     vDSP.multiply(lhs, rhs.buffer, result: &result.buffer)
     return result
 }
@@ -35,7 +35,7 @@ public func * (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
 ///   - rhs: The right scalar value `B`.
 /// - Returns: A vector representing the result of `A[i] × B`.
 public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    var result = Vector<Float>(length: lhs.length)
+    var result = Vector<Float>(size: lhs.size)
     vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
@@ -46,7 +46,7 @@ public func * (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
 ///   - rhs: The right scalar value `B`.
 /// - Returns: A vector representing the result of `A[i] × B`.
 public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    var result = Vector<Double>(length: lhs.length)
+    var result = Vector<Double>(size: lhs.size)
     vDSP.multiply(rhs, lhs.buffer, result: &result.buffer)
     return result
 }
@@ -59,7 +59,7 @@ public func * (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 ///   - rhs: The right vector `B[i]`.
 /// - Returns: A vector representing the result of `A[i] × B[i]`.
 public func * (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    var result = Vector<Float>(length: lhs.length)
+    var result = Vector<Float>(size: lhs.size)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
@@ -70,7 +70,7 @@ public func * (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
 ///   - rhs: The vector `B[i]`.
 /// - Returns: A vector representing the result of `A[i] × B[i]`.
 public func * (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    var result = Vector<Double>(length: lhs.length)
+    var result = Vector<Double>(size: lhs.size)
     vDSP.multiply(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }

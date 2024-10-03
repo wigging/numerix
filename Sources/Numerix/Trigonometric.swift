@@ -14,7 +14,7 @@ import Accelerate
 /// - Parameter vec: The input vector.
 /// - Returns: A vector representing the sine of the input vector.
 public func sin(_ vec: Vector<Float>) -> Vector<Float> {
-    var output = Vector<Float>(length: vec.length)
+    var output = Vector<Float>(size: vec.size)
     vForce.sin(vec.buffer, result: &output.buffer)
     return output
 }
@@ -27,7 +27,7 @@ public func sin(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: A vector representing the sine of the input vector.
 public func sin(_ vec: Vector<Double>) -> Vector<Double> {
-    var output = Vector<Double>(length: vec.length)
+    var output = Vector<Double>(size: vec.size)
     vForce.sin(vec.buffer, result: &output.buffer)
     return output
 }
@@ -40,7 +40,7 @@ public func sin(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vec: The input vector.
 /// - Returns: A vector representing the cosine of the input vector.
 public func cos(_ vec: Vector<Float>) -> Vector<Float> {
-    var output = Vector<Float>(length: vec.length)
+    var output = Vector<Float>(size: vec.size)
     vForce.cos(vec.buffer, result: &output.buffer)
     return output
 }
@@ -53,7 +53,7 @@ public func cos(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: A vector representing the cosine of the input vector.
 public func cos(_ vec: Vector<Double>) -> Vector<Double> {
-    var output = Vector<Double>(length: vec.length)
+    var output = Vector<Double>(size: vec.size)
     vForce.cos(vec.buffer, result: &output.buffer)
     return output
 }
@@ -66,7 +66,7 @@ public func cos(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vec: The input vector.
 /// - Returns: A vector representing the tangent of the input vector.
 public func tan(_ vec: Vector<Float>) -> Vector<Float> {
-    var output = Vector<Float>(length: vec.length)
+    var output = Vector<Float>(size: vec.size)
     vForce.tan(vec.buffer, result: &output.buffer)
     return output
 }
@@ -79,7 +79,7 @@ public func tan(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: A vector representing the tangent of the input vector.
 public func tan(_ vec: Vector<Double>) -> Vector<Double> {
-    var output = Vector<Double>(length: vec.length)
+    var output = Vector<Double>(size: vec.size)
     vForce.tan(vec.buffer, result: &output.buffer)
     return output
 }

@@ -8,15 +8,15 @@ import Accelerate
 // MARK: Scalar-Vector subtraction
 
 public func - (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    let arr = Array(repeating: lhs, count: rhs.length)
-    var result = Vector<Float>(length: rhs.length)
+    let arr = Array(repeating: lhs, count: rhs.size)
+    var result = Vector<Float>(size: rhs.size)
     vDSP.subtract(arr, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    let arr = Array(repeating: lhs, count: rhs.length)
-    var result = Vector<Double>(length: rhs.length)
+    let arr = Array(repeating: lhs, count: rhs.size)
+    var result = Vector<Double>(size: rhs.size)
     vDSP.subtract(arr, rhs.buffer, result: &result.buffer)
     return result
 }
@@ -24,15 +24,15 @@ public func - (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
 // MARK: Vector-Scalar subtraction
 
 public func - (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    let arr = Array(repeating: rhs, count: lhs.length)
-    var result = Vector<Float>(length: lhs.length)
+    let arr = Array(repeating: rhs, count: lhs.size)
+    var result = Vector<Float>(size: lhs.size)
     vDSP.subtract(lhs.buffer, arr, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    let arr = Array(repeating: rhs, count: lhs.length)
-    var result = Vector<Double>(length: lhs.length)
+    let arr = Array(repeating: rhs, count: lhs.size)
+    var result = Vector<Double>(size: lhs.size)
     vDSP.subtract(lhs.buffer, arr, result: &result.buffer)
     return result
 }
@@ -40,15 +40,15 @@ public func - (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
 // MARK: Vector-Vector subtraction
 
 public func - (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
-    var result = Vector<Float>(length: lhs.length)
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
+    var result = Vector<Float>(size: lhs.size)
     vDSP.subtract(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }
 
 public func - (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
-    var result = Vector<Double>(length: lhs.length)
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
+    var result = Vector<Double>(size: lhs.size)
     vDSP.subtract(lhs.buffer, rhs.buffer, result: &result.buffer)
     return result
 }

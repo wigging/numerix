@@ -1,7 +1,6 @@
 /*
- Addition operators for Vector, Matrix, and ShapedArray structures. Single and double
- precision operations are supported.
- */
+Addition operators for vectors, matrices, and shaped arrays.
+*/
 
 import Accelerate
 
@@ -9,22 +8,22 @@ import Accelerate
 
 /// Element-wise addition of a scalar and a vector with single precision.
 /// - Parameters:
-///   - lhs: Scalar value.
-///   - rhs: Vector of length n.
-/// - Returns: Vector of length n.
+///   - lhs: The left-hand side scalar value.
+///   - rhs: The right-hand side vector.
+/// - Returns: The result vector.
 public func + (lhs: Float, rhs: Vector<Float>) -> Vector<Float> {
-    var vec = Vector<Float>(length: rhs.length)
+    var vec = Vector<Float>(size: rhs.size)
     vDSP.add(lhs, rhs.buffer, result: &vec.buffer)
     return vec
 }
 
 /// Element-wise addition of a scalar and a vector with double precision.
 /// - Parameters:
-///   - lhs: Scalar value.
-///   - rhs: Vector of length n.
-/// - Returns: Vector of length n.
+///   - lhs: The left-hand side scalar value.
+///   - rhs: The right-hand side vector.
+/// - Returns: The result vector.
 public func + (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
-    var vec = Vector<Double>(length: rhs.length)
+    var vec = Vector<Double>(size: rhs.size)
     vDSP.add(lhs, rhs.buffer, result: &vec.buffer)
     return vec
 }
@@ -33,38 +32,38 @@ public func + (lhs: Double, rhs: Vector<Double>) -> Vector<Double> {
 
 /// Element-wise addition of a vector and a scalar with single precision.
 /// - Parameters:
-///   - lhs: Vector of length n.
-///   - rhs: Scalar value
-/// - Returns: Vector of length n.
+///   - lhs: The left-hand side vector.
+///   - rhs: The right-hand side scalar value
+/// - Returns: The result vector.
 public func + (lhs: Vector<Float>, rhs: Float) -> Vector<Float> {
-    var vec = Vector<Float>(length: lhs.length)
+    var vec = Vector<Float>(size: lhs.size)
     vDSP.add(rhs, lhs.buffer, result: &vec.buffer)
     return vec
 }
 
 /// Element-wise addition of a vector and a scalar with double precision.
 /// - Parameters:
-///   - lhs: Vector of length n.
-///   - rhs: Scalar value
-/// - Returns: Vector of length n.
+///   - lhs: The left-hand side vector.
+///   - rhs: The right-hand side scalar value
+/// - Returns: The result vector.
 public func + (lhs: Vector<Double>, rhs: Double) -> Vector<Double> {
-    var vec = Vector<Double>(length: lhs.length)
+    var vec = Vector<Double>(size: lhs.size)
     vDSP.add(rhs, lhs.buffer, result: &vec.buffer)
     return vec
 }
 
 /// In-place element-wise addition of a vector and scalar with single precision.
 /// - Parameters:
-///   - lhs: Mutable input vector.
-///   - rhs: Input scalar.
+///   - lhs: The left-hand side mutable vector.
+///   - rhs: The right-hand side scalar value.
 public func += (lhs: inout Vector<Float>, rhs: Float) {
     lhs = lhs + rhs
 }
 
 /// In-place element-wise addition of a vector and scalar with double precision.
 /// - Parameters:
-///   - lhs: Mutable input vector.
-///   - rhs: Input scalar.
+///   - lhs: The left-hand side mutable vector.
+///   - rhs: The right-hand side scalar value.
 public func += (lhs: inout Vector<Double>, rhs: Double) {
     lhs = lhs + rhs
 }
@@ -73,7 +72,7 @@ public func += (lhs: inout Vector<Double>, rhs: Double) {
 
 /// Element-wise addition of two integer vectors.
 ///
-/// Add the elements in two 32-bit integer vectors. The vectors must be the same length.
+/// Add the elements in two 32-bit integer vectors. Vectors must be the same size.
 /// ```swift
 /// let vecA = Vector<Int32>([1, 2, 3, 4])
 /// let vecB = Vector<Int32>([4, 5, 6, 7])
@@ -82,48 +81,48 @@ public func += (lhs: inout Vector<Double>, rhs: Double) {
 /// ```
 ///
 /// - Parameters:
-///   - lhs: Input vector `A`.
-///   - rhs: Input vector `B`.
-/// - Returns: Output vector `C` that represents `A[i] + B[i]`.
+///   - lhs: The left-hand side vector.
+///   - rhs: The right-hand side vector.
+/// - Returns: The result vector.
 public func + (lhs: Vector<Int32>, rhs: Vector<Int32>) -> Vector<Int32> {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
-    let vec = Vector<Int32>(length: lhs.length)
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
+    let vec = Vector<Int32>(size: lhs.size)
     vDSP_vaddi(
         lhs.buffer.baseAddress!, 1,
         rhs.buffer.baseAddress!, 1,
         vec.buffer.baseAddress!, 1,
-        vDSP_Length(lhs.length)
+        vDSP_Length(lhs.size)
     )
     return vec
 }
 
-/// Element-wise addition of two vectors with single precision. Vectors must be same length.
+/// Element-wise addition of two vectors with single precision. Vectors must be same size.
 /// - Parameters:
-///   - lhs: Vector of length n.
-///   - rhs: Vector of length n.
-/// - Returns: Vector of length n.
+///   - lhs: The left-hand side vector.
+///   - rhs: The right-hand side vector.
+/// - Returns: The result vector.
 public func + (lhs: Vector<Float>, rhs: Vector<Float>) -> Vector<Float> {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
-    var vec = Vector<Float>(length: lhs.length)
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
+    var vec = Vector<Float>(size: lhs.size)
     vDSP.add(lhs.buffer, rhs.buffer, result: &vec.buffer)
     return vec
 }
 
-/// Element-wise addition of two vectors with double precision. Vectors must be same length.
+/// Element-wise addition of two vectors with double precision. Vectors must be same size.
 /// - Parameters:
-///   - lhs: Vector of length n.
-///   - rhs: Vector of length n.
-/// - Returns: Vector of length n.
+///   - lhs: The left-hand side vector.
+///   - rhs: The right-hand side vector.
+/// - Returns: The result vector.
 public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
-    var vec = Vector<Double>(length: lhs.length)
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
+    var vec = Vector<Double>(size: lhs.size)
     vDSP.add(lhs.buffer, rhs.buffer, result: &vec.buffer)
     return vec
 }
 
 /// In-place element-wise addition of integer vectors.
 ///
-/// Perform in-place addition of 32-bit integer vectors. The vectors must be the same length.
+/// Perform in-place addition of 32-bit integer vectors. The vectors must be the same size.
 /// ```swift
 /// var vec = Vector<Int32>([1, 2, 3, 4])
 /// vec += Vector<Int32>([5, 6, 7, 8])
@@ -134,7 +133,7 @@ public func + (lhs: Vector<Double>, rhs: Vector<Double>) -> Vector<Double> {
 ///   - lhs: Mutable input vector.
 ///   - rhs: Vector to add to the mutable vector.
 public func += (lhs: inout Vector<Int32>, rhs: Vector<Int32>) {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
     lhs = lhs + rhs
 }
 
@@ -143,7 +142,7 @@ public func += (lhs: inout Vector<Int32>, rhs: Vector<Int32>) {
 ///   - lhs: Mutable input vector.
 ///   - rhs: Vector to add to the mutable vector.
 public func += (lhs: inout Vector<Float>, rhs: Vector<Float>) {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
     lhs = lhs + rhs
 }
 
@@ -152,7 +151,7 @@ public func += (lhs: inout Vector<Float>, rhs: Vector<Float>) {
 ///   - lhs: Mutable input vector.
 ///   - rhs: Vector to add to the mutable vector.
 public func += (lhs: inout Vector<Double>, rhs: Vector<Double>) {
-    precondition(lhs.length == rhs.length, "Vectors must be same length")
+    precondition(lhs.size == rhs.size, "Vectors must be same size")
     lhs = lhs + rhs
 }
 

@@ -10,7 +10,7 @@ import Accelerate
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log(_ vec: Vector<Float>) -> Vector<Float> {
-    var res = Vector<Float>(length: vec.length)
+    var res = Vector<Float>(size: vec.size)
     vForce.log(vec.buffer, result: &res.buffer)
     return res
 }
@@ -23,7 +23,7 @@ public func log(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log(_ vec: Vector<Double>) -> Vector<Double> {
-    var res = Vector<Double>(length: vec.length)
+    var res = Vector<Double>(size: vec.size)
     vForce.log(vec.buffer, result: &res.buffer)
     return res
 }
@@ -36,7 +36,7 @@ public func log(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log1p(_ vec: Vector<Float>) -> Vector<Float> {
-    var res = Vector<Float>(length: vec.length)
+    var res = Vector<Float>(size: vec.size)
     vForce.log1p(vec.buffer, result: &res.buffer)
     return res
 }
@@ -49,7 +49,7 @@ public func log1p(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log1p(_ vec: Vector<Double>) -> Vector<Double> {
-    var res = Vector<Double>(length: vec.length)
+    var res = Vector<Double>(size: vec.size)
     vForce.log1p(vec.buffer, result: &res.buffer)
     return res
 }
@@ -62,7 +62,7 @@ public func log1p(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log10(_ vec: Vector<Float>) -> Vector<Float> {
-    var res = Vector<Float>(length: vec.length)
+    var res = Vector<Float>(size: vec.size)
     vForce.log10(vec.buffer, result: &res.buffer)
     return res
 }
@@ -75,7 +75,7 @@ public func log10(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log10(_ vec: Vector<Double>) -> Vector<Double> {
-    var res = Vector<Double>(length: vec.length)
+    var res = Vector<Double>(size: vec.size)
     vForce.log10(vec.buffer, result: &res.buffer)
     return res
 }
@@ -88,7 +88,7 @@ public func log10(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log2(_ vec: Vector<Float>) -> Vector<Float> {
-    var res = Vector<Float>(length: vec.length)
+    var res = Vector<Float>(size: vec.size)
     vForce.log2(vec.buffer, result: &res.buffer)
     return res
 }
@@ -101,7 +101,7 @@ public func log2(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func log2(_ vec: Vector<Double>) -> Vector<Double> {
-    var res = Vector<Double>(length: vec.length)
+    var res = Vector<Double>(size: vec.size)
     vForce.log2(vec.buffer, result: &res.buffer)
     return res
 }
@@ -114,7 +114,7 @@ public func log2(_ vec: Vector<Double>) -> Vector<Double> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func logb(_ vec: Vector<Float>) -> Vector<Float> {
-    var res = Vector<Float>(length: vec.length)
+    var res = Vector<Float>(size: vec.size)
     vForce.logb(vec.buffer, result: &res.buffer)
     return res
 }
@@ -127,7 +127,7 @@ public func logb(_ vec: Vector<Float>) -> Vector<Float> {
 /// - Parameter vec: The input vector.
 /// - Returns: The output vector.
 public func logb(_ vec: Vector<Double>) -> Vector<Double> {
-    var res = Vector<Double>(length: vec.length)
+    var res = Vector<Double>(size: vec.size)
     vForce.logb(vec.buffer, result: &res.buffer)
     return res
 }
