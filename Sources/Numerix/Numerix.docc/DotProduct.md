@@ -1,14 +1,16 @@
 # Dot Product
 
-Dot product of two Vectors.
+Calculate the dot product of two vectors.
 
 ## Overview
 
-Calculate the dot product of two vectors.
+Calculate the dot product of two vectors using single and double precision.
 
 ## Topics
 
 - ``⋅(_:_:)-5xmep``
 - ``⋅(_:_:)-3mmbq``
-- ``dot(_:_:)-21pra``
-- ``dot(_:_:)-70qan``
+- ``dotProduct(_:_:stride:)-3rymf``
+- ``dotProduct(_:_:stride:)-1m3h0``
+- ``dotProductExtended(_:_:stride:)``
+- ``dotProductExtended(_:_:scalar:stride:)``
