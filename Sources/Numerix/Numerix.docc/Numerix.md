@@ -15,6 +15,8 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 ### Essentials
 
 - <doc:GettingStarted>
+- <doc:BlasRoutines>
+- <doc:LapackRoutines>
 
 ### Numeric types
 
