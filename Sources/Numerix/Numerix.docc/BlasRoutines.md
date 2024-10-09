@@ -20,8 +20,8 @@ This level contains vector operations.
 | drotm  | -                                 | ^                                     |
 | swap   | -                                 | swap vectors                          |
 | dwap   | -                                 | ^                                     |
-| sscal  | -                                 | scale a vector by a constant          |
-| dscal  | -                                 | ^                                     |
+| sscal  | ``scale(_:by:)-355s9``            | scale a vector by a constant          |
+| dscal  | ``scale(_:by:)-2q46w``            | ^                                     |
 | scopy  | -                                 | copy a vector to another vector       |
 | dcopy  | -                                 | ^                                     |
 | saxpy  | -                                 | constant times a vector plus a vector |

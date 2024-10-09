@@ -208,6 +208,18 @@ public struct Vector<T> {
     public func absoluteSum() -> Double where T == Double {
         return cblas_dasum(self.size, self.buffer.baseAddress, 1)
     }
+
+    /// Scale the vector by a constant using single precision.
+    /// - Parameter alpha: The scalar value to multiply by.
+    public func scale(by alpha: Float) where T == Float {
+        cblas_sscal(self.size, alpha, self.buffer.baseAddress, 1)
+    }
+
+    /// Scale the vector by a constant using double precision.
+    /// - Parameter alpha: The scalar value to multiply by.
+    public func scale(by alpha: Double) where T == Double {
+        cblas_dscal(self.size, alpha, self.buffer.baseAddress, 1)
+    }
 }
 
 extension Vector: ExpressibleByArrayLiteral {
