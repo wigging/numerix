@@ -6,7 +6,7 @@ The underlying data storage is a mutable buffer handled by the DataBuffer class.
 import Accelerate
 
 /// A one-dimensional structure for numerical data.
-///
+///  
 /// Create a vector with double-precision values:
 /// ```swift
 /// let vec = Vector<Double>([1, 2, 3, 4, 5])
@@ -122,6 +122,48 @@ public struct Vector<T> {
         self.data = DataBuffer(array: arr)
     }
 
+    /// Create an integer vector from a closed range of values.
+    ///
+    /// Use the closed range operator `...` to create a vector containing integer
+    /// values from 0 to 5.
+    /// ```swift
+    /// let vec = Vector(0...5)
+    /// ```
+    /// - Parameter closedRange: A closed range of values.
+    public init(_ closedRange: ClosedRange<T>) where T == Int {
+        let arr = Array(closedRange)
+        self.data = DataBuffer(array: arr)
+    }
+
+    /// Create a single-precision vector from a closed range of values.
+    ///
+    /// Use the closed range operator `...` to create a vector containing single
+    /// precision values from 0 to 5.
+    /// ```swift
+    /// let vec = Vector<Float>(0...5)
+    /// ```
+    /// - Parameter closedRange: A closed range of values.
+    public init(_ closedRange: ClosedRange<T>) where T == Float {
+        let n = closedRange.upperBound - closedRange.lowerBound
+        self.data = DataBuffer(count: Int(n) + 1)
+        vDSP.formRamp(in: closedRange, result: &self.data.buffer)
+    }
+
+    /// Create a double-precision vector from a closed range of values.
+    ///
+    /// Use the closed range operator `...` to create a vector containing double
+    /// precision values from 1.4 to 5.4.
+    /// ```swift
+    /// let vec = Vector(1.4...5.4)
+    /// ```
+    /// - Parameter closedRange: A closed range of values.
+    public init(_ closedRange: ClosedRange<T>) where T == Double {
+        let n = closedRange.upperBound - closedRange.lowerBound
+        self.data = DataBuffer(count: Int(n) + 1)
+        vDSP.formRamp(in: closedRange, result: &self.data.buffer)
+    }
+
+    // Subscript for the vector
     public subscript(item: Int) -> T {
         get { return self.buffer[item] }
         set { self.buffer[item] = newValue }
