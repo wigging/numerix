@@ -67,10 +67,9 @@ public struct Vector<T> {
     /// // This vector contains values
     /// // -2 -1 0 1 2 3 4 5 6 7
     /// ```
-    /// - Parameters:
-    ///   - rng: A half-open range of values.
-    public init(_ rng: Range<T>) where T == Int {
-        let arr = Array(rng)
+    /// - Parameter range: A half-open range of values.
+    public init(_ range: Range<T>) where T == Int {
+        let arr = Array(range)
         self.data = DataBuffer(array: arr)
     }
 
@@ -90,12 +89,11 @@ public struct Vector<T> {
     /// // This vector contains values
     /// // -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0
     /// ```
-    /// - Parameters:
-    ///   - rng: A half-open range of values.
-    public init(_ rng: Range<Int>) where T == Float {
-        let n = rng.upperBound - rng.lowerBound
-        let arr = vDSP.ramp(withInitialValue: Float(rng.lowerBound), increment: Float(1), count: n)
-        self.data = DataBuffer(array: arr)
+    /// - Parameter range: A half-open range of values.
+    public init(_ range: Range<T>) where T == Float {
+        let n = Int(range.upperBound - range.lowerBound)
+        self.data = DataBuffer(count: n)
+        vDSP.formRamp(withInitialValue: Float(range.lowerBound), increment: 1.0, result: &self.data.buffer)
     }
 
     /// Create a double-precision vector from a range of values.
@@ -114,12 +112,11 @@ public struct Vector<T> {
     /// // This vector contains values
     /// // -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0 6.0 7.0
     /// ```
-    /// - Parameters:
-    ///   - rng: A half-open range of values.
-    public init(_ rng: Range<Int>) where T == Double {
-        let n = rng.upperBound - rng.lowerBound
-        let arr = vDSP.ramp(withInitialValue: Double(rng.lowerBound), increment: Double(1), count: n)
-        self.data = DataBuffer(array: arr)
+    /// - Parameter range: A half-open range of values.
+    public init(_ range: Range<T>) where T == Double {
+        let n = Int(range.upperBound - range.lowerBound)
+        self.data = DataBuffer(count: n)
+        vDSP.formRamp(withInitialValue: Double(range.lowerBound), increment: 1.0, result: &self.data.buffer)
     }
 
     /// Create an integer vector from a closed range of values.
