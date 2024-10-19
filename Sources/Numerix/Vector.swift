@@ -166,18 +166,18 @@ public struct Vector<T> {
         set { self.buffer[item] = newValue }
     }
 
-    /// Find the index of the largest absolute value in the vector with single precision.
+    /// Get the index of the element with the largest absolute value in a single-precision vector.
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
-    public func maxAbsIndex(stride: Int = 1) -> Int where T == Float {
+    public func indexOfMaxAbsValue(stride: Int = 1) -> Int where T == Float {
         let index = cblas_isamax(self.size, self.buffer.baseAddress, stride)
         return index
     }
 
-    /// Find the index of the largest absolute value in the vector with double precision.
+    /// Get the index of the element with the largest absolute value in a double-precision vector.
     /// - Parameter stride: Stride within the vector. Default is 1 for every element.
     /// - Returns: Index corresponding to the largest absolute value.
-    public func maxAbsIndex(stride: Int = 1) -> Int where T == Double {
+    public func indexOfMaxAbsValue(stride: Int = 1) -> Int where T == Double {
         let index = cblas_idamax(self.size, self.buffer.baseAddress, stride)
         return index
     }

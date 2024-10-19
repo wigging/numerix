@@ -186,7 +186,6 @@ public func * (lhs: Matrix<Complex<Double>>, rhs: Matrix<Complex<Double>>) -> Ma
 /// - Parameters:
 ///   - lhs: Left matrix with dimensions of M x N.
 ///   - rhs: Right matrix with dimensions of N x P.
-/// - Returns: Matrix with dimensions of M x P.
 public func *= (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
     lhs = lhs * rhs
@@ -197,7 +196,6 @@ public func *= (lhs: inout Matrix<Float>, rhs: Matrix<Float>) {
 /// - Parameters:
 ///   - lhs: Left matrix with dimensions of M x N.
 ///   - rhs: Right matrix with dimensions of N x P.
-/// - Returns: Matrix with dimensions of M x P.
 public func *= (lhs: inout Matrix<Double>, rhs: Matrix<Double>) {
     precondition(lhs.columns == rhs.rows, "Number of columns in left matrix must equal number of rows in right matrix")
     lhs = lhs * rhs

@@ -11,7 +11,7 @@ import Accelerate
 // MARK: Vector exponential
 
 /// Calculate eˣ as the exponential function for all single-precision values in a vector.
-/// - Parameter vector: The input values.
+/// - Parameter vec: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ vec: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(size: vec.size)
@@ -20,7 +20,7 @@ public func exp(_ vec: Vector<Float>) -> Vector<Float> {
 }
 
 /// Calculate eˣ as the exponential function for all double-precision values in a vector.
-/// - Parameter vector: The input values.
+/// - Parameter vec: The input values.
 /// - Returns: Element-wise exponential function of x.
 public func exp(_ vec: Vector<Double>) -> Vector<Double> {
     var result = Vector<Double>(size: vec.size)
@@ -29,7 +29,7 @@ public func exp(_ vec: Vector<Double>) -> Vector<Double> {
 }
 
 /// Calculate 2ˣ as 2 raised to the power of all single-precision values in a vector.
-/// - Parameter vector: The input values.
+/// - Parameter vec: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ vec: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(size: vec.size)
@@ -38,7 +38,7 @@ public func exp2(_ vec: Vector<Float>) -> Vector<Float> {
 }
 
 /// Calculate 2ˣ as 2 raised to the power of all double-precision values in a vector.
-/// - Parameter vector: The input values.
+/// - Parameter vec: The input values.
 /// - Returns: Element-wise 2 to the power of x.
 public func exp2(_ vec: Vector<Double>) -> Vector<Double> {
     var result = Vector<Double>(size: vec.size)
@@ -47,7 +47,7 @@ public func exp2(_ vec: Vector<Double>) -> Vector<Double> {
 }
 
 /// Calculate eˣ-1 for all single-precision values in a vector.
-/// - Parameter vector: The input values.
+/// - Parameter vec: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
 public func expm1(_ vec: Vector<Float>) -> Vector<Float> {
     var result = Vector<Float>(size: vec.size)
@@ -56,7 +56,7 @@ public func expm1(_ vec: Vector<Float>) -> Vector<Float> {
 }
 
 /// Calculate eˣ-1 for all double-precision values in a vector.
-/// - Parameter vector: The input values.
+/// - Parameter vec: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input vector.
 public func expm1(_ vec: Vector<Double>) -> Vector<Double> {
     var result = Vector<Double>(size: vec.size)
@@ -103,7 +103,7 @@ public func exp2(_ matrix: Matrix<Double>) -> Matrix<Double> {
 }
 
 /// Calculate eˣ-1 for all single-precision values in a matrix.
-/// - Parameter vector: The input values.
+/// - Parameter matrix: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input matrix.
 public func expm1(_ matrix: Matrix<Float>) -> Matrix<Float> {
     var mat = Matrix<Float>(rows: matrix.rows, columns: matrix.columns)
@@ -112,7 +112,7 @@ public func expm1(_ matrix: Matrix<Float>) -> Matrix<Float> {
 }
 
 /// Calculate eˣ-1 for all double-precision values in a matrix.
-/// - Parameter vector: The input values.
+/// - Parameter matrix: The input values.
 /// - Returns: Element-wise eˣ-1 where x is each value of the input matrix.
 public func expm1(_ matrix: Matrix<Double>) -> Matrix<Double> {
     var mat = Matrix<Double>(rows: matrix.rows, columns: matrix.columns)
