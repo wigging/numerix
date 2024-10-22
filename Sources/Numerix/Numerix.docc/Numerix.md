@@ -47,6 +47,7 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 - <doc:Inverse>
 - <doc:Norm>
 - <doc:Scale>
+- <doc:Swap>
 
 ### Manipulation functions
 
