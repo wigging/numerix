@@ -5,14 +5,27 @@ import PackageDescription
 
 let package = Package(
     name: "Numerix",
+    platforms: [.macOS(.v14), .iOS(.v17), .tvOS(.v17), .watchOS(.v10), .visionOS(.v1)],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(name: "Numerix", targets: ["Numerix"])
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
-        .target(name: "Numerix"),
-        .testTarget(name: "NumerixTests", dependencies: ["Numerix"])
+        .target(
+            name: "Numerix",
+            dependencies: ["VectorModule", "MatrixModule"],
+            cxxSettings: [.define("ACCELERATE_NEW_LAPACK", to: "1"), .define("ACCELERATE_LAPACK_ILP64", to: "1")],
+            linkerSettings: [.linkedFramework("Accelerate")]
+        ),
+        .target(
+            name: "VectorModule",
+            cxxSettings: [.define("ACCELERATE_NEW_LAPACK", to: "1"), .define("ACCELERATE_LAPACK_ILP64", to: "1")],
+            linkerSettings: [.linkedFramework("Accelerate")]
+        ),
+        .target(
+            name: "MatrixModule",
+            cxxSettings: [.define("ACCELERATE_NEW_LAPACK", to: "1"), .define("ACCELERATE_LAPACK_ILP64", to: "1")],
+            linkerSettings: [.linkedFramework("Accelerate")]
+        ),
+        .testTarget(name: "Tests", dependencies: ["Numerix"])
     ]
 )
