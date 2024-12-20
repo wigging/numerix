@@ -1,0 +1,6 @@
+disabled_rules:
+  - cyclomatic_complexity
+  - force_cast
+  - function_body_length
+  - identifier_name
+  - file_length
