@@ -1,0 +1,17 @@
+name: Check Code Style
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  check-style:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install SwiftLint
+      run: brew install swiftlint
+    - name: Run Linter
+      run: swiftlint
