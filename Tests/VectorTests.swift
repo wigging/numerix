@@ -7,6 +7,18 @@ import Testing
 
 struct VectorTests {
 
+    @Test func initialization() {
+        let a = Vector([1, 2, 3, 4])
+        let b = Vector(like: a)
+        let c = Vector<Double>(size: 5)
+        let d = Vector(size: 5, fill: 9.2)
+
+        #expect(a == Vector([1, 2, 3, 4]))
+        #expect(b == Vector([0, 0, 0, 0]))
+        #expect(c == Vector([0, 0, 0, 0, 0.0]))
+        #expect(d == Vector([9.2, 9.2, 9.2, 9.2, 9.2]))
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Vector([1, 2, 3, 4, 5])
@@ -14,6 +26,7 @@ struct VectorTests {
 
         // Equality
         #expect(a == a)
+        #expect(a != b)
 
         // Addition
         #expect(k + a == Vector([6, 7, 8, 9, 10]))
@@ -51,6 +64,7 @@ struct VectorTests {
 
         // Equality
         #expect(a == a)
+        #expect(a != b)
 
         // Addition
         #expect(k + a == Vector([6, 7, 8, 9, 10]))
@@ -88,6 +102,7 @@ struct VectorTests {
 
         // Equality
         #expect(a == a)
+        #expect(a != b)
 
         // Addition
         #expect(k + a == Vector([6, 7, 8, 9, 10]))
