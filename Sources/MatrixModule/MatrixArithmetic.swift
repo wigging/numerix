@@ -128,7 +128,7 @@ extension Float: MatrixArithmetic {
         vDSP.subtract(a.buffer, arr, result: &mat.buffer)
         return mat
     }
-    
+
     public static func subtract(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
         var mat = Matrix(like: a)
         vDSP.subtract(a.buffer, b.buffer, result: &mat.buffer)

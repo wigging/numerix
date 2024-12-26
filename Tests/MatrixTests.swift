@@ -7,6 +7,46 @@ import Testing
 
 struct MatrixTests {
 
+    @Test func printing() {
+        let a = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12.5]])
+        var outputA = ""
+        print(a, terminator: "", to: &outputA)
+        #expect(outputA == """
+        ⎛ 1.0   2.0   3.0   4.0 ⎞
+        ⎜ 5.0   6.0   7.0   8.0 ⎟
+        ⎝ 9.0  10.0  11.0  12.5 ⎠
+        """)
+
+        let b = Matrix([[2.5, 1, 8.235], [0.45, 23.5, 3]])
+        var outputB = ""
+        print(b, terminator: "", to: &outputB)
+        #expect(outputB == """
+        ⎛ 2.5    1.0  8.235 ⎞
+        ⎝ 0.45  23.5  3.0   ⎠
+        """)
+    }
+
+    @Test func debugPrinting() {
+        let a = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12.5]])
+        var outputA = ""
+        debugPrint(a, terminator: "", to: &outputA)
+        #expect(outputA == """
+        3x4 Matrix<Double>
+        ⎛ 1.0   2.0   3.0   4.0 ⎞
+        ⎜ 5.0   6.0   7.0   8.0 ⎟
+        ⎝ 9.0  10.0  11.0  12.5 ⎠
+        """)
+
+        let b = Matrix([[2.5, 1, 8.235], [0.45, 23.5, 3]])
+        var outputB = ""
+        debugPrint(b, terminator: "", to: &outputB)
+        #expect(outputB == """
+        2x3 Matrix<Double>
+        ⎛ 2.5    1.0  8.235 ⎞
+        ⎝ 0.45  23.5  3.0   ⎠
+        """)
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])
@@ -40,9 +80,9 @@ struct MatrixTests {
         #expect(a * c == Matrix([[22, 28], [49, 64]]))
 
         // Methods
-        //#expect(a.dot(b) == 100)
-        //#expect(a.sum() == 15)
-        //#expect(a.absoluteSum() == 15)
+        // #expect(a.dot(b) == 100)
+        // #expect(a.sum() == 15)
+        // #expect(a.absoluteSum() == 15)
     }
 
     @Test func floatArithmetic() {
@@ -78,9 +118,9 @@ struct MatrixTests {
         #expect(a * c == Matrix([[22, 28], [49, 64]]))
 
         // Methods
-        //#expect(a.dot(b) == 100)
-        //#expect(a.sum() == 15)
-        //#expect(a.absoluteSum() == 15)
+        // #expect(a.dot(b) == 100)
+        // #expect(a.sum() == 15)
+        // #expect(a.absoluteSum() == 15)
     }
 
     @Test func doubleArithmetic() {
@@ -116,8 +156,8 @@ struct MatrixTests {
         #expect(a * c == Matrix([[22, 28], [49, 64]]))
 
         // Methods
-        //#expect(a.dot(b) == 100)
-        //#expect(a.sum() == 15)
-        //#expect(a.absoluteSum() == 15)
+        // #expect(a.dot(b) == 100)
+        // #expect(a.sum() == 15)
+        // #expect(a.absoluteSum() == 15)
     }
 }

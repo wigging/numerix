@@ -19,6 +19,18 @@ struct VectorTests {
         #expect(d == Vector([9.2, 9.2, 9.2, 9.2, 9.2]))
     }
 
+    @Test func printing() {
+        let a = Vector([4, 5, 8.02, 9, 10])
+
+        var printOutput = ""
+        print(a, terminator: "", to: &printOutput)
+        #expect(printOutput == "( 4.0  5.0  8.02  9.0  10.0 )")
+
+        var debugOutput = ""
+        debugPrint(a, terminator: "", to: &debugOutput)
+        #expect(debugOutput == "5-element Vector<Double>\n( 4.0  5.0  8.02  9.0  10.0 )")
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Vector([1, 2, 3, 4, 5])

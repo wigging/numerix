@@ -43,6 +43,84 @@ public struct Matrix<Scalar> {
     }
 }
 
+extension Matrix: CustomStringConvertible where Scalar: NumberStyle {
+
+    public var description: String {
+        // Max integer width and fraction width for each matrix column
+        var maxIntWidth = Array(repeating: 0, count: self.columns)
+        var maxFracWidth = Array(repeating: 0, count: self.columns)
+
+        for i in 0..<self.rows {
+            for j in 0..<self.columns {
+                maxIntWidth[j] = max(maxIntWidth[j], self[i, j].integerLength)
+                maxFracWidth[j] = max(maxFracWidth[j], self[i, j].fractionLength)
+            }
+        }
+
+        // Matrix values as strings with padding
+        var desc = ""
+
+        for i in 0..<self.rows {
+            switch i {
+            case 0:
+                desc += "⎛ "
+            case self.rows - 1:
+                desc += "⎝ "
+            default:
+                desc += "⎜ "
+            }
+
+            for j in 0..<self.columns {
+                let leftPad = String(repeating: " ", count: maxIntWidth[j] - self[i, j].integerLength)
+                let rightPad = String(repeating: " ", count: maxFracWidth[j] - self[i, j].fractionLength)
+                let valDesc = leftPad + self[i, j].stringDescription + rightPad
+
+                if j != self.columns - 1 {
+                    desc += valDesc + "  "
+                } else {
+                    desc += valDesc
+                }
+            }
+
+            switch i {
+            case 0:
+                desc += " ⎞\n"
+            case self.rows - 1:
+                desc += " ⎠"
+            default:
+                desc += " ⎟\n"
+            }
+        }
+
+        return desc
+    }
+}
+
+extension Matrix: CustomDebugStringConvertible where Scalar: NumberStyle {
+
+    public var debugDescription: String {
+        """
+        \(self.rows)x\(self.columns) \(type(of: self))
+        \(self.description)
+        """
+    }
+}
+
+extension Matrix: Equatable {
+
+    /// Compare two matrices for equality.
+    /// - Parameters:
+    ///   - lhs: The first matrix.
+    ///   - rhs: The second matrix.
+    /// - Returns: True if both matrices are same dimension and contain the same values.
+    public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
+        let n = lhs.buffer.count
+        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<Scalar>.size * n)
+        let buffersEqual = cmp == 0 ? true : false
+        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && buffersEqual
+    }
+}
+
 extension Matrix where Scalar: MatrixArithmetic {
 
     /// Element-wise addition of a scalar value and matrix.
@@ -77,7 +155,7 @@ extension Matrix where Scalar: MatrixArithmetic {
     public static func - (lhs: Matrix, rhs: Matrix) -> Matrix {
         Scalar.subtract(lhs, rhs)
     }
-    
+
     /// Matrix multiplication of two matrices.
     /// - Parameters:
     ///   - lhs: The left-hand side matrix.
@@ -86,7 +164,7 @@ extension Matrix where Scalar: MatrixArithmetic {
     public static func * (lhs: Matrix, rhs: Matrix) -> Matrix {
         Scalar.matrixMultiply(lhs, rhs)
     }
-    
+
     /// Element-wise multiplication of a scalar value and matrix.
     /// - Parameters:
     ///   - lhs: The left-hand side scalar value.
@@ -102,20 +180,5 @@ extension Matrix where Scalar: MatrixArithmetic {
 
     public static func .* (lhs: Matrix, rhs: Matrix) -> Matrix {
         Scalar.multiply(lhs, rhs)
-    }
-}
-
-extension Matrix: Equatable where Scalar: Equatable {
-
-    /// Compare two matrices for equality.
-    /// - Parameters:
-    ///   - lhs: The first matrix.
-    ///   - rhs: The second matrix.
-    /// - Returns: True if both matrices are same dimension and contain the same values.
-    public static func == (lhs: Matrix, rhs: Matrix) -> Bool {
-        let n = lhs.buffer.count
-        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<Scalar>.size * n)
-        let buffersEqual = cmp == 0 ? true : false
-        return lhs.rows == rhs.rows && lhs.columns == rhs.columns && buffersEqual
     }
 }

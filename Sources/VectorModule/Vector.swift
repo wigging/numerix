@@ -63,8 +63,28 @@ public struct Vector<Scalar> {
     }
 }
 
+extension Vector: CustomStringConvertible {
+
+    public var description: String {
+        var descr = "( "
+        descr += self.buffer.map { "\($0)" }.joined(separator: "  ")
+        descr += " )"
+        return descr
+    }
+}
+
+extension Vector: CustomDebugStringConvertible {
+
+    public var debugDescription: String {
+        var descr = "\(self.size)-element \(type(of: self))\n( "
+        descr += self.buffer.map { "\($0)" }.joined(separator: "  ")
+        descr += " )"
+        return descr
+    }
+}
+
 extension Vector: Equatable {
-    
+
     /// Compare two vectors for equality.
     /// - Parameters:
     ///   - lhs: Left-hand side vector.
