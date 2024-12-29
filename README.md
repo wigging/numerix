@@ -39,10 +39,13 @@ let b: Matrix = [[1, 2, 3.5],
                  [4, 5, 9.1]]
 
 let c = a * b
-print(c)
 
-// This prints the following:
-//
+print(c)
+// ⎛ 21.0  27.0  42.8 ⎞
+// ⎜ 48.0  63.0  98.6 ⎟
+// ⎝ 30.0  39.0  61.4 ⎠
+
+debugPrint(c)
 // 3x3 Matrix<Double>
 // ⎛ 21.0  27.0  42.8 ⎞
 // ⎜ 48.0  63.0  98.6 ⎟
