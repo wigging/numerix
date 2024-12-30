@@ -12,10 +12,22 @@ See the `CONTRIBUTING.md` document in the Numerix [GitHub repository](https://gi
 
 ## Topics
 
-### Vector
+### Essentials
+
+- <doc:GetStarted>
+- <doc:BlasRoutines>
+- <doc:LapackRoutines>
+
+### Numeric structures
 
 - ``Vector``
-
-### Matrix
-
 - ``Matrix``
+
+### Arithmetic operations
+
+- <doc:VectorArithmetic>
+- <doc:MatrixArithmetic>
+
+### Linear algebra
+
+- <doc:DotProduct>
