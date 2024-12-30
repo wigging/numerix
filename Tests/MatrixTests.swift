@@ -7,6 +7,17 @@ import Testing
 
 struct MatrixTests {
 
+    @Test func arrayLiteral() {
+        let a: Matrix = [[1, 2, 3, 4],
+                         [5, 6, 7, 8]]
+        #expect(a == [[1, 2, 3, 4], [5, 6, 7, 8]])
+
+        let b: Matrix = [[1, 2, 3, 4.7],
+                         [5, 16.1, 7, 8],
+                         [10, 11, 12, 13]]
+        #expect(b == [[1, 2, 3, 4.7], [5, 16.1, 7, 8], [10, 11, 12, 13]])
+    }
+
     @Test func printing() {
         let a = Matrix([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12.5]])
         var outputA = ""

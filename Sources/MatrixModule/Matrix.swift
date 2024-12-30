@@ -43,6 +43,13 @@ public struct Matrix<Scalar> {
     }
 }
 
+extension Matrix: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: [Scalar]...) {
+        self.init(elements)
+    }
+}
+
 extension Matrix: CustomStringConvertible where Scalar: NumberStyle {
 
     public var description: String {

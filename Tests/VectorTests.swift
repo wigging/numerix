@@ -19,6 +19,14 @@ struct VectorTests {
         #expect(d == Vector([9.2, 9.2, 9.2, 9.2, 9.2]))
     }
 
+    @Test func arrayLiteral() {
+        let a: Vector = [1, 2, 3, 4, 5]
+        #expect(a == [1, 2, 3, 4, 5])
+
+        let b: Vector = [3, 4.2, 8, 21, 18.94]
+        #expect(b == [3, 4.2, 8, 21, 18.94])
+    }
+
     @Test func printing() {
         let a = Vector([4, 5, 8.02, 9, 10])
 

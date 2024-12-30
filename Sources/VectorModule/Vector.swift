@@ -63,6 +63,13 @@ public struct Vector<Scalar> {
     }
 }
 
+extension Vector: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: Scalar...) {
+        self.init(elements)
+    }
+}
+
 extension Vector: CustomStringConvertible {
 
     public var description: String {
