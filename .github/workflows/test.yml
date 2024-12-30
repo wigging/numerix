@@ -1,19 +1,19 @@
-name: Run Tests
+name: Run swift tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  test-code:
-    runs-on: macos-latest
+  tests:
+    runs-on: macos-15
     steps:
     - uses: actions/checkout@v4
-    - name: Select Xcode
+    - name: Select xcode version
       run: sudo xcode-select --switch /Applications/Xcode_16.2.app
-    - name: Build Package
+    - name: Build the package
       run: swift build
-    - name: Run Tests
+    - name: Run tests with swift
       run: swift test
