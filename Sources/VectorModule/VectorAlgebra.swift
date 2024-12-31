@@ -6,6 +6,7 @@ import Accelerate
 
 public protocol VectorAlgebra {
     static func dot(_ a: Vector<Self>, _ b: Vector<Self>) -> Self
+    static func norm(_ a: Vector<Self>) -> Self
     static func sum(_ a: Vector<Self>) -> Self
     static func absoluteSum(_ a: Vector<Self>) -> Self
 }
@@ -18,6 +19,17 @@ extension Int: VectorAlgebra {
             res += x * y
         }
         return res
+    }
+
+    public static func norm(_ a: Vector<Int>) -> Int {
+        var sumOfSquares = 0
+
+        for i in 0..<a.size {
+            sumOfSquares &+= a[i] * a[i]
+        }
+
+        let result = sqrt(Float(sumOfSquares))
+        return Int(result)
     }
 
     public static func sum(_ a: Vector<Int>) -> Int {
@@ -43,6 +55,10 @@ extension Float: VectorAlgebra {
         cblas_sdot(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
     }
 
+    public static func norm(_ a: Vector<Float>) -> Float {
+        cblas_snrm2(a.size, a.buffer.baseAddress, 1)
+    }
+
     public static func sum(_ a: Vector<Float>) -> Float {
         vDSP.sum(a.buffer)
     }
@@ -56,6 +72,10 @@ extension Double: VectorAlgebra {
 
     public static func dot(_ a: Vector<Double>, _ b: Vector<Double>) -> Double {
         cblas_ddot(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
+    }
+
+    public static func norm(_ a: Vector<Double>) -> Double {
+        cblas_dnrm2(a.size, a.buffer.baseAddress, 1)
     }
 
     public static func sum(_ a: Vector<Double>) -> Double {

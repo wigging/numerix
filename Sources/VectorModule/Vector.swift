@@ -157,6 +157,12 @@ extension Vector where Scalar: VectorAlgebra {
     public func dot(_ vector: Vector) -> Scalar {
         Scalar.dot(self, vector)
     }
+    
+    /// The Euclidean norm of the vector. Also known as the L² norm, 2-norm, vector magnitude, or Euclidean length.
+    /// - Returns: The vector norm.
+    public func norm() -> Scalar {
+        Scalar.norm(self)
+    }
 
     public func sum() -> Scalar {
         Scalar.sum(self)

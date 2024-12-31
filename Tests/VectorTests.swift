@@ -73,6 +73,7 @@ struct VectorTests {
         let b = Vector([4, 5, 6, 7, 8])
 
         #expect(a.dot(b) == 100)
+        #expect(a.norm() == 7)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
     }
@@ -111,6 +112,7 @@ struct VectorTests {
         let b = Vector<Float>([4, 5, 6, 7, 8])
 
         #expect(a.dot(b) == 100)
+        #expect(a.norm() == 7.4161984871)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
     }
@@ -149,6 +151,7 @@ struct VectorTests {
         let b = Vector([4, 5, 6, 7, 8.0])
 
         #expect(a.dot(b) == 100)
+        #expect(a.norm() == 7.416198487095663)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
     }

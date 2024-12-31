@@ -171,4 +171,19 @@ struct MatrixTests {
         // #expect(a.sum() == 15)
         // #expect(a.absoluteSum() == 15)
     }
+
+    @Test func integerAlgebra() {
+        let a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        #expect(a.norm() == 16)
+    }
+
+    @Test func floatAlgebra() {
+        let a = Matrix<Float>([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        #expect(a.norm() == 16.881943)
+    }
+
+    @Test func doubleAlgebra() {
+        let a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9.0]])
+        #expect(a.norm() == 16.881943016134134)
+    }
 }
