@@ -58,4 +58,4 @@ Documentation for the Numerix package can be viewed [here](https://swiftpackagei
 
 ## Contributing
 
-If you would like to contribute to the Numerix package, fork this repository and create a new branch with your contributions. Then create a pull request to the main branch to submit your changes. Please use [SwiftLint](https://github.com/realm/SwiftLint) to enforce Swift code styles and conventions.
+Please read the [contributing guidelines](CONTRIBUTING.md) if you would like to contribute to the Numerix package. The guidelines discuss testing, documentation, code style, and other practices used for the development of this package.
