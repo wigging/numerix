@@ -76,6 +76,7 @@ struct VectorTests {
         #expect(a.norm() == 7)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
+        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
     }
 
     @Test func floatArithmetic() {
@@ -115,6 +116,7 @@ struct VectorTests {
         #expect(a.norm() == 7.4161984871)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
+        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
     }
 
     @Test func doubleArithmetic() {
@@ -154,5 +156,6 @@ struct VectorTests {
         #expect(a.norm() == 7.416198487095663)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
+        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
     }
 }

@@ -164,11 +164,45 @@ extension Vector where Scalar: VectorAlgebra {
         Scalar.norm(self)
     }
 
+    /// Sum of the vector values.
+    ///
+    /// This example calculates the sum of the values in vector `a`.
+    /// ```swift
+    /// let a = Vector([1, 2, 3, 4, 5])
+    /// let c = a.sum()
+    /// // c is 15
+    /// ```
+    ///
+    /// - Returns: Sum of the values.
     public func sum() -> Scalar {
         Scalar.sum(self)
     }
 
+    /// Sum of the absolute values in the vector.
+    ///
+    /// This examples calculates the absolute sum of the values in vector `a`.
+    /// ```swift
+    /// let a = Vector<Float>([1, 2, -3, 4, -6.8])
+    /// let c = a.absoluteSum()
+    /// // c is 16.8
+    /// ```
+    ///
+    /// - Returns: Sum of absolute values.
     public func absoluteSum() -> Scalar {
         Scalar.absoluteSum(self)
+    }
+
+    /// Calculate the cumulative sum of the vector.
+    ///
+    /// This returns a vector that is the cumulative sum of the scalar values.
+    /// ```swift
+    /// let a = Vector([1, 2, 3, 4, 5])
+    /// let c = a.cumulativeSum()
+    /// // c is Vector with values [1, 3, 6, 10, 15]
+    /// ```
+    /// 
+    /// - Returns: Cumulative sum vector.
+    public func cumulativeSum() -> Vector {
+        Scalar.cumulativeSum(self)
     }
 }
