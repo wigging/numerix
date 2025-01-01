@@ -175,15 +175,18 @@ struct MatrixTests {
     @Test func integerAlgebra() {
         let a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         #expect(a.norm() == 16)
+        #expect(a.transpose() == Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))
     }
 
     @Test func floatAlgebra() {
         let a = Matrix<Float>([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         #expect(a.norm() == 16.881943)
+        #expect(a.transpose() == Matrix<Float>([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))
     }
 
     @Test func doubleAlgebra() {
         let a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9.0]])
         #expect(a.norm() == 16.881943016134134)
+        #expect(a.transpose() == Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9.0]]))
     }
 }

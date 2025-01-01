@@ -191,10 +191,16 @@ extension Matrix where Scalar: MatrixArithmetic {
 }
 
 extension Matrix where Scalar: MatrixAlgebra {
-    
+
     /// The Euclidean norm of the matrix. Also known as the 2-norm or maximum singular value.
     /// - Returns: The matrix norm.
     public func norm() -> Scalar {
         Scalar.norm(self)
+    }
+
+    /// Transpose the matrix and return the result.
+    /// - Returns: The transposed matrix.
+    public func transpose() -> Matrix {
+        Scalar.transpose(self)
     }
 }
