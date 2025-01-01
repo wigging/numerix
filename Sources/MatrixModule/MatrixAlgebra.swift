@@ -23,7 +23,7 @@ extension Int: MatrixAlgebra {
     }
 
     public static func transpose(_ a: Matrix<Int>) -> Matrix<Int> {
-        var transposed = Matrix(like: a)
+        var transposed = Matrix<Int>(rows: a.columns, columns: a.rows)
         for i in 0..<a.rows {
             for j in 0..<a.columns {
                 transposed[j, i] = a[i, j]
@@ -42,7 +42,7 @@ extension Float: MatrixAlgebra {
     public static func transpose(_ a: Matrix<Float>) -> Matrix<Float> {
         let m = vDSP_Length(a.columns)
         let n = vDSP_Length(a.rows)
-        let mat = Matrix<Float>(like: a)
+        let mat = Matrix<Float>(rows: a.columns, columns: a.rows)
         vDSP_mtrans(a.buffer.baseAddress!, 1, mat.buffer.baseAddress!, 1, m, n)
         return mat
     }
@@ -57,7 +57,7 @@ extension Double: MatrixAlgebra {
     public static func transpose(_ a: Matrix<Double>) -> Matrix<Double> {
         let m = vDSP_Length(a.columns)
         let n = vDSP_Length(a.rows)
-        let mat = Matrix<Double>(like: a)
+        let mat = Matrix<Double>(rows: a.columns, columns: a.rows)
         vDSP_mtransD(a.buffer.baseAddress!, 1, mat.buffer.baseAddress!, 1, m, n)
         return mat
     }

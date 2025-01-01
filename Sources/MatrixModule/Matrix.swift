@@ -24,7 +24,11 @@ public struct Matrix<Scalar> {
         self.columns = content[0].count
         self.data = DataBuffer(array: content.flatMap { $0 })
     }
-
+    
+    /// Create an empty matrix with size `m×n` where `m` is number of rows and `n` is number of columns.
+    /// - Parameters:
+    ///   - rows: Number of rows in the matrix.
+    ///   - columns: Number of columns in the matrix.
     public init(rows: Int, columns: Int) {
         self.rows = rows
         self.columns = columns
