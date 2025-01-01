@@ -154,8 +154,22 @@ extension Vector where Scalar: VectorArithmetic {
 
 extension Vector where Scalar: VectorAlgebra {
 
-    public func dot(_ vector: Vector) -> Scalar {
-        Scalar.dot(self, vector)
+    /// Calculate the dot product of two vectors.
+    ///
+    /// This calculates the dot product as `c = aᵀb` where `a` and `b` are vectors
+    /// that must be the same length.
+    /// ```swift
+    /// let a: Vector<Float> = [1, 2, 3, 4, 5]
+    /// let b: Vector<Float> = [9, 2, 3, 4, 5]
+    /// let c = a.dot(b)
+    /// // c is 63.0
+    /// ```
+    ///
+    /// - Parameter b: The second vector.
+    /// - Returns: The dot product of two vectors
+    public func dot(_ b: Vector) -> Scalar {
+        precondition(self.size == b.size, "Vectors must be same size")
+        return Scalar.dot(self, b)
     }
 
     /// The Euclidean norm of the vector. Also known as the L² norm, 2-norm, vector magnitude, or Euclidean length.

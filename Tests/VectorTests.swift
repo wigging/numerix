@@ -68,17 +68,6 @@ struct VectorTests {
         #expect(a * b == Vector([4, 10, 18, 28, 40]))
     }
 
-    @Test func integerAlgebra() {
-        let a = Vector([1, 2, 3, 4, 5])
-        let b = Vector([4, 5, 6, 7, 8])
-
-        #expect(a.dot(b) == 100)
-        #expect(a.norm() == 7)
-        #expect(a.sum() == 15)
-        #expect(a.absoluteSum() == 15)
-        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
-    }
-
     @Test func floatArithmetic() {
         let k: Float = 5
         let a = Vector<Float>([1, 2, 3, 4, 5])
@@ -108,17 +97,6 @@ struct VectorTests {
         #expect(a * b == Vector([4, 10, 18, 28, 40]))
     }
 
-    @Test func floatAlgebra() {
-        let a = Vector<Float>([1, 2, 3, 4, 5])
-        let b = Vector<Float>([4, 5, 6, 7, 8])
-
-        #expect(a.dot(b) == 100)
-        #expect(a.norm() == 7.4161984871)
-        #expect(a.sum() == 15)
-        #expect(a.absoluteSum() == 15)
-        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
-    }
-
     @Test func doubleArithmetic() {
         let k = 5.0
         let a = Vector([1, 2, 3, 4, 5.0])
@@ -146,6 +124,28 @@ struct VectorTests {
         #expect(k * a == Vector([5, 10, 15, 20, 25]))
         #expect(a * k == Vector([5, 10, 15, 20, 25]))
         #expect(a * b == Vector([4, 10, 18, 28, 40]))
+    }
+
+    @Test func integerAlgebra() {
+        let a = Vector([1, 2, 3, 4, 5])
+        let b = Vector([4, 5, 6, 7, 8])
+
+        #expect(a.dot(b) == 100)
+        #expect(a.norm() == 7)
+        #expect(a.sum() == 15)
+        #expect(a.absoluteSum() == 15)
+        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
+    }
+
+    @Test func floatAlgebra() {
+        let a = Vector<Float>([1, 2, 3, 4, 5])
+        let b = Vector<Float>([4, 5, 6, 7, 8])
+
+        #expect(a.dot(b) == 100)
+        #expect(a.norm() == 7.4161984871)
+        #expect(a.sum() == 15)
+        #expect(a.absoluteSum() == 15)
+        #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
     }
 
     @Test func doubleAlgebra() {
