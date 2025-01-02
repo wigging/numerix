@@ -39,6 +39,18 @@ struct VectorTests {
         #expect(debugOutput == "5-element Vector<Double>\n( 4.0  5.0  8.02  9.0  10.0 )")
     }
 
+    @Test func approximatelyEqual() {
+        let a = Vector<Float>([5, 6, 7, 8.123])
+        let b = Vector<Float>([5, 6, 7, 8.1234567891011])
+        #expect(!a.isApproximatelyEqual(to: b))
+        #expect(a.isApproximatelyEqual(to: b, absoluteTolerance: 0.001))
+
+        let c = Vector([5, 6, 7, 8.123])
+        let d = Vector([5, 6, 7, 8.1234567891011])
+        #expect(!c.isApproximatelyEqual(to: d))
+        #expect(c.isApproximatelyEqual(to: d, absoluteTolerance: 0.001))
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Vector([1, 2, 3, 4, 5])
