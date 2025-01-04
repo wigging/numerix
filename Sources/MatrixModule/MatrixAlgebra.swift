@@ -6,6 +6,7 @@ import Accelerate
 
 public protocol MatrixAlgebra {
     static func norm(_ a: Matrix<Self>) -> Self
+    static func scale(_ a: inout Matrix<Self>, by k: Self)
     static func transpose(_ a: Matrix<Self>) -> Matrix<Self>
 }
 
@@ -20,6 +21,10 @@ extension Int: MatrixAlgebra {
         }
         let result = sqrt(Float(sumOfSquares))
         return Int(result)
+    }
+
+    public static func scale(_ a: inout Matrix<Int>, by k: Int) {
+        a = a .* k
     }
 
     public static func transpose(_ a: Matrix<Int>) -> Matrix<Int> {
@@ -39,6 +44,10 @@ extension Float: MatrixAlgebra {
         cblas_snrm2(a.buffer.count, a.buffer.baseAddress, 1)
     }
 
+    public static func scale(_ a: inout Matrix<Float>, by k: Float) {
+        cblas_sscal(a.rows * a.columns, k, a.buffer.baseAddress, 1)
+    }
+
     public static func transpose(_ a: Matrix<Float>) -> Matrix<Float> {
         let m = vDSP_Length(a.columns)
         let n = vDSP_Length(a.rows)
@@ -52,6 +61,10 @@ extension Double: MatrixAlgebra {
 
     public static func norm(_ a: Matrix<Double>) -> Double {
         cblas_dnrm2(a.buffer.count, a.buffer.baseAddress, 1)
+    }
+
+    public static func scale(_ a: inout Matrix<Double>, by k: Double) {
+        cblas_dscal(a.rows * a.columns, k, a.buffer.baseAddress, 1)
     }
 
     public static func transpose(_ a: Matrix<Double>) -> Matrix<Double> {

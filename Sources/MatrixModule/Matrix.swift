@@ -202,6 +202,17 @@ extension Matrix where Scalar: MatrixAlgebra {
         Scalar.norm(self)
     }
 
+    /// Multiply each value in the matrix by a constant.
+    ///
+    /// For integer matrices, this performs element-wise multiplication. For
+    /// single and double precision matrices this uses BLAS routines `sscal`
+    /// and `dscal` respectively.
+    ///
+    /// - Parameter k: The scaling factor.
+    public mutating func scale(by k: Scalar) {
+        Scalar.scale(&self, by: k)
+    }
+
     /// Transpose the matrix and return the result.
     /// - Returns: The transposed matrix.
     public func transpose() -> Matrix {

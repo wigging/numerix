@@ -141,12 +141,15 @@ struct VectorTests {
     @Test func integerAlgebra() {
         let a = Vector([1, 2, 3, 4, 5])
         let b = Vector([4, 5, 6, 7, 8])
-
         #expect(a.dot(b) == 100)
         #expect(a.norm() == 7)
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
         #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
+
+        var c = Vector([8, 9, 10, 11])
+        c.scale(by: 3)
+        #expect(c == [24, 27, 30, 33])
     }
 
     @Test func floatAlgebra() {
@@ -158,6 +161,10 @@ struct VectorTests {
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
         #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
+
+        var c = Vector<Float>([8, 9, 10, 11])
+        c.scale(by: 3)
+        #expect(c == [24, 27, 30, 33])
     }
 
     @Test func doubleAlgebra() {
@@ -169,5 +176,9 @@ struct VectorTests {
         #expect(a.sum() == 15)
         #expect(a.absoluteSum() == 15)
         #expect(a.cumulativeSum() == [1, 3, 6, 10, 15])
+
+        var c = Vector([8, 9, 10, 11.0])
+        c.scale(by: 3)
+        #expect(c == [24, 27, 30, 33])
     }
 }

@@ -150,6 +150,10 @@ extension Vector where Scalar: VectorArithmetic {
     public static func * (lhs: Vector, rhs: Vector) -> Vector {
         Scalar.multiply(lhs, rhs)
     }
+
+    public static func *= (lhs: inout Vector, rhs: Scalar) {
+        lhs = lhs * rhs
+    }
 }
 
 extension Vector where Scalar: VectorAlgebra {
@@ -172,10 +176,22 @@ extension Vector where Scalar: VectorAlgebra {
         return Scalar.dot(self, b)
     }
 
-    /// The Euclidean norm of the vector. Also known as the L² norm, 2-norm, vector magnitude, or Euclidean length.
+    /// The Euclidean norm of the vector. Also known as the L² norm, 2-norm,
+    /// vector magnitude, or Euclidean length.
     /// - Returns: The vector norm.
     public func norm() -> Scalar {
         Scalar.norm(self)
+    }
+
+    /// Multiply each value in the vector by a constant.
+    ///
+    /// For integer vectors, this performs element-wise multiplication. For
+    /// single and double precision vectors this uses BLAS routines `sscal`
+    /// and `dscal` respectively.
+    ///
+    /// - Parameter k: The scaling factor.
+    public mutating func scale(by k: Scalar) {
+        Scalar.scale(&self, by: k)
     }
 
     /// Sum of the vector values.

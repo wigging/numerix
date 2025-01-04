@@ -191,6 +191,10 @@ struct MatrixTests {
         #expect(a.norm() == 16)
         #expect(a.transpose() == Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))
         #expect(b.transpose() == Matrix([[2, 6], [3, 7], [4, 8], [5, 9]]))
+
+        var c = Matrix([[1, 2, 3], [4, 5, 6]])
+        c.scale(by: 3)
+        #expect(c == [[3, 6, 9], [12, 15, 18]])
     }
 
     @Test func floatAlgebra() {
@@ -200,6 +204,10 @@ struct MatrixTests {
         #expect(a.norm() == 16.881943)
         #expect(a.transpose() == Matrix<Float>([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))
         #expect(b.transpose() == Matrix<Float>([[2, 6], [3, 7], [4, 8], [5, 9]]))
+
+        var c = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
+        c.scale(by: 3.0)
+        #expect(c == [[3, 6, 9], [12, 15, 18.0]])
     }
 
     @Test func doubleAlgebra() {
@@ -209,5 +217,9 @@ struct MatrixTests {
         #expect(a.norm() == 16.881943016134134)
         #expect(a.transpose() == Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9.0]]))
         #expect(b.transpose() == Matrix([[2, 6], [3, 7], [4, 8], [5, 9.0]]))
+
+        var c = Matrix([[1, 2, 3], [4, 5, 6.0]])
+        c.scale(by: 3.0)
+        #expect(c == [[3, 6, 9], [12, 15, 18.0]])
     }
 }
