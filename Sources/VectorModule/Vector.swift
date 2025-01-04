@@ -57,7 +57,7 @@ public struct Vector<Scalar> {
         self.data = DataBuffer(count: size, fill: fill)
     }
 
-    subscript(item: Int) -> Scalar {
+    public subscript(item: Int) -> Scalar {
         get { return self.buffer[item] }
         set { self.buffer[item] = newValue }
     }
