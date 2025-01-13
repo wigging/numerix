@@ -70,6 +70,29 @@ struct MatrixTests {
         #expect(c.isApproximatelyEqual(to: d, absoluteTolerance: 0.001))
     }
 
+    @Test func padding() {
+        let a: Matrix<Float> = [[1, 2], [3, 4]]
+        let b: Matrix<Float> = [[0, 0, 0, 0],
+                                [0, 1, 2, 0],
+                                [0, 3, 4, 0],
+                                [0, 0, 0, 0]]
+        #expect(a.pad() == b)
+
+        let c: Matrix<Double> = [[1, 2], [3, 4]]
+        let d: Matrix<Double> = [[0, 0, 0, 0],
+                                [0, 1, 2, 0],
+                                [0, 3, 4, 0],
+                                [0, 0, 0, 0]]
+        #expect(c.pad(with: 0) == d)
+
+        let e: Matrix = [[1, 2], [3, 4.0]]
+        let f: Matrix = [[9, 9, 9, 9],
+                         [9, 1, 2, 9],
+                         [9, 3, 4, 9],
+                         [9, 9, 9, 9.0]]
+        #expect(e.pad(with: 9) == f)
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])

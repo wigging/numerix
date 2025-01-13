@@ -41,6 +41,12 @@ public struct Matrix<Scalar> {
         self.data = DataBuffer(count: matrix.buffer.count)
     }
 
+    init(rows: Int, columns: Int, fill: Scalar) {
+        self.rows = rows
+        self.columns = columns
+        self.data = DataBuffer(count: rows * columns, fill: fill)
+    }
+
     subscript(row: Int, column: Int) -> Scalar {
         get { return self.buffer[(row * self.columns) + column] }
         set { self.buffer[(row * self.columns) + column] = newValue }
