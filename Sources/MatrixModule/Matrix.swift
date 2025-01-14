@@ -18,7 +18,9 @@ public struct Matrix<Scalar> {
 
     public let rows: Int
     public let columns: Int
-
+    
+    /// Create a matrix using standard Swift arrays.
+    /// - Parameter content: Arrays containing scalar values.
     public init(_ content: [[Scalar]]) {
         self.rows = content.count
         self.columns = content[0].count
@@ -34,7 +36,9 @@ public struct Matrix<Scalar> {
         self.columns = columns
         self.data = DataBuffer(count: rows * columns)
     }
-
+    
+    /// Create an empty matrix with the same size as another matrix.
+    /// - Parameter matrix: The other matrix.
     public init(like matrix: Matrix) {
         self.rows = matrix.rows
         self.columns = matrix.columns
@@ -47,9 +51,23 @@ public struct Matrix<Scalar> {
         self.data = DataBuffer(count: rows * columns, fill: fill)
     }
 
-    subscript(row: Int, column: Int) -> Scalar {
+    // Create matrix from a buffer. Internal use only.
+    init(rows: Int, columns: Int, buffer: UnsafeMutableBufferPointer<Scalar>) {
+        self.rows = rows
+        self.columns = columns
+        self.data = DataBuffer(buffer: buffer)
+    }
+
+    /// Get and set a matrix value using the row and column index.
+    public subscript(row: Int, column: Int) -> Scalar {
         get { return self.buffer[(row * self.columns) + column] }
         set { self.buffer[(row * self.columns) + column] = newValue }
+    }
+
+    /// Make a copy of the matrix along with its underlying data buffer.
+    /// - Returns: A copy of the matrix.
+    public func copy() -> Matrix {
+        Matrix(rows: self.rows, columns: self.columns, buffer: self.buffer)
     }
 }
 

@@ -93,6 +93,24 @@ struct MatrixTests {
         #expect(e.pad(with: 9) == f)
     }
 
+    @Test func copying() {
+        // Modifying matrix B also modifies matrix A because matrix B is
+        // a reference to matrix A
+        let a: Matrix = [[0, 0, 0], [0, 0, 0]]
+        var b = a
+        b[0, 0] = 99
+        b[0, 1] = 22
+        #expect(a == [[99, 22, 0], [0, 0, 0]])
+
+        // Modifying matrix D does not modify matrix C because matrix D is
+        // a complete copy of matrix C
+        let c: Matrix = [[0, 0, 0], [0, 0, 0]]
+        var d = c.copy()
+        d[0, 0] = 99
+        d[0, 1] = 22
+        #expect(c == [[0, 0, 0], [0, 0, 0]])
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])
