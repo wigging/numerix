@@ -1,10 +1,10 @@
 /*
- Vector algebra protocol.
- */
+Linear algebra protocol and extensions for the Vector struct.
+*/
 
 import Accelerate
 
-public protocol VectorAlgebra {
+public protocol Algebra {
     static func dot(_ a: Vector<Self>, _ b: Vector<Self>) -> Self
     static func norm(_ a: Vector<Self>) -> Self
     static func scale(_ a: inout Vector<Self>, by k: Self)
@@ -13,7 +13,7 @@ public protocol VectorAlgebra {
     static func cumulativeSum(_ a: Vector<Self>) -> Vector<Self>
 }
 
-extension Int: VectorAlgebra {
+extension Int: Algebra {
 
     public static func dot(_ a: Vector<Int>, _ b: Vector<Int>) -> Int {
         var res = Int.zero
@@ -65,7 +65,7 @@ extension Int: VectorAlgebra {
     }
 }
 
-extension Float: VectorAlgebra {
+extension Float: Algebra {
 
     public static func dot(_ a: Vector<Float>, _ b: Vector<Float>) -> Float {
         cblas_sdot(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
@@ -99,7 +99,7 @@ extension Float: VectorAlgebra {
     }
 }
 
-extension Double: VectorAlgebra {
+extension Double: Algebra {
 
     public static func dot(_ a: Vector<Double>, _ b: Vector<Double>) -> Double {
         cblas_ddot(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
@@ -130,5 +130,86 @@ extension Double: VectorAlgebra {
         vDSP.add(a[0], result.buffer, result: &result.buffer)
 
         return result
+    }
+}
+
+extension Vector where Scalar: Algebra {
+
+    /// Calculate the dot product of two vectors.
+    ///
+    /// This calculates the dot product as `c = aᵀb` where `a` and `b` are vectors
+    /// that must be the same length.
+    /// ```swift
+    /// let a: Vector<Float> = [1, 2, 3, 4, 5]
+    /// let b: Vector<Float> = [9, 2, 3, 4, 5]
+    /// let c = a.dot(b)
+    /// // c is 63.0
+    /// ```
+    ///
+    /// - Parameter b: The second vector.
+    /// - Returns: The dot product of two vectors
+    public func dot(_ b: Vector) -> Scalar {
+        precondition(self.size == b.size, "Vectors must be same size")
+        return Scalar.dot(self, b)
+    }
+
+    /// The Euclidean norm of the vector. Also known as the L² norm, 2-norm,
+    /// vector magnitude, or Euclidean length.
+    /// - Returns: The vector norm.
+    public func norm() -> Scalar {
+        Scalar.norm(self)
+    }
+
+    /// Multiply each value in the vector by a constant.
+    ///
+    /// For integer vectors, this performs element-wise multiplication. For
+    /// single and double precision vectors this uses BLAS routines `sscal`
+    /// and `dscal` respectively.
+    ///
+    /// - Parameter k: The scaling factor.
+    public mutating func scale(by k: Scalar) {
+        Scalar.scale(&self, by: k)
+    }
+
+    /// Sum of the vector values.
+    ///
+    /// This example calculates the sum of the values in vector `a`.
+    /// ```swift
+    /// let a = Vector([1, 2, 3, 4, 5])
+    /// let c = a.sum()
+    /// // c is 15
+    /// ```
+    ///
+    /// - Returns: Sum of the values.
+    public func sum() -> Scalar {
+        Scalar.sum(self)
+    }
+
+    /// Sum of the absolute values in the vector.
+    ///
+    /// This examples calculates the absolute sum of the values in vector `a`.
+    /// ```swift
+    /// let a = Vector<Float>([1, 2, -3, 4, -6.8])
+    /// let c = a.absoluteSum()
+    /// // c is 16.8
+    /// ```
+    ///
+    /// - Returns: Sum of absolute values.
+    public func absoluteSum() -> Scalar {
+        Scalar.absoluteSum(self)
+    }
+
+    /// Calculate the cumulative sum of the vector.
+    ///
+    /// This returns a vector that is the cumulative sum of the scalar values.
+    /// ```swift
+    /// let a = Vector([1, 2, 3, 4, 5])
+    /// let c = a.cumulativeSum()
+    /// // c is Vector with values [1, 3, 6, 10, 15]
+    /// ```
+    ///
+    /// - Returns: Cumulative sum vector.
+    public func cumulativeSum() -> Vector {
+        Scalar.cumulativeSum(self)
     }
 }

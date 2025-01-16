@@ -1,16 +1,16 @@
 /*
- Matrix algebra protocol.
- */
+Linear algebra protocol and extensions for the Matrix struct.
+*/
 
 import Accelerate
 
-public protocol MatrixAlgebra {
+public protocol Algebra {
     static func norm(_ a: Matrix<Self>) -> Self
     static func scale(_ a: inout Matrix<Self>, by k: Self)
     static func transpose(_ a: Matrix<Self>) -> Matrix<Self>
 }
 
-extension Int: MatrixAlgebra {
+extension Int: Algebra {
 
     public static func norm(_ a: Matrix<Int>) -> Int {
         var sumOfSquares = 0
@@ -38,7 +38,7 @@ extension Int: MatrixAlgebra {
     }
 }
 
-extension Float: MatrixAlgebra {
+extension Float: Algebra {
 
     public static func norm(_ a: Matrix<Float>) -> Float {
         cblas_snrm2(a.buffer.count, a.buffer.baseAddress, 1)
@@ -57,7 +57,7 @@ extension Float: MatrixAlgebra {
     }
 }
 
-extension Double: MatrixAlgebra {
+extension Double: Algebra {
 
     public static func norm(_ a: Matrix<Double>) -> Double {
         cblas_dnrm2(a.buffer.count, a.buffer.baseAddress, 1)
@@ -73,5 +73,31 @@ extension Double: MatrixAlgebra {
         let mat = Matrix<Double>(rows: a.columns, columns: a.rows)
         vDSP_mtransD(a.buffer.baseAddress!, 1, mat.buffer.baseAddress!, 1, m, n)
         return mat
+    }
+}
+
+extension Matrix where Scalar: Algebra {
+
+    /// The Euclidean norm of the matrix. Also known as the 2-norm or maximum singular value.
+    /// - Returns: The matrix norm.
+    public func norm() -> Scalar {
+        Scalar.norm(self)
+    }
+
+    /// Multiply each value in the matrix by a constant.
+    ///
+    /// For integer matrices, this performs element-wise multiplication. For
+    /// single and double precision matrices this uses BLAS routines `sscal`
+    /// and `dscal` respectively.
+    ///
+    /// - Parameter k: The scaling factor.
+    public mutating func scale(by k: Scalar) {
+        Scalar.scale(&self, by: k)
+    }
+
+    /// Transpose the matrix and return the result.
+    /// - Returns: The transposed matrix.
+    public func transpose() -> Matrix {
+        Scalar.transpose(self)
     }
 }

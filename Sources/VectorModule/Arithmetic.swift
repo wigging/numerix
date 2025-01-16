@@ -1,10 +1,10 @@
 /*
- Vector arithmetic protocol.
- */
+Arithmetic protocol and extensions for the Vector struct.
+*/
 
 import Accelerate
 
-public protocol VectorArithmetic {
+public protocol Arithmetic {
     static func add(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
     static func add(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
     static func subtract(_ k: Self, _ a: Vector<Self>) -> Vector<Self>
@@ -14,7 +14,7 @@ public protocol VectorArithmetic {
     static func multiply(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
 }
 
-extension Int: VectorArithmetic {
+extension Int: Arithmetic {
 
     public static func add(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
         var vec = Vector(like: a)
@@ -73,7 +73,7 @@ extension Int: VectorArithmetic {
     }
 }
 
-extension Float: VectorArithmetic {
+extension Float: Arithmetic {
 
     public static func add(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
         var vec = Vector(like: a)
@@ -120,7 +120,7 @@ extension Float: VectorArithmetic {
     }
 }
 
-extension Double: VectorArithmetic {
+extension Double: Arithmetic {
 
     public static func add(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
         var vec = Vector(like: a)
@@ -164,5 +164,57 @@ extension Double: VectorArithmetic {
         var vec = Vector(like: a)
         vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
         return vec
+    }
+}
+
+extension Vector where Scalar: Arithmetic {
+
+    /// Element-wise addition of a scalar and vector using real numbers.
+    /// - Parameters:
+    ///   - lhs: Left-hand side scalar value.
+    ///   - rhs: Right-hand side vector.
+    /// - Returns: Element-wise sum of a scalar and vector.
+    public static func + (lhs: Scalar, rhs: Vector) -> Vector {
+        Scalar.add(rhs, lhs)
+    }
+
+    public static func + (lhs: Vector, rhs: Scalar) -> Vector {
+        Scalar.add(lhs, rhs)
+    }
+
+    public static func + (lhs: Vector, rhs: Vector) -> Vector {
+        Scalar.add(lhs, rhs)
+    }
+
+    public static func += (lhs: inout Vector, rhs: Vector) {
+        lhs = lhs + rhs
+    }
+
+    public static func - (lhs: Scalar, rhs: Vector) -> Vector {
+        Scalar.subtract(lhs, rhs)
+    }
+
+    public static func - (lhs: Vector, rhs: Scalar) -> Vector {
+        Scalar.subtract(lhs, rhs)
+    }
+
+    public static func - (lhs: Vector, rhs: Vector) -> Vector {
+        Scalar.subtract(lhs, rhs)
+    }
+
+    public static func * (lhs: Scalar, rhs: Vector) -> Vector {
+        Scalar.multiply(rhs, lhs)
+    }
+
+    public static func * (lhs: Vector, rhs: Scalar) -> Vector {
+        Scalar.multiply(lhs, rhs)
+    }
+
+    public static func * (lhs: Vector, rhs: Vector) -> Vector {
+        Scalar.multiply(lhs, rhs)
+    }
+
+    public static func *= (lhs: inout Vector, rhs: Scalar) {
+        lhs = lhs * rhs
     }
 }

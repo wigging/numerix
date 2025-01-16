@@ -4,8 +4,6 @@
 
 import Accelerate
 
-infix operator .* : MultiplicationPrecedence
-
 /// A two-dimensional structure for numerical data.
 public struct Matrix<Scalar> {
 
@@ -153,93 +151,5 @@ extension Matrix: Equatable {
         let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<Scalar>.size * n)
         let buffersEqual = cmp == 0 ? true : false
         return lhs.rows == rhs.rows && lhs.columns == rhs.columns && buffersEqual
-    }
-}
-
-extension Matrix where Scalar: MatrixArithmetic {
-
-    /// Element-wise addition of a scalar value and matrix.
-    /// - Parameters:
-    ///   - lhs: The left-hand side scalar value.
-    ///   - rhs: The right-hand side matrix.
-    /// - Returns: Element-wise sum of a scalar value and matrix.
-    public static func + (lhs: Scalar, rhs: Matrix) -> Matrix {
-        Scalar.add(rhs, lhs)
-    }
-
-    public static func + (lhs: Matrix, rhs: Scalar) -> Matrix {
-        Scalar.add(lhs, rhs)
-    }
-
-    public static func + (lhs: Matrix, rhs: Matrix) -> Matrix {
-        Scalar.add(lhs, rhs)
-    }
-
-    public static func += (lhs: inout Matrix, rhs: Matrix) {
-        lhs = lhs + rhs
-    }
-
-    public static func - (lhs: Scalar, rhs: Matrix) -> Matrix {
-        Scalar.subtract(lhs, rhs)
-    }
-
-    public static func - (lhs: Matrix, rhs: Scalar) -> Matrix {
-        Scalar.subtract(lhs, rhs)
-    }
-
-    public static func - (lhs: Matrix, rhs: Matrix) -> Matrix {
-        Scalar.subtract(lhs, rhs)
-    }
-
-    /// Matrix multiplication of two matrices.
-    /// - Parameters:
-    ///   - lhs: The left-hand side matrix.
-    ///   - rhs: The right-hand side matrix.
-    /// - Returns: Matrix product of the two matrices.
-    public static func * (lhs: Matrix, rhs: Matrix) -> Matrix {
-        Scalar.matrixMultiply(lhs, rhs)
-    }
-
-    /// Element-wise multiplication of a scalar value and matrix.
-    /// - Parameters:
-    ///   - lhs: The left-hand side scalar value.
-    ///   - rhs: The right-hand side matrix.
-    /// - Returns: Element-wise product of a scalar value and matrix.
-    public static func .* (lhs: Scalar, rhs: Matrix) -> Matrix {
-        Scalar.multiply(rhs, lhs)
-    }
-
-    public static func .* (lhs: Matrix, rhs: Scalar) -> Matrix {
-        Scalar.multiply(lhs, rhs)
-    }
-
-    public static func .* (lhs: Matrix, rhs: Matrix) -> Matrix {
-        Scalar.multiply(lhs, rhs)
-    }
-}
-
-extension Matrix where Scalar: MatrixAlgebra {
-
-    /// The Euclidean norm of the matrix. Also known as the 2-norm or maximum singular value.
-    /// - Returns: The matrix norm.
-    public func norm() -> Scalar {
-        Scalar.norm(self)
-    }
-
-    /// Multiply each value in the matrix by a constant.
-    ///
-    /// For integer matrices, this performs element-wise multiplication. For
-    /// single and double precision matrices this uses BLAS routines `sscal`
-    /// and `dscal` respectively.
-    ///
-    /// - Parameter k: The scaling factor.
-    public mutating func scale(by k: Scalar) {
-        Scalar.scale(&self, by: k)
-    }
-
-    /// Transpose the matrix and return the result.
-    /// - Returns: The transposed matrix.
-    public func transpose() -> Matrix {
-        Scalar.transpose(self)
     }
 }

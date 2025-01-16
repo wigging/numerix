@@ -1,10 +1,12 @@
 /*
- Matrix arithmetic protocol.
- */
+Arithmetic protocol and extensions for the Matrix struct.
+*/
 
 import Accelerate
 
-public protocol MatrixArithmetic {
+infix operator .* : MultiplicationPrecedence
+
+public protocol Arithmetic {
     static func add(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func add(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
     static func subtract(_ k: Self, _ a: Matrix<Self>) -> Matrix<Self>
@@ -15,7 +17,7 @@ public protocol MatrixArithmetic {
     static func matrixMultiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
 }
 
-extension Int: MatrixArithmetic {
+extension Int: Arithmetic {
 
     public static func add(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -101,7 +103,7 @@ extension Int: MatrixArithmetic {
     }
 }
 
-extension Float: MatrixArithmetic {
+extension Float: Arithmetic {
 
     public static func add(_ a: Matrix<Float>, _ k: Float) -> Matrix<Float> {
         var mat = Matrix(like: a)
@@ -171,7 +173,7 @@ extension Float: MatrixArithmetic {
     }
 }
 
-extension Double: MatrixArithmetic {
+extension Double: Arithmetic {
 
     public static func add(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         var mat = Matrix(like: a)
@@ -238,5 +240,67 @@ extension Double: MatrixArithmetic {
         )
 
         return c
+    }
+}
+
+extension Matrix where Scalar: Arithmetic {
+
+    /// Element-wise addition of a scalar value and matrix.
+    /// - Parameters:
+    ///   - lhs: The left-hand side scalar value.
+    ///   - rhs: The right-hand side matrix.
+    /// - Returns: Element-wise sum of a scalar value and matrix.
+    public static func + (lhs: Scalar, rhs: Matrix) -> Matrix {
+        Scalar.add(rhs, lhs)
+    }
+
+    public static func + (lhs: Matrix, rhs: Scalar) -> Matrix {
+        Scalar.add(lhs, rhs)
+    }
+
+    public static func + (lhs: Matrix, rhs: Matrix) -> Matrix {
+        Scalar.add(lhs, rhs)
+    }
+
+    public static func += (lhs: inout Matrix, rhs: Matrix) {
+        lhs = lhs + rhs
+    }
+
+    public static func - (lhs: Scalar, rhs: Matrix) -> Matrix {
+        Scalar.subtract(lhs, rhs)
+    }
+
+    public static func - (lhs: Matrix, rhs: Scalar) -> Matrix {
+        Scalar.subtract(lhs, rhs)
+    }
+
+    public static func - (lhs: Matrix, rhs: Matrix) -> Matrix {
+        Scalar.subtract(lhs, rhs)
+    }
+
+    /// Matrix multiplication of two matrices.
+    /// - Parameters:
+    ///   - lhs: The left-hand side matrix.
+    ///   - rhs: The right-hand side matrix.
+    /// - Returns: Matrix product of the two matrices.
+    public static func * (lhs: Matrix, rhs: Matrix) -> Matrix {
+        Scalar.matrixMultiply(lhs, rhs)
+    }
+
+    /// Element-wise multiplication of a scalar value and matrix.
+    /// - Parameters:
+    ///   - lhs: The left-hand side scalar value.
+    ///   - rhs: The right-hand side matrix.
+    /// - Returns: Element-wise product of a scalar value and matrix.
+    public static func .* (lhs: Scalar, rhs: Matrix) -> Matrix {
+        Scalar.multiply(rhs, lhs)
+    }
+
+    public static func .* (lhs: Matrix, rhs: Scalar) -> Matrix {
+        Scalar.multiply(lhs, rhs)
+    }
+
+    public static func .* (lhs: Matrix, rhs: Matrix) -> Matrix {
+        Scalar.multiply(lhs, rhs)
     }
 }
