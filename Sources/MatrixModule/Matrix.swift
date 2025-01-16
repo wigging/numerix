@@ -18,7 +18,7 @@ public struct Matrix<Scalar> {
 
     public let rows: Int
     public let columns: Int
-    
+
     /// Create a matrix using standard Swift arrays.
     /// - Parameter content: Arrays containing scalar values.
     public init(_ content: [[Scalar]]) {
@@ -36,7 +36,7 @@ public struct Matrix<Scalar> {
         self.columns = columns
         self.data = DataBuffer(count: rows * columns)
     }
-    
+
     /// Create an empty matrix with the same size as another matrix.
     /// - Parameter matrix: The other matrix.
     public init(like matrix: Matrix) {

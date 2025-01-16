@@ -111,6 +111,31 @@ struct MatrixTests {
         #expect(c == [[0, 0, 0], [0, 0, 0]])
     }
 
+    @Test func determinant() {
+        let a: Matrix<Double> = [[1, 2], [3, 4]]
+        let detA = a.determinant()
+        #expect(detA == -2.0)
+
+        let b: Matrix<Float> = [[1, 12, 3],
+                                [4, 5, 6],
+                                [7, 8, 9.5]]
+        let detB = b.determinant()
+        #expect(detB == 38.500015)
+    }
+
+    /*
+     Need to test singular matrix which would cause precondition failuare but
+     Swift Testing does not have this feature yet. See discussion on Swift
+     forum https://forums.swift.org/t/exit-tests-death-tests-and-you/71186
+
+    @Test func determinantSingular() {
+        let a: Matrix<Float> = [[0, 12, 0],
+                                [4, 5, 0],
+                                [7, 0, 0]]
+        let detA = a.determinant()
+    }
+    */
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])
