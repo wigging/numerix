@@ -11,9 +11,15 @@ public protocol Algebra {
     static func sum(_ a: Vector<Self>) -> Self
     static func absoluteSum(_ a: Vector<Self>) -> Self
     static func cumulativeSum(_ a: Vector<Self>) -> Vector<Self>
+    static func swapValues(a: inout Vector<Self>, b: inout Vector<Self>)
 }
 
 extension Int: Algebra {
+
+    public static func swapValues(a: inout Vector<Int>, b: inout Vector<Int>) {
+        precondition(a.size == b.size, "Vectors must be same size")
+        swap(&a.buffer, &b.buffer)
+    }
 
     public static func dot(_ a: Vector<Int>, _ b: Vector<Int>) -> Int {
         var res = Int.zero
@@ -67,6 +73,11 @@ extension Int: Algebra {
 
 extension Float: Algebra {
 
+    public static func swapValues(a: inout Vector<Float>, b: inout Vector<Float>) {
+        precondition(a.size == b.size, "Vectors must be same size")
+        cblas_sswap(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
+    }
+
     public static func dot(_ a: Vector<Float>, _ b: Vector<Float>) -> Float {
         cblas_sdot(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
     }
@@ -100,6 +111,11 @@ extension Float: Algebra {
 }
 
 extension Double: Algebra {
+
+    public static func swapValues(a: inout Vector<Double>, b: inout Vector<Double>) {
+        precondition(a.size == b.size, "Vectors must be same size")
+        cblas_dswap(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
+    }
 
     public static func dot(_ a: Vector<Double>, _ b: Vector<Double>) -> Double {
         cblas_ddot(a.size, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
@@ -212,4 +228,19 @@ extension Vector where Scalar: Algebra {
     public func cumulativeSum() -> Vector {
         Scalar.cumulativeSum(self)
     }
+}
+
+/// Swap the values of two vectors.
+///
+/// In this example the scalar values in `vec1` are exchanged for the values in `vec2` and vice versa.
+/// ```swift
+/// var vec1 = Vector<Float>([2, 3, 4, 5, 6])
+/// var vec2 = Vector<Float>([9, 8, 7, 10, 12])
+/// swapValues(&vec1, &vec2)
+/// ```
+/// - Parameters:
+///   - a: The first vector.
+///   - b: The second vector.
+public func swapValues<Scalar: Algebra>(_ a: inout Vector<Scalar>, _ b: inout Vector<Scalar>) {
+    Scalar.swapValues(a: &a, b: &b)
 }

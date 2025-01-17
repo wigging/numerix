@@ -150,6 +150,12 @@ struct VectorTests {
         var c = Vector([8, 9, 10, 11])
         c.scale(by: 3)
         #expect(c == [24, 27, 30, 33])
+
+        var d = Vector([8, 9, 10, 11])
+        var e = Vector([1, 2, 3, 4])
+        swapValues(&d, &e)
+        #expect(d == [1, 2, 3, 4])
+        #expect(e == [8, 9, 10, 11])
     }
 
     @Test func floatAlgebra() {
@@ -165,6 +171,12 @@ struct VectorTests {
         var c = Vector<Float>([8, 9, 10, 11])
         c.scale(by: 3)
         #expect(c == [24, 27, 30, 33])
+
+        var d = Vector<Float>([8, 9, 10, 11])
+        var e = Vector<Float>([1, 2, 3, 4])
+        swapValues(&d, &e)
+        #expect(d == [1, 2, 3, 4])
+        #expect(e == [8, 9, 10, 11])
     }
 
     @Test func doubleAlgebra() {
@@ -180,5 +192,11 @@ struct VectorTests {
         var c = Vector([8, 9, 10, 11.0])
         c.scale(by: 3)
         #expect(c == [24, 27, 30, 33])
+
+        var d = Vector([8, 9, 10, 11.0])
+        var e = Vector([1, 2, 3, 4.0])
+        swapValues(&d, &e)
+        #expect(d == [1, 2, 3, 4.0])
+        #expect(e == [8, 9, 10, 11.0])
     }
 }

@@ -261,6 +261,12 @@ struct MatrixTests {
         var c = Matrix([[1, 2, 3], [4, 5, 6]])
         c.scale(by: 3)
         #expect(c == [[3, 6, 9], [12, 15, 18]])
+
+        var d = Matrix([[1, 2, 3], [4, 5, 6]])
+        var e = Matrix([[9, 10, 11], [12, 13, 14]])
+        swapValues(&d, &e)
+        #expect(d == [[9, 10, 11], [12, 13, 14]])
+        #expect(e == [[1, 2, 3], [4, 5, 6]])
     }
 
     @Test func floatAlgebra() {
@@ -274,6 +280,12 @@ struct MatrixTests {
         var c = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
         c.scale(by: 3.0)
         #expect(c == [[3, 6, 9], [12, 15, 18.0]])
+
+        var d = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
+        var e = Matrix<Float>([[9, 10, 11], [12, 13, 14]])
+        swapValues(&d, &e)
+        #expect(d == [[9, 10, 11], [12, 13, 14]])
+        #expect(e == [[1, 2, 3], [4, 5, 6]])
     }
 
     @Test func doubleAlgebra() {
@@ -287,5 +299,11 @@ struct MatrixTests {
         var c = Matrix([[1, 2, 3], [4, 5, 6.0]])
         c.scale(by: 3.0)
         #expect(c == [[3, 6, 9], [12, 15, 18.0]])
+
+        var d = Matrix([[1, 2, 3], [4, 5, 6.0]])
+        var e = Matrix([[9, 10, 11], [12, 13, 14.0]])
+        swapValues(&d, &e)
+        #expect(d == [[9, 10, 11], [12, 13, 14.0]])
+        #expect(e == [[1, 2, 3], [4, 5, 6.0]])
     }
 }
