@@ -146,6 +146,20 @@ struct MatrixTests {
         #expect(invB == [[-2, 1], [1.5, -0.5]])
     }
 
+    @Test func exponential() {
+        let a = Matrix<Float>([[1, 2], [3, 4]])
+        let b = Matrix<Double>([[1, 2], [3, 4]])
+
+        #expect(a.exp() == [[2.71828183, 7.3890561], [20.08553692, 54.59815003]])
+        #expect(b.exp().isApproximatelyEqual(to: [[2.71828, 7.38905], [20.08553, 54.59815]], relativeTolerance: 1e-4))
+
+        #expect(a.exp2() == [[2, 4], [8, 16]])
+        #expect(b.exp2() == [[2, 4], [8, 16]])
+
+        #expect(a.expm1().isApproximatelyEqual(to: [[1.71828, 6.38905], [19.08553, 53.59815]], relativeTolerance: 1e-4))
+        #expect(b.expm1().isApproximatelyEqual(to: [[1.71828, 6.38905], [19.08553, 53.59815]], relativeTolerance: 1e-4))
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])
