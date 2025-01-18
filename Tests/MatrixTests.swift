@@ -136,6 +136,16 @@ struct MatrixTests {
     }
     */
 
+    @Test func inverse() {
+        let a = Matrix<Float>([[1, 2], [3, 4]])
+        let invA = a.inverse()
+        #expect(invA == [[-2, 1], [1.5, -0.5]])
+
+        let b = Matrix<Double>([[1, 2], [3, 4]])
+        let invB = b.inverse()
+        #expect(invB == [[-2, 1], [1.5, -0.5]])
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])
