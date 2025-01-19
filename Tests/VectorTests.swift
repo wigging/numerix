@@ -65,6 +65,17 @@ struct VectorTests {
         #expect(b.expm1().isApproximatelyEqual(to: [1.71828, 6.38905, 19.08553, 53.59815], relativeTolerance: 1e-4))
     }
 
+    @Test func power() {
+        let a = Vector<Float>([1, 2, 3, 4])
+        let b = Vector<Double>([1, 2, 3, 4])
+
+        #expect(a.power(2) == [1, 4, 9, 16])
+        #expect(b.power(2) == [1, 4, 9, 16])
+
+        #expect(a.power([2, 3, 4, 5]).isApproximatelyEqual(to: [1, 8, 81, 1024], relativeTolerance: 1e-4))
+        #expect(b.power([2, 3, 4, 5]) == [1, 8, 81, 1024])
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Vector([1, 2, 3, 4, 5])
