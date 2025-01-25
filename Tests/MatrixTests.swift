@@ -171,6 +171,27 @@ struct MatrixTests {
         #expect(b.power([2, 3, 4, 5]) == [[1, 8], [81, 1024]])
     }
 
+    @Test func logarithm() {
+        let a = Matrix<Float>([[1, 2], [3, 4]])
+        let b = Matrix<Double>([[1, 2], [3, 4]])
+
+        #expect(a.log().isApproximatelyEqual(to: [[0, 0.6931], [1.0986, 1.3862]], relativeTolerance: 1e-4))
+        #expect(b.log().isApproximatelyEqual(to: [[0, 0.693147], [1.098612, 1.386294]], relativeTolerance: 1e-6))
+
+        #expect(a.log1p().isApproximatelyEqual(to: [[0.6931, 1.0986], [1.3862, 1.6094]], relativeTolerance: 1e-4))
+        #expect(b.log1p().isApproximatelyEqual(to: [[0.693147, 1.098612], [1.386294, 1.609437]],
+                                               relativeTolerance: 1e-6))
+
+        #expect(a.log10().isApproximatelyEqual(to: [[0.0, 0.30103], [0.47712125, 0.60205999]]))
+        #expect(a.log10().isApproximatelyEqual(to: [[0.0, 0.30103], [0.47712125, 0.60205999]]))
+
+        #expect(b.log2().isApproximatelyEqual(to: [[0.0, 1.0], [1.5849625, 2]], relativeTolerance: 1e-6))
+        #expect(b.log2().isApproximatelyEqual(to: [[0.0, 1.0], [1.5849625, 2]], relativeTolerance: 1e-6))
+
+        #expect(b.logb().isApproximatelyEqual(to: [[0, 1], [1, 2]]))
+        #expect(b.logb().isApproximatelyEqual(to: [[0, 1], [1, 2]]))
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Matrix([[1, 2, 3], [4, 5, 6]])

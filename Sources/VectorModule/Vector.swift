@@ -65,6 +65,22 @@ public struct Vector<Scalar> {
 
 extension Vector: ExpressibleByArrayLiteral {
 
+    /// Create a vector using an array literal.
+    ///
+    /// Examples of using an array literal to create a vector.
+    ///
+    /// ```swift
+    /// // Create a vector of integers
+    /// let vec: Vector = [1, 2, 3, 4]
+    ///
+    /// // Create a vector of doubles
+    /// let vec: Vector = [4.2, 5, 6, 7.31, 8]
+    ///
+    /// // Create vector of doubles where values given as integers
+    /// let vec: Vector<Double> = [4, 5, 6, 7, 8]
+    /// ```
+    ///
+    /// - Parameter elements: Scalar values in the vector.
     public init(arrayLiteral elements: Scalar...) {
         self.init(elements)
     }

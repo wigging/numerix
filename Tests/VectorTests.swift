@@ -76,6 +76,27 @@ struct VectorTests {
         #expect(b.power([2, 3, 4, 5]) == [1, 8, 81, 1024])
     }
 
+    @Test func logarithm() {
+        let a = Vector<Float>([1, 2, 3, 4, 5])
+        let b = Vector<Double>([1, 2, 3, 4, 5])
+
+        #expect(a.log().isApproximatelyEqual(to: [0, 0.6931, 1.0986, 1.3862, 1.6094], relativeTolerance: 1e-4))
+        #expect(b.log().isApproximatelyEqual(to: [0, 0.693147, 1.098612, 1.386294, 1.609437], relativeTolerance: 1e-6))
+
+        #expect(a.log1p().isApproximatelyEqual(to: [0.6931, 1.0986, 1.3862, 1.6094, 1.7917], relativeTolerance: 1e-4))
+        #expect(b.log1p().isApproximatelyEqual(to: [0.693147, 1.098612, 1.386294, 1.609437, 1.791759],
+                                               relativeTolerance: 1e-6))
+
+        #expect(a.log10().isApproximatelyEqual(to: [0.0, 0.30103, 0.47712125, 0.60205999, 0.69897]))
+        #expect(a.log10().isApproximatelyEqual(to: [0.0, 0.30103, 0.47712125, 0.60205999, 0.69897]))
+
+        #expect(b.log2().isApproximatelyEqual(to: [0.0, 1.0, 1.5849625, 2, 2.321928], relativeTolerance: 1e-6))
+        #expect(b.log2().isApproximatelyEqual(to: [0.0, 1.0, 1.5849625, 2, 2.321928], relativeTolerance: 1e-6))
+
+        #expect(b.logb().isApproximatelyEqual(to: [0, 1, 1, 2, 2]))
+        #expect(b.logb().isApproximatelyEqual(to: [0, 1, 1, 2, 2]))
+    }
+
     @Test func integerArithmetic() {
         let k = 5
         let a = Vector([1, 2, 3, 4, 5])
