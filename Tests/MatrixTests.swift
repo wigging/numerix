@@ -7,6 +7,16 @@ import Testing
 
 struct MatrixTests {
 
+    @Test func initialize() {
+        let a = Matrix<Double>(rows: 2, columns: 3, values: [3, 4, 8, 10, 11, 18.2])
+        let b = Matrix<Float>(rows: 2, columns: 3, fill: 0.0)
+        let c = Matrix([[1, 2, 3], [4, 5, 6]])
+
+        #expect(a[0, 0] == 3)
+        #expect(b[0, 0] == 0)
+        #expect(c[0, 0] == 1)
+    }
+
     @Test func arrayLiteral() {
         let a: Matrix = [[1, 2, 3, 4],
                          [5, 6, 7, 8]]

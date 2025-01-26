@@ -7,6 +7,18 @@ import Accelerate
 /// A two-dimensional structure for numerical data.
 public struct Matrix<Scalar> {
 
+    /// Number of rows in the matrix.
+    public let rows: Int
+
+    /// Number of columns in the matrix.
+    public let columns: Int
+
+    /// Number of elements in the matrix.
+    public var count: Int {
+        self.rows * self.columns
+    }
+
+    // Private reference to mutable buffer for underlying data storage
     private let data: DataBuffer<Scalar>
 
     var buffer: UnsafeMutableBufferPointer<Scalar> {
@@ -14,10 +26,7 @@ public struct Matrix<Scalar> {
         set { self.data.buffer = newValue }
     }
 
-    public let rows: Int
-    public let columns: Int
-
-    /// Create a matrix using standard Swift arrays.
+    /// Create a matrix using embedded Swift arrays.
     /// - Parameter content: Arrays containing scalar values.
     public init(_ content: [[Scalar]]) {
         self.rows = content.count
@@ -43,13 +52,30 @@ public struct Matrix<Scalar> {
         self.data = DataBuffer(count: matrix.buffer.count)
     }
 
-    init(rows: Int, columns: Int, fill: Scalar) {
+    /// Create a matrix filled with a given value.
+    /// - Parameters:
+    ///   - rows: Number of rows in the matrix.
+    ///   - columns: Number of columns in the matrix.
+    ///   - fill: Scalar value to fill each matrix element.
+    public init(rows: Int, columns: Int, fill: Scalar) {
         self.rows = rows
         self.columns = columns
         self.data = DataBuffer(count: rows * columns, fill: fill)
     }
 
-    // Create matrix from a buffer. Internal use only.
+    /// Create a matrix from an array of scalar values. The matrix size is m x n where
+    /// m is number of rows and n is number of columns.
+    /// - Parameters:
+    ///   - rows: Number of rows in the matrix.
+    ///   - columns: Number of columns in the matrix.
+    ///   - values: Array of scalar values for each matrix element.
+    public init(rows: Int, columns: Int, values: [Scalar]) {
+        self.rows = rows
+        self.columns = columns
+        self.data = DataBuffer(array: values)
+    }
+
+    // Create matrix from a mutable memory buffer. Internal use only.
     init(rows: Int, columns: Int, buffer: UnsafeMutableBufferPointer<Scalar>) {
         self.rows = rows
         self.columns = columns
