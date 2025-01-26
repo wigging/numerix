@@ -19,8 +19,8 @@ extension Matrix {
         to other: Matrix, absoluteTolerance: Float = 0, relativeTolerance: Float = 1e-6
     ) -> Bool where Scalar == Float {
         let delta = (self - other).norm()
-        let scale = max(self.norm(), other.norm())
-        return delta <= max(absoluteTolerance, relativeTolerance * scale)
+        let scale = Swift.max(self.norm(), other.norm())
+        return delta <= Swift.max(absoluteTolerance, relativeTolerance * scale)
     }
 
     /// Compare two matrices of double precision for approximate equality.
@@ -38,7 +38,7 @@ extension Matrix {
         to other: Matrix, absoluteTolerance: Double = 0, relativeTolerance: Double = 1e-8
     ) -> Bool where Scalar == Double {
         let delta = (self - other).norm()
-        let scale = max(self.norm(), other.norm())
-        return delta <= max(absoluteTolerance, relativeTolerance * scale)
+        let scale = Swift.max(self.norm(), other.norm())
+        return delta <= Swift.max(absoluteTolerance, relativeTolerance * scale)
     }
 }

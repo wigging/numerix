@@ -121,6 +121,30 @@ struct MatrixTests {
         #expect(c == [[0, 0, 0], [0, 0, 0]])
     }
 
+    @Test func iteration() {
+        let mat = Matrix([[1, 2, 3],
+                          [4, 5, 6],
+                          [7, 8, 9.0]])
+
+        // Iterate over rows
+        var counter = 1
+        for row in mat {
+            if counter == mat.rows {
+                #expect(row == [7, 8, 9.0])
+            }
+            counter += 1
+        }
+
+        // Iterate over columns
+        counter = 1
+        for col in mat.transpose() {
+            if counter == mat.columns {
+                #expect(col == [3, 6, 9.0])
+            }
+            counter += 1
+        }
+    }
+
     @Test func determinant() {
         let a: Matrix<Double> = [[1, 2], [3, 4]]
         let detA = a.determinant()

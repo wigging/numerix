@@ -26,6 +26,9 @@ public struct Matrix<Scalar> {
         set { self.data.buffer = newValue }
     }
 
+    // This is used by the iterator, see next() function in Sequence, IteratorProtocol extension
+    private var nextRowStartIndex = 0
+
     /// Create a matrix using embedded Swift arrays.
     /// - Parameter content: Arrays containing scalar values.
     public init(_ content: [[Scalar]]) {
@@ -111,8 +114,8 @@ extension Matrix: CustomStringConvertible where Scalar: NumberStyle {
 
         for i in 0..<self.rows {
             for j in 0..<self.columns {
-                maxIntWidth[j] = max(maxIntWidth[j], self[i, j].integerLength)
-                maxFracWidth[j] = max(maxFracWidth[j], self[i, j].fractionLength)
+                maxIntWidth[j] = Swift.max(maxIntWidth[j], self[i, j].integerLength)
+                maxFracWidth[j] = Swift.max(maxFracWidth[j], self[i, j].fractionLength)
             }
         }
 
@@ -177,5 +180,19 @@ extension Matrix: Equatable {
         let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<Scalar>.size * n)
         let buffersEqual = cmp == 0 ? true : false
         return lhs.rows == rhs.rows && lhs.columns == rhs.columns && buffersEqual
+    }
+}
+
+extension Matrix: Sequence, IteratorProtocol {
+
+    public mutating func next() -> [Scalar]? {
+        if nextRowStartIndex == self.count {
+            return nil
+        } else {
+            let currentRowStartIndex = nextRowStartIndex
+            nextRowStartIndex += self.columns
+            let a = Array(self.buffer[currentRowStartIndex..<nextRowStartIndex])
+            return a
+        }
     }
 }
