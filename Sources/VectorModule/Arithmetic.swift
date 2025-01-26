@@ -12,6 +12,9 @@ public protocol Arithmetic {
     static func subtract(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
     static func multiply(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
     static func multiply(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
+    static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self>
+    static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
+    static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
 }
 
 extension Int: Arithmetic {
@@ -71,6 +74,30 @@ extension Int: Arithmetic {
         }
         return vec
     }
+
+    public static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: b)
+        for i in 0..<b.size {
+            vec[i] = k / b[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / k
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / b[i]
+        }
+        return vec
+    }
 }
 
 extension Float: Arithmetic {
@@ -118,6 +145,30 @@ extension Float: Arithmetic {
         vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
         return vec
     }
+
+    public static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: b)
+        for i in 0..<b.size {
+            vec[i] = k / b[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / k
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / b[i]
+        }
+        return vec
+    }
 }
 
 extension Double: Arithmetic {
@@ -163,6 +214,30 @@ extension Double: Arithmetic {
     public static func multiply(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
         var vec = Vector(like: a)
         vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
+        return vec
+    }
+
+    public static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: b)
+        for i in 0..<b.size {
+            vec[i] = k / b[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / k
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / b[i]
+        }
         return vec
     }
 }
@@ -216,5 +291,17 @@ extension Vector where Scalar: Arithmetic {
 
     public static func *= (lhs: inout Vector, rhs: Scalar) {
         lhs = lhs * rhs
+    }
+
+    public static func / (lhs: Scalar, rhs: Vector) -> Vector {
+        Scalar.divide(lhs, rhs)
+    }
+
+    public static func / (lhs: Vector, rhs: Scalar) -> Vector {
+        Scalar.divide(lhs, rhs)
+    }
+
+    public static func / (lhs: Vector, rhs: Vector) -> Vector {
+        Scalar.divide(lhs, rhs)
     }
 }

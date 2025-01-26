@@ -124,6 +124,11 @@ struct VectorTests {
         #expect(k * a == Vector([5, 10, 15, 20, 25]))
         #expect(a * k == Vector([5, 10, 15, 20, 25]))
         #expect(a * b == Vector([4, 10, 18, 28, 40]))
+
+        // Division
+        #expect(k / a == [5, 2, 1, 1, 1])
+        #expect(a / k == [0, 0, 0, 0, 1])
+        #expect(a / b == [0, 0, 0, 0, 0])
     }
 
     @Test func floatArithmetic() {
@@ -153,6 +158,11 @@ struct VectorTests {
         #expect(k * a == Vector([5, 10, 15, 20, 25]))
         #expect(a * k == Vector([5, 10, 15, 20, 25]))
         #expect(a * b == Vector([4, 10, 18, 28, 40]))
+
+        // Division
+        #expect(k / a == [5, 2.5, 1.66666667, 1.25, 1])
+        #expect(a / k == [0.2, 0.4, 0.6, 0.8, 1])
+        #expect(a / b == [0.25, 0.4, 0.5, 0.57142857, 0.625])
     }
 
     @Test func doubleArithmetic() {
@@ -182,6 +192,11 @@ struct VectorTests {
         #expect(k * a == Vector([5, 10, 15, 20, 25]))
         #expect(a * k == Vector([5, 10, 15, 20, 25]))
         #expect(a * b == Vector([4, 10, 18, 28, 40]))
+
+        // Division
+        #expect((k / a).isApproximatelyEqual(to: [5, 2.5, 1.66666667, 1.25, 1]))
+        #expect(a / k == [0.2, 0.4, 0.6, 0.8, 1])
+        #expect((a / b).isApproximatelyEqual(to: [0.25, 0.4, 0.5, 0.57142857, 0.625]))
     }
 
     @Test func integerAlgebra() {
