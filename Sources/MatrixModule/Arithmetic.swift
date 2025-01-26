@@ -15,6 +15,9 @@ public protocol Arithmetic {
     static func multiply(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func multiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
     static func matrixMultiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
+    static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self>
+    static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
+    static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
 }
 
 extension Int: Arithmetic {
@@ -101,6 +104,36 @@ extension Int: Arithmetic {
         }
         return mat
     }
+
+    public static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: b)
+        for i in 0..<b.rows {
+            for j in 0..<b.columns {
+                mat[i, j] = k / b[i, j]
+            }
+        }
+        return mat
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        for i in 0..<a.rows {
+            for j in 0..<a.columns {
+                mat[i, j] = a[i, j] / k
+            }
+        }
+        return mat
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        for i in 0..<a.rows {
+            for j in 0..<a.columns {
+                mat[i, j] = a[i, j] / b[i, j]
+            }
+        }
+        return mat
+    }
 }
 
 extension Float: Arithmetic {
@@ -170,6 +203,24 @@ extension Float: Arithmetic {
         )
 
         return c
+    }
+
+    public static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: b)
+        vDSP.divide(k, b.buffer, result: &mat.buffer)
+        return mat
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        vDSP.divide(a.buffer, k, result: &mat.buffer)
+        return mat
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        vDSP.divide(a.buffer, b.buffer, result: &mat.buffer)
+        return mat
     }
 }
 
@@ -241,6 +292,24 @@ extension Double: Arithmetic {
 
         return c
     }
+
+    public static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: b)
+        vDSP.divide(k, b.buffer, result: &mat.buffer)
+        return mat
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        vDSP.divide(a.buffer, k, result: &mat.buffer)
+        return mat
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        vDSP.divide(a.buffer, b.buffer, result: &mat.buffer)
+        return mat
+    }
 }
 
 extension Matrix where Scalar: Arithmetic {
@@ -302,5 +371,17 @@ extension Matrix where Scalar: Arithmetic {
 
     public static func .* (lhs: Matrix, rhs: Matrix) -> Matrix {
         Scalar.multiply(lhs, rhs)
+    }
+
+    public static func / (lhs: Scalar, rhs: Matrix) -> Matrix {
+        Scalar.divide(lhs, rhs)
+    }
+
+    public static func / (lhs: Matrix, rhs: Scalar) -> Matrix {
+        Scalar.divide(lhs, rhs)
+    }
+
+    public static func / (lhs: Matrix, rhs: Matrix) -> Matrix {
+        Scalar.divide(lhs, rhs)
     }
 }

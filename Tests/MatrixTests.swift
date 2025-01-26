@@ -1,6 +1,6 @@
 /*
- Tests for the Matrix structure.
- */
+Tests for the Matrix structure.
+*/
 
 import Testing
 @testable import Numerix
@@ -224,6 +224,11 @@ struct MatrixTests {
         // Matrix multiplication
         #expect(a * c == Matrix([[22, 28], [49, 64]]))
 
+        // Division
+        #expect(k / a == [[5, 2, 1], [1, 1, 0]])
+        #expect(a / k == [[0, 0, 0], [0, 1, 1]])
+        #expect(a / b == [[0, 0, 0], [1, 1, 1]])
+
         // Methods
         // #expect(a.dot(b) == 100)
         // #expect(a.sum() == 15)
@@ -262,6 +267,11 @@ struct MatrixTests {
         // Matrix multiplication
         #expect(a * c == Matrix([[22, 28], [49, 64]]))
 
+        // Division
+        #expect((k / a).isApproximatelyEqual(to: [[5, 2.5, 1.66666667], [1.25, 1.0, 0.83333333]]))
+        #expect(a / k == [[0.2, 0.4, 0.6], [0.8, 1.0, 1.2]])
+        #expect((a / b).isApproximatelyEqual(to: [[0.14285714, 0.25, 0.33333333], [1.33333333, 1.25, 1.2]]))
+
         // Methods
         // #expect(a.dot(b) == 100)
         // #expect(a.sum() == 15)
@@ -299,6 +309,11 @@ struct MatrixTests {
 
         // Matrix multiplication
         #expect(a * c == Matrix([[22, 28], [49, 64]]))
+
+        // Division
+        #expect((k / a).isApproximatelyEqual(to: [[5, 2.5, 1.66666667], [1.25, 1.0, 0.83333333]]))
+        #expect((a / k).isApproximatelyEqual(to: [[0.2, 0.4, 0.6], [0.8, 1.0, 1.2]]))
+        #expect((a / b).isApproximatelyEqual(to: [[0.14285714, 0.25, 0.33333333], [1.33333333, 1.25, 1.2]]))
 
         // Methods
         // #expect(a.dot(b) == 100)

@@ -4,3 +4,4 @@ disabled_rules:
   - function_body_length
   - identifier_name
   - file_length
+  - type_body_length
