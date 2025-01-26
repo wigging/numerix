@@ -17,6 +17,28 @@ struct MatrixTests {
         #expect(c[0, 0] == 1)
     }
 
+    @Test func subscripts() {
+        // row subscript
+        var a: Matrix = [[1, 2, 3],
+                         [4, 5, 6],
+                         [7, 8, 9]]
+
+        a[row: 2] = [[9, 9, 7]]
+
+        #expect(a[row: 1] == [[4, 5, 6]])
+        #expect(a == [[1, 2, 3], [4, 5, 6], [9, 9, 7]])
+
+        // column subscript
+        var b: Matrix = [[1, 2, 3],
+                         [4, 5, 6],
+                         [7, 8, 9]]
+
+        #expect(b[column: 1] == [2, 5, 8])
+
+        b[column: 2] = [9, 9, 7]
+        #expect(b == [[1, 2, 9], [4, 5, 9], [7, 8, 7]])
+    }
+
     @Test func arrayLiteral() {
         let a: Matrix = [[1, 2, 3, 4],
                          [5, 6, 7, 8]]

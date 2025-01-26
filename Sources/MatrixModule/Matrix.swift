@@ -91,6 +91,40 @@ public struct Matrix<Scalar> {
         set { self.buffer[(row * self.columns) + column] = newValue }
     }
 
+    /// Get and set row values using the row index.
+    public subscript(row row: Int) -> Matrix {
+        get {
+            let start = row * self.columns
+            let end = row * self.columns + self.columns
+            let mat = Matrix(rows: 1, columns: self.columns)
+            mat.buffer[0..<self.columns] = self.buffer[start..<end]
+            return mat
+        }
+        set {
+            let start = row * self.columns
+            let end = row * self.columns + self.columns
+            self.buffer[start..<end] = newValue.buffer[0..<self.columns]
+        }
+    }
+
+    /// Get and set column values using the column index.
+    public subscript(column column: Int) -> [Scalar] {
+        get {
+            var result = [Scalar](repeating: 0 as! Scalar, count: self.rows)
+            for i in 0..<self.rows {
+                let index = i * self.columns + column
+                result[i] = self.buffer[index]
+            }
+            return result
+        }
+        set {
+            for i in 0..<rows {
+                let index = i * self.columns + column
+                self.buffer[index] = newValue[i]
+            }
+        }
+    }
+
     /// Make a copy of the matrix along with its underlying data buffer.
     /// - Returns: A copy of the matrix.
     public func copy() -> Matrix {
