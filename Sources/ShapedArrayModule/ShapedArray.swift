@@ -64,3 +64,25 @@ public struct ShapedArray<Scalar> {
         }
     }
 }
+
+extension ShapedArray: Equatable {
+
+    /// Compare two shaped arrays for equality.
+    /// - Parameters:
+    ///   - lhs: The shaped array on the left-hand side.
+    ///   - rhs: The shaped array on the right-hand side.
+    /// - Returns: True if both shaped arrays are same shape and contain the same values.
+    public static func == (lhs: ShapedArray, rhs: ShapedArray) -> Bool {
+        let n = lhs.buffer.count
+        let cmp = memcmp(lhs.buffer.baseAddress, rhs.buffer.baseAddress, MemoryLayout<Scalar>.size * n)
+        let buffersEqual = cmp == 0 ? true : false
+        return lhs.shape == rhs.shape && buffersEqual
+    }
+}
+
+extension ShapedArray: ExpressibleByArrayLiteral {
+
+    public init(arrayLiteral elements: ShapedArrayElement<Scalar>...) {
+        self.init(elements)
+    }
+}
