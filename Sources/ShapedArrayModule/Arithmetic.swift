@@ -117,58 +117,58 @@ extension Float: Arithmetic {
         vDSP.add(k, a.buffer, result: &arr.buffer)
         return arr
     }
-    
+
     public static func add(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
         var arr = ShapedArray<Float>(shape: a.shape)
         vDSP.add(a.buffer, b.buffer, result: &arr.buffer)
         return arr
     }
-    
+
     public static func subtract(_ k: Float, _ a: ShapedArray<Float>) -> ShapedArray<Float> {
         let arr = Array(repeating: k, count: a.buffer.count)
         var result = ShapedArray<Float>(shape: a.shape)
         vDSP.subtract(arr, a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func subtract(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
         let arr = Array(repeating: k, count: a.buffer.count)
         var result = ShapedArray<Float>(shape: a.shape)
         vDSP.subtract(arr, a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func subtract(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
         precondition(a.shape == b.shape, "Shaped arrays must have same shape")
         var result = ShapedArray<Float>(shape: a.shape)
         vDSP.subtract(a.buffer, b.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func multiply(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
         var array = ShapedArray<Float>(shape: a.shape)
         vDSP.multiply(k, a.buffer, result: &array.buffer)
         return array
     }
-    
+
     public static func multiply(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
         var array = ShapedArray<Float>(shape: a.shape)
         vDSP.multiply(a.buffer, b.buffer, result: &array.buffer)
         return array
     }
-    
+
     public static func divide(_ k: Float, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
         var arr = ShapedArray<Float>(shape: b.shape)
         vDSP.divide(k, b.buffer, result: &arr.buffer)
         return arr
     }
-    
+
     public static func divide(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
         var arr = ShapedArray<Float>(shape: a.shape)
         vDSP.divide(a.buffer, k, result: &arr.buffer)
         return arr
     }
-    
+
     public static func divide(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
         var arr = ShapedArray<Float>(shape: a.shape)
         vDSP.divide(a.buffer, b.buffer, result: &arr.buffer)
