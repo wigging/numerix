@@ -86,3 +86,20 @@ extension ShapedArray: ExpressibleByArrayLiteral {
         self.init(elements)
     }
 }
+
+extension ShapedArray: CustomStringConvertible where Scalar: NumberStyle {
+
+    public var description: String {
+        var desc = ""
+
+        // Handle one-dimension array
+        if shape.count == 1 || shape.count == 2 && shape[0] == 1 {
+            desc += "( "
+            desc += buffer.map { "\($0)" }.joined(separator: "  ")
+            desc += " )"
+            return desc
+        }
+
+        return desc
+    }
+}

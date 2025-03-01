@@ -77,4 +77,16 @@ struct ShapedArrayTests {
         let c = ShapedArray<Double>([[1, 2, 3], [8, 9, 10]])
         #expect(a != c)
     }
+
+    @Test func printing() {
+        let a = ShapedArray<Int>([3, 4, 5, 6, 7])
+        var printedA = ""
+        print(a, terminator: "", to: &printedA)
+        #expect(printedA == "( 3  4  5  6  7 )")
+
+        let b = ShapedArray<Double>([3.1, 4, 5.09, 6, 7])
+        var printedB = ""
+        print(b, terminator: "", to: &printedB)
+        #expect(printedB == "( 3.1  4.0  5.09  6.0  7.0 )")
+    }
 }
