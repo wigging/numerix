@@ -89,19 +89,15 @@ extension Vector: ExpressibleByArrayLiteral {
 extension Vector: CustomStringConvertible {
 
     public var description: String {
-        var descr = "( "
-        descr += self.buffer.map { "\($0)" }.joined(separator: "  ")
-        descr += " )"
-        return descr
+        self.formatted()
     }
 }
 
 extension Vector: CustomDebugStringConvertible {
 
     public var debugDescription: String {
-        var descr = "\(self.size)-element \(type(of: self))\n( "
-        descr += self.buffer.map { "\($0)" }.joined(separator: "  ")
-        descr += " )"
+        var descr = "\(self.size)-element \(type(of: self))\n"
+        descr += self.formatted()
         return descr
     }
 }

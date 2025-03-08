@@ -39,6 +39,20 @@ struct VectorTests {
         #expect(debugOutput == "5-element Vector<Double>\n( 4.0  5.0  8.02  9.0  10.0 )")
     }
 
+    @Test func formatting() {
+        let vecA = Vector([4, 5, 8.02, 9, 10])
+        let formatA = vecA.formatted()
+        #expect(formatA == "( 4.0  5.0  8.02  9.0  10.0 )")
+
+        let vecB = Vector([0.90129, 5, 8.02, 9, 10])
+        let formatB = vecB.formatted(specifier: "%.4f")
+        #expect(formatB == "( 0.9013  5.0000  8.0200  9.0000  10.0000 )")
+
+        let vecC = Vector([-2, 5, 18, 7, 2215])
+        let formatC = vecC.formatted()
+        #expect(formatC == "( -2  5  18  7  2215 )")
+    }
+
     @Test func approximatelyEqual() {
         let a = Vector<Float>([5, 6, 7, 8.123])
         let b = Vector<Float>([5, 6, 7, 8.1234567891011])
