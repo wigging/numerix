@@ -139,60 +139,14 @@ extension Matrix: ExpressibleByArrayLiteral {
     }
 }
 
-extension Matrix: CustomStringConvertible where Scalar: NumberStyle {
+extension Matrix: CustomStringConvertible {
 
     public var description: String {
-        // Max integer width and fraction width for each matrix column
-        var maxIntWidth = Array(repeating: 0, count: self.columns)
-        var maxFracWidth = Array(repeating: 0, count: self.columns)
-
-        for i in 0..<self.rows {
-            for j in 0..<self.columns {
-                maxIntWidth[j] = Swift.max(maxIntWidth[j], self[i, j].integerLength)
-                maxFracWidth[j] = Swift.max(maxFracWidth[j], self[i, j].fractionLength)
-            }
-        }
-
-        // Matrix values as strings with padding
-        var desc = ""
-
-        for i in 0..<self.rows {
-            switch i {
-            case 0:
-                desc += "⎛ "
-            case self.rows - 1:
-                desc += "⎝ "
-            default:
-                desc += "⎜ "
-            }
-
-            for j in 0..<self.columns {
-                let leftPad = String(repeating: " ", count: maxIntWidth[j] - self[i, j].integerLength)
-                let rightPad = String(repeating: " ", count: maxFracWidth[j] - self[i, j].fractionLength)
-                let valDesc = leftPad + self[i, j].stringDescription + rightPad
-
-                if j != self.columns - 1 {
-                    desc += valDesc + "  "
-                } else {
-                    desc += valDesc
-                }
-            }
-
-            switch i {
-            case 0:
-                desc += " ⎞\n"
-            case self.rows - 1:
-                desc += " ⎠"
-            default:
-                desc += " ⎟\n"
-            }
-        }
-
-        return desc
+        self.formatted()
     }
 }
 
-extension Matrix: CustomDebugStringConvertible where Scalar: NumberStyle {
+extension Matrix: CustomDebugStringConvertible {
 
     public var debugDescription: String {
         """

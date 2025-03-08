@@ -90,6 +90,35 @@ struct MatrixTests {
         """)
     }
 
+    @Test func formatting() {
+        let matA = Matrix([[2, 1, 892], [4, 5, 3]])
+        let formatA = matA.formatted()
+        #expect(formatA == """
+        ⎛ 2  1  892 ⎞
+        ⎝ 4  5    3 ⎠
+        """)
+
+        let arrayB: [Float] = [2.5, 1, 8.235,
+                               0.409, 23.5, 3,
+                               19, 0.02, 1,
+                               201, 9, 1902.3]
+        let matB = Matrix(rows: 4, columns: 3, values: arrayB)
+        let formatB = matB.formatted()
+        #expect(formatB == """
+        ⎛   2.5     1.0      8.235 ⎞
+        ⎜   0.409  23.5      3.0   ⎟
+        ⎜  19.0     0.02     1.0   ⎟
+        ⎝ 201.0     9.0   1902.3   ⎠
+        """)
+
+        let matC = Matrix([[1, 5.2, 4], [10.1, 4, -12]])
+        let formatC = matC.formatted(specifier: "%.2f")
+        #expect(formatC == """
+        ⎛  1.00  5.20    4.00 ⎞
+        ⎝ 10.10  4.00  -12.00 ⎠
+        """)
+    }
+
     @Test func approximatelyEqual() {
         let a = Matrix<Float>([[1, 2, 3, 4], [5, 6, 7, 8.123]])
         let b = Matrix<Float>([[1, 2, 3, 4], [5, 6, 7, 8.1234567891011]])
