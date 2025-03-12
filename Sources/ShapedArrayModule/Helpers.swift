@@ -2,8 +2,20 @@
 Helper functions for ShapedArray struct.
 */
 
-// Get the shape of nested arrays that represent an N-dimensional array.
-// This is used for ShapedArray init and ShapedArray literal.
+// Get the last row for each sub-matrix
+// This accounts for the empty line between each sub-matrix when printing
+func getLastRows(_ array: [Int]) -> [Int] {
+    array.reduce(into: [Int]()) { partialResult, x in
+        if let last = partialResult.last {
+            partialResult.append(last * x + x - 1)
+        } else {
+            partialResult.append(x)
+        }
+    }
+}
+
+// Get the shape of nested arrays that represent an N-dimensional array
+// This is used for ShapedArray init and ShapedArray literal
 func getShape<T>(_ arr: [ShapedArrayElement<T>]) -> [Int] {
     switch arr.first {
     case .array(let inner):
@@ -13,7 +25,7 @@ func getShape<T>(_ arr: [ShapedArrayElement<T>]) -> [Int] {
     }
 }
 
-// Flatten nested arrays to an array.
+// Flatten nested arrays to an array
 func flatten<T>(_ arrays: [ShapedArrayElement<T>]) -> [T] {
     var result = [T]()
     for val in arrays {
