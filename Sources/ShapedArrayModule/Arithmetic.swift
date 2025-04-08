@@ -246,8 +246,8 @@ extension ShapedArray where Scalar: Arithmetic {
 
     /// Element-wise addition of a scalar and shaped array.
     /// - Parameters:
-    ///   - left: The left-hand side scalar value `k`.
-    ///   - right: The right-hand side shaped array `A`.
+    ///   - lhs: The left-hand side scalar value `k`.
+    ///   - rhs: The right-hand side shaped array `A`.
     /// - Returns: A shaped array that is the result of `k + A`.
     public static func + (lhs: Scalar, rhs: ShapedArray) -> ShapedArray {
         Scalar.add(rhs, lhs)
@@ -255,8 +255,8 @@ extension ShapedArray where Scalar: Arithmetic {
 
     /// Element-wise addition of a scalar and shaped array.
     /// - Parameters:
-    ///   - left: The left-hand side shaped array `A`.
-    ///   - right: The right-hand side scalar value `k`.
+    ///   - lhs: The left-hand side shaped array `A`.
+    ///   - rhs: The right-hand side scalar value `k`.
     /// - Returns: A shaped array that is the result of `A + k`.
     public static func + (lhs: ShapedArray, rhs: Scalar) -> ShapedArray {
         Scalar.add(lhs, rhs)
@@ -264,8 +264,8 @@ extension ShapedArray where Scalar: Arithmetic {
 
     /// Element-wise addition of two shaped arrays.
     /// - Parameters:
-    ///   - left: The left-hand side shaped array `A`.
-    ///   - right: The right-hand side shaped array `B`.
+    ///   - lhs: The left-hand side shaped array `A`.
+    ///   - rhs: The right-hand side shaped array `B`.
     /// - Returns: A shaped array that is the result of `A + B`.
     public static func + (lhs: ShapedArray, rhs: ShapedArray) -> ShapedArray {
         Scalar.add(lhs, rhs)
@@ -290,8 +290,8 @@ extension ShapedArray where Scalar: Arithmetic {
 
     /// Element-wise subtraction of a scalar and shaped array.
     /// - Parameters:
-    ///   - left: The left-hand side scalar value `k`.
-    ///   - right: The right-hand side shaped array `A`.
+    ///   - lhs: The left-hand side scalar value `k`.
+    ///   - rhs: The right-hand side shaped array `A`.
     /// - Returns: A shaped array that is the result of `k - A`.
     public static func - (lhs: Scalar, rhs: ShapedArray) -> ShapedArray {
         Scalar.subtract(lhs, rhs)
@@ -299,8 +299,8 @@ extension ShapedArray where Scalar: Arithmetic {
 
     /// Element-wise subtraction of a scalar and shaped array.
     /// - Parameters:
-    ///   - left: The left-hand side shaped array `A`.
-    ///   - right: The right-hand side scalar value `k`.
+    ///   - lhs: The left-hand side shaped array `A`.
+    ///   - rhs: The right-hand side scalar value `k`.
     /// - Returns: A shaped array that is the result of `A - k`.
     public static func - (lhs: ShapedArray, rhs: Scalar) -> ShapedArray {
         Scalar.subtract(lhs, rhs)

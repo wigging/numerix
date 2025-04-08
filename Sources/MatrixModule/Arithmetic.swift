@@ -379,8 +379,8 @@ extension Matrix where Scalar: Arithmetic {
     /// Matrices must have same dimensions m × n. This is also known as the Hadamard product or Schur product.
     ///
     /// - Parameters:
-    ///   - left: Left matrix with dimension of m × n.
-    ///   - right: Right matrix with dimension m × n.
+    ///   - lhs: Left matrix with dimension of m × n.
+    ///   - rhs: Right matrix with dimension m × n.
     /// - Returns: Element-wise matrix product with same dimensions as input matrices.
     public static func ⊙ (lhs: Matrix, rhs: Matrix) -> Matrix {
         precondition(lhs.rows == rhs.rows && lhs.columns == rhs.columns, "Matrices must have same dimensions")
