@@ -24,7 +24,7 @@ See the `CONTRIBUTING.md` document in the [Numerix GitHub repository](https://gi
 
 - <doc:GetStarted>
 
-### Linear algebra
+### Linear Algebra
 
 - <doc:BlasRoutines>
 - <doc:LapackRoutines>
