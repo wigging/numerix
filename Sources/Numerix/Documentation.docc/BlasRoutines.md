@@ -8,6 +8,7 @@ Numerix uses the Accelerate framework to access Basic Linear Algebra Subprograms
 
 Vector operations.
 
+- ``/Numerix/Vector/dot(_:)``
 - ``Vector/dot(_:)``
 - ``Vector/norm()``
 - ``Vector/scale(by:)``
