@@ -4,6 +4,7 @@ Vector extension for logarithm functions.
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Logarithm {
     static func log(a: Vector<Self>) -> Vector<Self>
     static func log1p(a: Vector<Self>) -> Vector<Self>
@@ -12,6 +13,7 @@ public protocol Logarithm {
     static func logb(a: Vector<Self>) -> Vector<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: Logarithm {
     public static func log(a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
@@ -44,6 +46,7 @@ extension Float: Logarithm {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Logarithm {
     public static func log(a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)

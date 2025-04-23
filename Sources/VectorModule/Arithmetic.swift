@@ -4,6 +4,7 @@ Arithmetic protocol and extensions for the Vector struct.
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Arithmetic {
     static func add(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
     static func add(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
@@ -17,6 +18,7 @@ public protocol Arithmetic {
     static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
 }
 
+@_documentation(visibility: private)
 extension Int: Arithmetic {
 
     public static func add(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
@@ -100,6 +102,7 @@ extension Int: Arithmetic {
     }
 }
 
+@_documentation(visibility: private)
 extension Float: Arithmetic {
 
     public static func add(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
@@ -171,6 +174,7 @@ extension Float: Arithmetic {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Arithmetic {
 
     public static func add(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {

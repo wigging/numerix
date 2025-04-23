@@ -4,6 +4,7 @@ Linear algebra protocol and extensions for the Vector struct.
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Algebra {
     static func dot(_ a: Vector<Self>, _ b: Vector<Self>) -> Self
     static func norm(_ a: Vector<Self>) -> Self
@@ -14,6 +15,7 @@ public protocol Algebra {
     static func swapValues(a: inout Vector<Self>, b: inout Vector<Self>)
 }
 
+@_documentation(visibility: private)
 extension Int: Algebra {
 
     public static func swapValues(a: inout Vector<Int>, b: inout Vector<Int>) {
@@ -71,6 +73,7 @@ extension Int: Algebra {
     }
 }
 
+@_documentation(visibility: private)
 extension Float: Algebra {
 
     public static func swapValues(a: inout Vector<Float>, b: inout Vector<Float>) {
@@ -110,6 +113,7 @@ extension Float: Algebra {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Algebra {
 
     public static func swapValues(a: inout Vector<Double>, b: inout Vector<Double>) {

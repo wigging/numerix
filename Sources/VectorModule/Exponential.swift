@@ -4,12 +4,14 @@ Vector extension for exponential functions.
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Exponential {
     static func exp(a: Vector<Self>) -> Vector<Self>
     static func exp2(a: Vector<Self>) -> Vector<Self>
     static func expm1(a: Vector<Self>) -> Vector<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: Exponential {
     public static func exp(a: Vector<Float>) -> Vector<Float> {
         var mat = Vector(like: a)
@@ -30,6 +32,7 @@ extension Float: Exponential {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Exponential {
     public static func exp(a: Vector<Double>) -> Vector<Double> {
         var mat = Vector(like: a)

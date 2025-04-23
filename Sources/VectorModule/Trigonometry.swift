@@ -4,12 +4,14 @@
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Trigonometry {
     static func sin(_ a: Vector<Self>) -> Vector<Self>
     static func cos(_ a: Vector<Self>) -> Vector<Self>
     static func tan(_ a: Vector<Self>) -> Vector<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: Trigonometry {
 
     public static func sin(_ a: Vector<Float>) -> Vector<Float> {
@@ -31,6 +33,7 @@ extension Float: Trigonometry {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Trigonometry {
 
     public static func sin(_ a: Vector<Double>) -> Vector<Double> {

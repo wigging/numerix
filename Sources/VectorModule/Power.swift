@@ -4,11 +4,13 @@ Vector extension for power functions.
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Power {
     static func power(a: Vector<Self>, exp: Self) -> Vector<Self>
     static func power(a: Vector<Self>, exp: [Self]) -> Vector<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: Power {
     public static func power(a: Vector<Float>, exp: Float) -> Vector<Float> {
         let output = Vector(like: a)
@@ -28,6 +30,7 @@ extension Float: Power {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Power {
     public static func power(a: Vector<Double>, exp: Double) -> Vector<Double> {
         let output = Vector(like: a)

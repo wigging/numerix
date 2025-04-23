@@ -4,10 +4,12 @@
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol RandomDistribution {
     static func randomDist(size: Int, dist: Int) -> Vector<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: RandomDistribution {
 
     public static func randomDist(size: Int, dist: Int) -> Vector<Float> {
@@ -25,6 +27,7 @@ extension Float: RandomDistribution {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: RandomDistribution {
 
     public static func randomDist(size: Int, dist: Int) -> Vector<Double> {
