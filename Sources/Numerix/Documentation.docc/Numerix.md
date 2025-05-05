@@ -23,8 +23,4 @@ See the `CONTRIBUTING.md` document in the [Numerix GitHub repository](https://gi
 ### Essentials
 
 - <doc:GetStarted>
-
-### Linear Algebra
-
-- <doc:BlasRoutines>
-- <doc:LapackRoutines>
+- <doc:LinearAlgebra>
