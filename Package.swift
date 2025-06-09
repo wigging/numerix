@@ -12,9 +12,12 @@ let package = Package(
     targets: [
         .target(
             name: "Numerix",
-            dependencies: ["VectorModule", "MatrixModule", "ShapedArrayModule"],
+            dependencies: ["RandomModule", "VectorModule", "MatrixModule", "ShapedArrayModule"],
             cxxSettings: [.define("ACCELERATE_NEW_LAPACK", to: "1"), .define("ACCELERATE_LAPACK_ILP64", to: "1")],
             linkerSettings: [.linkedFramework("Accelerate")]
+        ),
+        .target(
+            name: "RandomModule"
         ),
         .target(
             name: "VectorModule",
