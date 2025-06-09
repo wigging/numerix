@@ -17,7 +17,8 @@ let package = Package(
             linkerSettings: [.linkedFramework("Accelerate")]
         ),
         .target(
-            name: "RandomModule"
+            name: "RandomModule",
+            dependencies: ["VectorModule"]
         ),
         .target(
             name: "VectorModule",
