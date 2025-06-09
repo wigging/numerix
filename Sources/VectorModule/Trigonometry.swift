@@ -37,39 +37,39 @@ extension Float: Trigonometry {
         vForce.tan(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func asin(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
         vForce.asin(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func acos(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
         vForce.acos(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func atan(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
         vForce.atan(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func csc(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
         vForce.sin(a.buffer, result: &result.buffer)
         vForce.reciprocal(result.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func sec(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
         vForce.cos(a.buffer, result: &result.buffer)
         vForce.reciprocal(result.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func cot(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
         vForce.tan(a.buffer, result: &result.buffer)
@@ -98,39 +98,39 @@ extension Double: Trigonometry {
         vForce.tan(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func asin(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
         vForce.asin(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func acos(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
         vForce.acos(a.buffer, result: &result.buffer)
         return result
     }
-    	
+
     public static func atan(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
         vForce.atan(a.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func csc(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
         vForce.sin(a.buffer, result: &result.buffer)
         vForce.reciprocal(result.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func sec(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
         vForce.cos(a.buffer, result: &result.buffer)
         vForce.reciprocal(result.buffer, result: &result.buffer)
         return result
     }
-    
+
     public static func cot(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
         vForce.tan(a.buffer, result: &result.buffer)
@@ -174,7 +174,8 @@ public func tan<Scalar>(_ vec: Vector<Scalar>) -> Vector<Scalar> where Scalar: T
 
 /// Calculate the arcsine of each element in a vector.
 ///
-/// Elements in the vector should be within the domain -1 ≤ x ≤ 1 otherwise results may be nan. Results are returned on the closed interval -π / 2 ≤ y ≤ π / 2.
+/// Elements in the vector should be within the domain -1 ≤ x ≤ 1 otherwise results may be nan.
+/// Results are returned on the closed interval -π / 2 ≤ y ≤ π / 2.
 /// ```swift
 /// let vec = Vector([-1, -0.5, 0, 0.5, 1])
 /// let result = asin(vec)

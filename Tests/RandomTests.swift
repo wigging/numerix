@@ -33,4 +33,11 @@ struct RandomTests {
         let d = Vector<Double>.random(size: 4, seed: 12345)
         #expect(d == Vector<Double>([0.7132790974854359, 0.9815675033121781, 0.7952823641045631, 0.25364800714420743]))
     }
+
+    @Test func randomDist() {
+        let a = Vector<Float>.randomDistribution(size: 4)
+        let b = Vector<Double>.randomDistribution(size: 5)
+        #expect(a[0] <= 1.0)
+        #expect(b[0] <= 1.0)
+    }
 }

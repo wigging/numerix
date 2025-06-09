@@ -11,7 +11,7 @@ https://lemire.me/blog/2019/03/19/the-fastest-conventional-random-number-generat
 import Foundation
 
 public struct WyRand: RandomNumberGenerator {
-    private var state : UInt64
+    private var state: UInt64
 
     public init(seed: UInt64? = nil) {
         state = seed ?? UInt64(abs(UUID().hashValue))
