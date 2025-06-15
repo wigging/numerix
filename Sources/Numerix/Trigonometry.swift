@@ -1,6 +1,6 @@
 /*
- Vector trigonometry protocol and functions.
- */
+Trigonometry protocol, extensions, and functions.
+*/
 
 import Accelerate
 
@@ -15,10 +15,16 @@ public protocol Trigonometry {
     static func csc(_ a: Vector<Self>) -> Vector<Self>
     static func sec(_ a: Vector<Self>) -> Vector<Self>
     static func cot(_ a: Vector<Self>) -> Vector<Self>
+
+    static func sin(_ a: Matrix<Self>) -> Matrix<Self>
+    static func cos(_ a: Matrix<Self>) -> Matrix<Self>
+    static func tan(_ a: Matrix<Self>) -> Matrix<Self>
 }
 
 @_documentation(visibility: private)
 extension Float: Trigonometry {
+
+    // Vector
 
     public static func sin(_ a: Vector<Float>) -> Vector<Float> {
         var result = Vector(like: a)
@@ -76,10 +82,32 @@ extension Float: Trigonometry {
         vForce.reciprocal(result.buffer, result: &result.buffer)
         return result
     }
+
+    // Matrix
+
+    public static func sin(_ a: Matrix<Float>) -> Matrix<Float> {
+        var result = Matrix(like: a)
+        vForce.sin(a.buffer, result: &result.buffer)
+        return result
+    }
+
+    public static func cos(_ a: Matrix<Float>) -> Matrix<Float> {
+        var result = Matrix(like: a)
+        vForce.cos(a.buffer, result: &result.buffer)
+        return result
+    }
+
+    public static func tan(_ a: Matrix<Float>) -> Matrix<Float> {
+        var result = Matrix(like: a)
+        vForce.tan(a.buffer, result: &result.buffer)
+        return result
+    }
 }
 
 @_documentation(visibility: private)
 extension Double: Trigonometry {
+
+    // Vector
 
     public static func sin(_ a: Vector<Double>) -> Vector<Double> {
         var result = Vector(like: a)
@@ -135,6 +163,26 @@ extension Double: Trigonometry {
         var result = Vector(like: a)
         vForce.tan(a.buffer, result: &result.buffer)
         vForce.reciprocal(result.buffer, result: &result.buffer)
+        return result
+    }
+
+    // Matrix
+
+    public static func sin(_ a: Matrix<Double>) -> Matrix<Double> {
+        var result = Matrix(like: a)
+        vForce.sin(a.buffer, result: &result.buffer)
+        return result
+    }
+
+    public static func cos(_ a: Matrix<Double>) -> Matrix<Double> {
+        var result = Matrix(like: a)
+        vForce.cos(a.buffer, result: &result.buffer)
+        return result
+    }
+
+    public static func tan(_ a: Matrix<Double>) -> Matrix<Double> {
+        var result = Matrix(like: a)
+        vForce.tan(a.buffer, result: &result.buffer)
         return result
     }
 }
@@ -219,4 +267,37 @@ public func sec<Scalar>(_ vec: Vector<Scalar>) -> Vector<Scalar> where Scalar: T
 /// - Returns: A vector representing the cotangent of the input vector.
 public func cot<Scalar>(_ vec: Vector<Scalar>) -> Vector<Scalar> where Scalar: Trigonometry {
     Scalar.cot(vec)
+}
+
+/// Calculate the sine of each element in a matrix.
+/// ```swift
+/// let mat: Matrix<Float> = [[1, 2], [3, 4]]
+/// let result = sin(mat))
+/// ```
+/// - Parameter mat: The input matrix.
+/// - Returns: A matrix representing the sine of the input matrix.
+public func sin<Scalar>(_ mat: Matrix<Scalar>) -> Matrix<Scalar> where Scalar: Trigonometry {
+    Scalar.sin(mat)
+}
+
+/// Calculate the cosine of each element in a matrix.
+/// ```swift
+/// let mat: Matrix<Float> = [[1, 2], [3, 4]]
+/// let result = cos(mat))
+/// ```
+/// - Parameter mat: The input matrix.
+/// - Returns: A matrix representing the cosine of the input matrix.
+public func cos<Scalar>(_ mat: Matrix<Scalar>) -> Matrix<Scalar> where Scalar: Trigonometry {
+    Scalar.cos(mat)
+}
+
+/// Calculate the tangent of each element in a matrix.
+/// ```swift
+/// let mat: Matrix<Float> = [[1, 2], [3, 4]]
+/// let result = tan(mat))
+/// ```
+/// - Parameter mat: The input matrix.
+/// - Returns: A matrix representing the tangent of the input matrix.
+public func tan<Scalar>(_ mat: Matrix<Scalar>) -> Matrix<Scalar> where Scalar: Trigonometry {
+    Scalar.tan(mat)
 }
