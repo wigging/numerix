@@ -5,3 +5,8 @@ disabled_rules:
   - identifier_name
   - file_length
   - type_body_length
+
+excluded:
+  - .build
+  - .git
+  - .github
