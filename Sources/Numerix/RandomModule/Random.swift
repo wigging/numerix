@@ -2,8 +2,6 @@
 Random vector protocol using WyRand.
 */
 
-import VectorModule
-
 @_documentation(visibility: private)
 public protocol Random {
     static func random(size: Int, seed: UInt64?) -> Vector<Self>
