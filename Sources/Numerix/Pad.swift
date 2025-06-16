@@ -6,10 +6,12 @@
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Pad {
     static func pad(a: Matrix<Self>, value: Self) -> Matrix<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: Pad {
     public static func pad(a: Matrix<Float>, value: Float) -> Matrix<Float> {
         let m = vDSP_Length(a.columns)       // number of columns to copy
@@ -24,6 +26,7 @@ extension Float: Pad {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Pad {
     public static func pad(a: Matrix<Double>, value: Double) -> Matrix<Double> {
         let m = vDSP_Length(a.columns)       // number of columns to copy

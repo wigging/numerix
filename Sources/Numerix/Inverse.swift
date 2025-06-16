@@ -10,10 +10,12 @@ be zero-based (INFO - 1) for Swift error message.
 
 import Accelerate
 
+@_documentation(visibility: private)
 public protocol Inverse {
     static func inv(a: Matrix<Self>) -> Matrix<Self>
 }
 
+@_documentation(visibility: private)
 extension Float: Inverse {
     public static func inv(a: Matrix<Float>) -> Matrix<Float> {
         precondition(a.rows == a.columns, "Input matrix is not square")
@@ -57,6 +59,7 @@ extension Float: Inverse {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: Inverse {
     public static func inv(a: Matrix<Double>) -> Matrix<Double> {
         precondition(a.rows == a.columns, "Input matrix is not square")

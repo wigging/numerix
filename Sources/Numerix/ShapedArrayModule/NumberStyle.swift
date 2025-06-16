@@ -2,6 +2,7 @@
 Number style protocol.
 */
 
+@_documentation(visibility: private)
 public protocol NumberStyle {
     var stringDescription: String { get }
     var integerLength: Int { get }
