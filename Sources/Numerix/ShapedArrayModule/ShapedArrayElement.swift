@@ -3,6 +3,7 @@ ShapedArrayElement enum to represent elements in a ShapedArray struct.
 This allows a ShapedArray to be defined as nested arrays such as [[1, 2], [3, 4]] using array literals.
 */
 
+@_documentation(visibility: private)
 public enum ShapedArrayElement<T> {
     case array([ShapedArrayElement<T>])
     case element(T)

@@ -15,3 +15,4 @@ Numerix uses the Accelerate framework to access Basic Linear Algebra Subprograms
 - ``Vector/absoluteSum()``
 - ``Vector/cumulativeSum()``
 - ``swapValues(_:_:)-8dx3x``
+- ``swapValues(_:_:)-10kkk``

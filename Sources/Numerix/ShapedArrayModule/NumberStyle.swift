@@ -9,6 +9,7 @@ public protocol NumberStyle {
     var fractionLength: Int { get }
 }
 
+@_documentation(visibility: private)
 extension Int: NumberStyle {
     public var stringDescription: String {
         String(self)
@@ -23,6 +24,7 @@ extension Int: NumberStyle {
     }
 }
 
+@_documentation(visibility: private)
 extension Float: NumberStyle {
     public var stringDescription: String {
         self.formatted(.number.precision(.fractionLength(1...4)))
@@ -37,6 +39,7 @@ extension Float: NumberStyle {
     }
 }
 
+@_documentation(visibility: private)
 extension Double: NumberStyle {
     public var stringDescription: String {
         self.formatted(.number.precision(.fractionLength(1...6)))
