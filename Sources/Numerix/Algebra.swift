@@ -3,13 +3,16 @@ Linear algebra protocol.
 Linear algebra extensions for Int, Float, and Double.
 Linear algebra extensions for Vector and Matrix.
 Linear algebra swap functions.
+
+For matrix determinant, in LAPACK the INFO value is used as the U index `i` in
+the error message, this index is one-based so it needs to be zero-based (INFO - 1)
+for Swift error message.
 */
 
 import Accelerate
 
 @_documentation(visibility: private)
 public protocol Algebra {
-
     static func dot(_ a: Vector<Self>, _ b: Vector<Self>) -> Self
     static func norm(_ a: Vector<Self>) -> Self
     static func scale(_ a: inout Vector<Self>, by k: Self)
@@ -18,6 +21,7 @@ public protocol Algebra {
     static func cumulativeSum(_ a: Vector<Self>) -> Vector<Self>
     static func swapValues(a: inout Vector<Self>, b: inout Vector<Self>)
 
+    static func det(a: Matrix<Self>) -> Self
     static func norm(_ a: Matrix<Self>) -> Self
     static func scale(_ a: inout Matrix<Self>, by k: Self)
     static func transpose(_ a: Matrix<Self>) -> Matrix<Self>
@@ -84,6 +88,10 @@ extension Int: Algebra {
     }
 
     // Matrix
+
+    public static func det(a: Matrix<Int>) -> Int {
+        fatalError("Determinant of integer matrix is not supported")
+    }
 
     public static func swapValues(a: inout Matrix<Int>, b: inout Matrix<Int>) {
         precondition(a.rows == b.rows && a.columns == b.columns, "Matrices must have same shape")
@@ -159,6 +167,39 @@ extension Float: Algebra {
 
     // Matrix
 
+    public static func det(a: Matrix<Float>) -> Float {
+        precondition(a.rows == a.columns, "Input matrix is not square")
+        let mat = a.copy()
+
+        // Perform LU factorization using LAPACK sgetrf
+        var rows = mat.rows
+        var pivots = [Int](repeating: 0, count: mat.rows)
+        var info = 0
+        var det: Float = 1.0
+        sgetrf_(&rows, &rows, mat.buffer.baseAddress, &rows, &pivots, &info)
+
+        // Check if INFO < 0
+        precondition(info >= 0, "The \(abs(info))-th argument had an illegal value.")
+
+        // Check if INFO > 0
+        let err = """
+        U(\(info - 1),\(info - 1)) is exactly zero. The factorization has been \
+        completed, but the factor U is exactly singular, and division by zero will \
+        occur if it is used to solve a system of equations.
+        """
+        precondition(info <= 0, err)
+
+        // Calculate determinant from the diagonal if INFO = 0
+        for i in 0..<rows {
+            det *= mat[i, i]
+            if pivots[i] != i + 1 {
+                det *= -1
+            }
+        }
+
+        return det
+    }
+
     public static func swapValues(a: inout Matrix<Float>, b: inout Matrix<Float>) {
         precondition(a.rows == b.rows && a.columns == b.columns, "Matrices must have same shape")
         cblas_sswap(a.buffer.count, a.buffer.baseAddress, 1, b.buffer.baseAddress, 1)
@@ -223,6 +264,39 @@ extension Double: Algebra {
     }
 
     // Matrix
+
+    public static func det(a: Matrix<Double>) -> Double {
+        precondition(a.rows == a.columns, "Input matrix is not square")
+        let mat = a.copy()
+
+        // Perform LU factorization using LAPACK sgetrf
+        var rows = mat.rows
+        var pivots = [Int](repeating: 0, count: mat.rows)
+        var info = 0
+        var det: Double = 1.0
+        dgetrf_(&rows, &rows, mat.buffer.baseAddress, &rows, &pivots, &info)
+
+        // Check if INFO < 0
+        precondition(info >= 0, "The \(abs(info))-th argument had an illegal value.")
+
+        // Check if INFO > 0
+        let err = """
+        U(\(info - 1),\(info - 1)) is exactly zero. The factorization has been \
+        completed, but the factor U is exactly singular, and division by zero will \
+        occur if it is used to solve a system of equations.
+        """
+        precondition(info <= 0, err)
+
+        // Calculate determinant from the diagonal if INFO = 0
+        for i in 0..<rows {
+            det *= mat[i, i]
+            if pivots[i] != i + 1 {
+                det *= -1
+            }
+        }
+
+        return det
+    }
 
     public static func swapValues(a: inout Matrix<Double>, b: inout Matrix<Double>) {
         precondition(a.rows == b.rows && a.columns == b.columns, "Matrices must have same shape")
@@ -328,6 +402,24 @@ extension Vector where Scalar: Algebra {
 }
 
 extension Matrix where Scalar: Algebra {
+
+    /// Compute the determinant of the matrix.
+    ///
+    /// Given a square matrix, compute the determinant of the matrix using single
+    /// and double precision values. A precondition error occurs if the input matrix
+    /// is not square. This determinant method uses the LAPACK `sgetrf` and `dgetrf`
+    /// functions for single and double precision LU factorization. The diagonal of
+    /// the factorization is used to calculate the determinant.
+    ///
+    /// ```swift
+    /// let a: Matrix<Double> = [[1, 2], [3, 4]]
+    /// let detA = a.determinant()
+    /// ```
+    ///
+    /// - Returns: The determinant of the matrix.
+    public func determinant() -> Scalar {
+        Scalar.det(a: self)
+    }
 
     /// The Euclidean norm of the matrix. Also known as the 2-norm or maximum singular value.
     /// - Returns: The matrix norm.
