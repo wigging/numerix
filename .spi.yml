@@ -1,4 +1,4 @@
 version: 1
 builder:
   configs:
-    - documentation_targets: [Numerix, VectorModule, MatrixModule, ShapedArrayModule]
+    - documentation_targets: [Numerix]
