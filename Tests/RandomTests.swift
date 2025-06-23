@@ -34,6 +34,11 @@ struct RandomTests {
         #expect(d == Vector<Double>([0.7132790974854359, 0.9815675033121781, 0.7952823641045631, 0.25364800714420743]))
     }
 
+    @Test func randomBNNSVector() {
+        let a = Vector<Float>.randomBNNS(size: 5, bounds: (0, 10), seed: 12345)
+        #expect(a == [0.6392093, 5.32152, 8.716668, 6.9390416, 0.23953494])
+    }
+
     @Test func randomDist() {
         let a = Vector<Float>.randomDistribution(size: 4)
         let b = Vector<Double>.randomDistribution(size: 5)
