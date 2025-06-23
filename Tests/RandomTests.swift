@@ -8,7 +8,7 @@ import Testing
 struct RandomTests {
 
     @Test func randomWyRand() {
-        var rand = WyRand(seed: 12345)
+        var rand = Wyrand(seed: 12345)
         #expect(rand.next() == 13157676964440363053)
 
         let a: Float = rand.nextUniform()

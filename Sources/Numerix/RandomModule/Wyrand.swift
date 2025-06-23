@@ -1,5 +1,5 @@
 /*
-WyRand pseudorandom number generator (PRNG) based on wyrand and wyhash functions by Wang Yi.
+Wyrand pseudorandom number generator (PRNG) based on wyrand and wyhash functions by Wang Yi.
 
 Original code for wyrand and wyhash functions
 https://github.com/wangyi-fudan/wyhash
@@ -10,7 +10,7 @@ https://lemire.me/blog/2019/03/19/the-fastest-conventional-random-number-generat
 
 import Foundation
 
-public struct WyRand: RandomNumberGenerator {
+public struct Wyrand: RandomNumberGenerator {
     private var state: UInt64
 
     public init(seed: UInt64? = nil) {

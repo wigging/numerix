@@ -14,7 +14,7 @@ public protocol Random {
 extension Float: Random {
     public static func random(size: Int, seed: UInt64?) -> Vector<Float> {
         var vec = Vector<Float>(size: size)
-        var rng = WyRand(seed: seed)
+        var rng = Wyrand(seed: seed)
         for i in 0..<size {
             vec[i] = rng.nextUniform()
         }
@@ -35,7 +35,7 @@ extension Float: Random {
 extension Double: Random {
     public static func random(size: Int, seed: UInt64?) -> Vector<Double> {
         var vec = Vector<Double>(size: size)
-        var rng = WyRand(seed: seed)
+        var rng = Wyrand(seed: seed)
         for i in 0..<size {
             vec[i] = rng.nextUniform()
         }

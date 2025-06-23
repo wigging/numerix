@@ -8,7 +8,7 @@ Numerix provides random number generators
 
 ## Topics
 
-- ``WyRand``
+- ``Wyrand``
 - ``Vector/random(size:seed:)``
 - ``Vector/randomDistribution(size:dist:)``
 - ``Vector/randomBNNS(size:bounds:seed:)``
