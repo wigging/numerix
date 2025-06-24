@@ -5,6 +5,8 @@ disabled_rules:
   - identifier_name
   - file_length
   - type_body_length
+  - large_tuple
+  - legacy_random
 
 excluded:
   - .build

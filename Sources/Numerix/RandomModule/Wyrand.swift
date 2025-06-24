@@ -1,10 +1,9 @@
 /*
-Wyrand pseudorandom number generator (PRNG) based on wyrand and wyhash functions by Wang Yi.
+Wyrand pseudorandom number generator (PRNG).
+Based on the wyrand and wyhash functions by Wang Yi.
 
-Original code for wyrand and wyhash functions
+References:
 https://github.com/wangyi-fudan/wyhash
-
-Also see Daniel Lemire's article about wyhash
 https://lemire.me/blog/2019/03/19/the-fastest-conventional-random-number-generator-that-can-pass-big-crush/
 */
 

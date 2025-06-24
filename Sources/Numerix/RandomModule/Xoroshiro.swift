@@ -1,5 +1,9 @@
 /*
 Xoroshiro128+ and Xoroshiro128++ pseudorandom number generators (PRNGs).
+
+References:
+https://prng.di.unimi.it
+https://prng.di.unimi.it/xoroshiro128plus.c
 */
 
 import Accelerate
@@ -8,16 +12,20 @@ func rotl(_ x: UInt64, _ k: Int) -> UInt64 {
     (x &<< k) | (x &>> (64 &- k))
 }
 
-/// Xoroshiro128+ is a 64-bit pseudorandom number generator (PRNG) for double-precision values.
+/// Xoroshiro128+ is a 64-bit pseudorandom number generator (PRNG) for floating-point numbers.
 public struct Xoroshiro128Plus: RandomNumberGenerator {
     private var state: (UInt64, UInt64)
 
+    /// Initialize the state of the generator.
+    /// - Parameter seed: Seed with two 64-bit unsigned integers.
     public init(seed: (UInt64, UInt64)? = nil) {
         let a = UInt64.random(in: 0..<UInt64.max)
         let b = UInt64.random(in: 0..<UInt64.max)
         state = seed ?? (a, b)
     }
 
+    /// Generate a random 64-bit unsigned integer.
+    /// - Returns: Random 64-bit unsigned integer value.
     public mutating func next() -> UInt64 {
         let s0 = state.0
         var s1 = state.1
@@ -30,7 +38,7 @@ public struct Xoroshiro128Plus: RandomNumberGenerator {
         return result
     }
 
-    /// Generate a random double-precision value from a uniform distribution over [0, 1) which includes zero but
+    /// Generate a random double-precision value from a uniform distribution in [0, 1) which includes zero but
     /// excludes one.
     /// - Returns: Random double-precision value.
     public mutating func next() -> Double {
@@ -38,16 +46,20 @@ public struct Xoroshiro128Plus: RandomNumberGenerator {
     }
 }
 
-/// Xoroshiro128++ is a 64-bit pseudorandom number generator (PRNG) for double-precision values.
+/// Xoroshiro128++ is a 64-bit pseudorandom number generator (PRNG) for floating-point numbers.
 public struct Xoroshiro128PlusPlus: RandomNumberGenerator {
     private var state: (UInt64, UInt64)
 
+    /// Initialize the state of the generator.
+    /// - Parameter seed: Seed with two 64-bit unsigned integers.
     public init(seed: (UInt64, UInt64)? = nil) {
         let a = UInt64.random(in: 0..<UInt64.max)
         let b = UInt64.random(in: 0..<UInt64.max)
         state = seed ?? (a, b)
     }
 
+    /// Generate a random 64-bit unsigned integer.
+    /// - Returns: Random 64-bit unsigned integer value.
     public mutating func next() -> UInt64 {
         let s0 = state.0
         var s1 = state.1
@@ -59,8 +71,8 @@ public struct Xoroshiro128PlusPlus: RandomNumberGenerator {
 
         return result
     }
-    
-    /// Generate a random double-precision value from a uniform distribution over [0, 1) which includes zero but
+
+    /// Generate a random double-precision value from a uniform distribution in [0, 1) which includes zero but
     /// excludes one.
     /// - Returns: Random double-precision value.
     public mutating func next() -> Double {
