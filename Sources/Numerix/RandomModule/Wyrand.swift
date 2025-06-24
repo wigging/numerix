@@ -23,11 +23,17 @@ public struct Wyrand: RandomNumberGenerator {
         return mul.low ^ mul.high
     }
 
+    /// Generate a random single-precision value from a uniform distribution over [0, 1) which includes zero but
+    /// excludes one.
+    /// - Returns: Random single-precision value.
     public mutating func nextUniform() -> Float {
         let x = self.next()
         return Float(x >> 40) * 0x1.0p-24
     }
 
+    /// Generate a random double-precision value from a uniform distribution over [0, 1) which includes zero but
+    /// excludes one.
+    /// - Returns: Random double-precision value.
     public mutating func nextUniform() -> Double {
         let x = self.next()
         return Double(x >> 11) * 0x1.0p-53

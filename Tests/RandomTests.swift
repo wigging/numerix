@@ -3,11 +3,11 @@ Tests for random numbers and random vectors.
 */
 
 import Testing
-@testable import Numerix
+import Numerix
 
 struct RandomTests {
 
-    @Test func randomWyRand() {
+    @Test func wyrand() {
         var rand = Wyrand(seed: 12345)
         #expect(rand.next() == 13157676964440363053)
 
@@ -16,6 +16,22 @@ struct RandomTests {
 
         let b: Double = rand.nextUniform()
         #expect(b ==  0.7952823641045631)
+    }
+
+    @Test func xoshiro() {
+        var rng = Xoshiro128Plus(seed: (2719949631, 2719949631, 2719949631, 2719949631))
+        let a: Float = rng.next()
+        #expect(a == 0.26657522)
+    }
+
+    @Test func xoroshiro() {
+        var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
+        let a: Double = rng.next()
+        #expect(a == 0.05646649603323106)
+
+        var rngg = Xoroshiro128PlusPlus(seed: (12274935454779349997, 7213431619994351707))
+        let b: Double = rngg.next()
+        #expect(b == 0.8419936520290631)
     }
 
     @Test func randomVector() {
