@@ -56,7 +56,7 @@ extension Vector where Scalar: Random {
     /// ```swift
     /// let vec = Vector<Double>.random(size: 5)
     /// ```
-    /// This uses the WyRand pseudorandom number generator (PRNG) to generate the random values in the vector.
+    /// This uses the Wyrand pseudorandom number generator (PRNG) to generate the random values in the vector.
     /// Values are a uniform distribution over 0 to 1 excluding 1 which is denoted as [0, 1).
     /// Provide a seed input value to create a reproducible random vector.
     /// - Parameters:
