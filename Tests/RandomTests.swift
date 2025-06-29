@@ -11,10 +11,10 @@ struct RandomTests {
         var rand = Wyrand(seed: 12345)
         #expect(rand.next() == 13157676964440363053)
 
-        let a: Float = rand.nextUniform()
+        let a: Float = rand.next()
         #expect(a == 0.9815675)
 
-        let b: Double = rand.nextUniform()
+        let b: Double = rand.next()
         #expect(b ==  0.7952823641045631)
     }
 

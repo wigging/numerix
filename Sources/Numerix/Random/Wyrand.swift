@@ -12,10 +12,14 @@ import Foundation
 public struct Wyrand: RandomNumberGenerator {
     private var state: UInt64
 
+    /// Initialize the state of the generator.
+    /// - Parameter seed: Seed with a 64-bit unsigned integer.
     public init(seed: UInt64? = nil) {
-        state = seed ?? UInt64(abs(UUID().hashValue))
+        state = seed ?? UInt64.random(in: 0..<UInt64.max)
     }
 
+    /// Generate a random 64-bit unsigned integer.
+    /// - Returns: Random 64-bit unsigned integer value.
     public mutating func next() -> UInt64 {
         state &+= 0x2d358dccaa6c78a5
         let mul = state.multipliedFullWidth(by: state ^ 0x8bb84b93962eacc9)
@@ -25,16 +29,14 @@ public struct Wyrand: RandomNumberGenerator {
     /// Generate a random single-precision value from a uniform distribution over [0, 1) which includes zero but
     /// excludes one.
     /// - Returns: Random single-precision value.
-    public mutating func nextUniform() -> Float {
-        let x = self.next()
-        return Float(x >> 40) * 0x1.0p-24
+    public mutating func next() -> Float {
+        Float(next() >> 40) * 0x1.0p-24
     }
 
     /// Generate a random double-precision value from a uniform distribution over [0, 1) which includes zero but
     /// excludes one.
     /// - Returns: Random double-precision value.
-    public mutating func nextUniform() -> Double {
-        let x = self.next()
-        return Double(x >> 11) * 0x1.0p-53
+    public mutating func next() -> Double {
+        Double(next() >> 11) * 0x1.0p-53
     }
 }

@@ -16,7 +16,7 @@ extension Float: Random {
         var vec = Vector<Float>(size: size)
         var rng = Wyrand(seed: seed)
         for i in 0..<size {
-            vec[i] = rng.nextUniform()
+            vec[i] = rng.next()
         }
         return vec
     }
@@ -37,7 +37,7 @@ extension Double: Random {
         var vec = Vector<Double>(size: size)
         var rng = Wyrand(seed: seed)
         for i in 0..<size {
-            vec[i] = rng.nextUniform()
+            vec[i] = rng.next()
         }
         return vec
     }
