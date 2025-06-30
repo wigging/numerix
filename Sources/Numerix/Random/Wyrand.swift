@@ -9,6 +9,8 @@ https://lemire.me/blog/2019/03/19/the-fastest-conventional-random-number-generat
 
 import Foundation
 
+/// Wyrand is a fast 64-bit pseudorandom number generator (PRNG) for floating-point numbers. This is the default PRNG
+/// for Vector, Matrix, and ShapedArray types in Numerix.
 public struct Wyrand: RandomNumberGenerator {
     private var state: UInt64
 

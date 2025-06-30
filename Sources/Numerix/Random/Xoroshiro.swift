@@ -38,6 +38,13 @@ public struct Xoroshiro128Plus: RandomNumberGenerator {
         return result
     }
 
+    /// Generate a random single-precision value from a uniform distribution in [0, 1) which includes zero but
+    /// excludes one.
+    /// - Returns: Random single-precision value.
+    public mutating func next() -> Float {
+        Float(next() >> 40) * 0x1.0p-24
+    }
+
     /// Generate a random double-precision value from a uniform distribution in [0, 1) which includes zero but
     /// excludes one.
     /// - Returns: Random double-precision value.
@@ -70,6 +77,13 @@ public struct Xoroshiro128PlusPlus: RandomNumberGenerator {
         state.1 = rotl(s1, 28)
 
         return result
+    }
+
+    /// Generate a random single-precision value from a uniform distribution in [0, 1) which includes zero but
+    /// excludes one.
+    /// - Returns: Random single-precision value.
+    public mutating func next() -> Float {
+        Float(next() >> 40) * 0x1.0p-24
     }
 
     /// Generate a random double-precision value from a uniform distribution in [0, 1) which includes zero but

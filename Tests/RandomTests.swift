@@ -8,46 +8,87 @@ import Numerix
 struct RandomTests {
 
     @Test func wyrand() {
-        var rand = Wyrand(seed: 12345)
-        #expect(rand.next() == 13157676964440363053)
+        var rng = Wyrand(seed: 12345)
+        #expect(rng.next() == 13157676964440363053)
 
-        let a: Float = rand.next()
+        let a: Float = rng.next()
         #expect(a == 0.9815675)
 
-        let b: Double = rand.next()
+        let b: Double = rng.next()
         #expect(b ==  0.7952823641045631)
+    }
+
+    @Test func wyrandVector() {
+        // Without seed
+        let a = Vector<Float>.random(5)
+        #expect(a[0] < 1)
+
+        let aa = Vector<Double>.random(5)
+        #expect(aa[0] < 1)
+
+        // With seed
+        let b = Vector<Float>.random(5, seed: 123456)
+        #expect(b == [0.81488985, 0.30684602, 0.31690413, 0.3039148, 0.18646216])
+
+        let bb = Vector<Double>.random(4, seed: 123456)
+        #expect(bb == [0.8148898875141517, 0.3068460469993851, 0.3169041625894291, 0.30391479120110254])
+
+        // With generator
+        var rng = Wyrand(seed: 123456)
+        let c = Vector<Float>.random(5, using: &rng)
+        #expect(c == [0.81488985, 0.30684602, 0.31690413, 0.3039148, 0.18646216])
+
+        var rngg = Wyrand(seed: 123456)
+        let cc = Vector<Double>.random(4, using: &rngg)
+        #expect(cc == [0.8148898875141517, 0.3068460469993851, 0.3169041625894291, 0.30391479120110254])
+    }
+
+    @Test func xoroshiro() {
+        // Xoroshiro128Plus
+        var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
+        #expect(rng.next() == 1041623001064150088)
+
+        let a: Float = rng.next()
+        #expect(a == 0.061123848)
+
+        let b: Double = rng.next()
+        #expect(b == 0.1307673047034703)
+
+        // Xoroshiro128PlusPlus
+        var rngg = Xoroshiro128PlusPlus(seed: (12274935454779349997, 7213431619994351707))
+        #expect(rngg.next() == 15532041410668181718)
+
+        let c: Float = rngg.next()
+        #expect(c == 0.4994716)
+
+        let d: Double = rngg.next()
+        #expect(d == 0.7990605775501556)
+    }
+
+    @Test func xoroshiroVector() {
+        // Xoroshiro128Plus vector
+        var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
+        let a = Vector<Float>.random(5, using: &rng)
+        #expect(a == [0.05646646, 0.061123848, 0.13076729, 0.672823, 0.86956143])
+
+        let b = Vector<Double>.random(4, using: &rng)
+        #expect(b == [0.12803432662341308, 0.17036647757843948, 0.8789760758360461, 0.6166839170638875])
+
+        // Xoroshiro128PlusPlus vector
+        var rngg = Xoroshiro128PlusPlus(seed: (12274935454779349997, 7213431619994351707))
+        let c = Vector<Float>.random(5, using: &rngg)
+        #expect(c == [0.84199363, 0.4994716, 0.7990605, 0.74130404, 0.2992577])
+
+        let d = Vector<Double>.random(4, using: &rngg)
+        #expect(d == [0.6241821269000679, 0.18502002919976157, 0.2555743212406011, 0.5790431050892778])
     }
 
     @Test func xoshiro() {
         var rng = Xoshiro128Plus(seed: (2719949631, 2719949631, 2719949631, 2719949631))
+        #expect(rng.next() == 1144931966)
+
         let a: Float = rng.next()
-        #expect(a == 0.26657522)
-    }
-
-    @Test func xoroshiro() {
-        var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
-        let a: Double = rng.next()
-        #expect(a == 0.05646649603323106)
-
-        var rngg = Xoroshiro128PlusPlus(seed: (12274935454779349997, 7213431619994351707))
-        let b: Double = rngg.next()
-        #expect(b == 0.8419936520290631)
-    }
-
-    @Test func randomVector() {
-        // No seed
-        let a = Vector<Float>.random(size: 3)
-        #expect(a[0] < 1.0)
-
-        let b = Vector<Double>.random(size: 3)
-        #expect(b[0] < 1.0)
-
-        // With seed
-        let c = Vector<Float>.random(size: 4, seed: 12345)
-        #expect(c == Vector<Float>([0.71327907, 0.9815675, 0.79528236, 0.25364798]))
-
-        let d = Vector<Double>.random(size: 4, seed: 12345)
-        #expect(d == Vector<Double>([0.7132790974854359, 0.9815675033121781, 0.7952823641045631, 0.25364800714420743]))
+        #expect(a == 0.6332876)
     }
 
     @Test func randomBNNSVector() {
