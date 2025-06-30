@@ -1,13 +1,14 @@
 /*
-Random vector protocol using WyRand.
+Random protocol.
+Random extensions for Float and Double.
+Random extensions for Vector.
 */
 
 import Accelerate
 
 @_documentation(visibility: private)
 public protocol Random {
-    static func random(size: Int) -> Vector<Self>
-    static func random(size: Int, seed: UInt64) -> Vector<Self>
+    static func random(size: Int, seed: UInt64?) -> Vector<Self>
     static func random<G: RandomNumberGenerator>(size: Int, rng: inout G) -> Vector<Self>
     static func randomBNNS(size: Int, bounds: (Self, Self), seed: UInt64, buffer: UnsafeMutableBufferPointer<Self>)
 }
@@ -15,16 +16,7 @@ public protocol Random {
 @_documentation(visibility: private)
 extension Float: Random {
 
-    public static func random(size: Int) -> Vector<Float> {
-        var vec = Vector<Float>(size: size)
-        var rng = Wyrand()
-        for i in 0..<size {
-            vec[i] = rng.next()
-        }
-        return vec
-    }
-
-    public static func random(size: Int, seed: UInt64) -> Vector<Float> {
+    public static func random(size: Int, seed: UInt64?) -> Vector<Float> {
         var vec = Vector<Float>(size: size)
         var rng = Wyrand(seed: seed)
         for i in 0..<size {
@@ -54,16 +46,7 @@ extension Float: Random {
 @_documentation(visibility: private)
 extension Double: Random {
 
-    public static func random(size: Int) -> Vector<Double> {
-        var vec = Vector<Double>(size: size)
-        var rng = Wyrand()
-        for i in 0..<size {
-            vec[i] = rng.next()
-        }
-        return vec
-    }
-
-    public static func random(size: Int, seed: UInt64) -> Vector<Double> {
+    public static func random(size: Int, seed: UInt64?) -> Vector<Double> {
         var vec = Vector<Double>(size: size)
         var rng = Wyrand(seed: seed)
         for i in 0..<size {
@@ -90,30 +73,19 @@ extension Double: Random {
 
 extension Vector where Scalar: Random {
 
-    /// Create a vector of random values from a uniform distribution over [0, 1) using the Wyrand generator.
+    /// Create a vector of random values from a uniform distribution over [0, 1).
     /// ```swift
-    /// let vec = Vector<Double>.random(5)
+    /// let a = Vector<Float>.random(5)
+    /// let b = Vector<Double>.random(8, seed: 123456)
     /// ```
-    /// This uses the ``Wyrand`` pseudorandom number generator (PRNG) to generate the random values in the vector.
-    /// The values are sampled from a uniform distribution [0, 1) which includes zero but excludes one.
-    /// - Parameter size: Size of the vector.
-    /// - Returns: Vector of random values.
-    public static func random(_ size: Int) -> Vector {
-        Scalar.random(size: size)
-    }
-
-    /// Create a vector of random values from a uniform distribution over [0, 1) using a seed for the Wyrand generator.
-    /// ```swift
-    /// let vec = Vector<Double>.random(5, seed: 123456)
-    /// ```
-    /// This uses the ``Wyrand`` pseudorandom number generator (PRNG) to generate the random values in the vector.
-    /// The values are sampled from a uniform distribution [0, 1) which includes zero but excludes one. Provide a seed
-    /// for reproducible results.
+    /// This method uses the ``Wyrand`` pseudorandom number generator (PRNG) to generate the random values in the
+    /// vector. The values are sampled from a uniform distribution [0, 1) which includes zero but excludes one. An
+    /// optional seed can be provided for reproducible results.
     /// - Parameters:
     ///   - size: Size of the vector.
     ///   - seed: Seed for the Wyrand generator.
     /// - Returns: Vector of random values.
-    public static func random(_ size: Int, seed: UInt64) -> Vector {
+    public static func random(_ size: Int, seed: UInt64? = nil) -> Vector {
         Scalar.random(size: size, seed: seed)
     }
 
@@ -123,8 +95,7 @@ extension Vector where Scalar: Random {
     /// let a = Vector<Float>.random(5, using: &rng)
     /// ```
     /// The example uses the ``Xoroshiro128Plus`` pseudorandom number generator (PRNG) to generate random values to
-    /// fill the vector. The generator is seeded with two integers otherwise random seeds are provided if none are
-    /// given.
+    /// fill the vector. The generator is seeded with two integers otherwise random seeds are used if none are given.
     /// - Parameters:
     ///   - size: Size of the vector.
     ///   - rng: Random number generator.
@@ -140,7 +111,7 @@ extension Vector where Scalar: Random {
     ///   - seed: Seed for the random number generator.
     /// - Returns: Vector of random float values.
     public static func randomBNNS(size: Int, bounds: (Scalar, Scalar), seed: UInt64? = nil) -> Vector {
-        let s = seed ?? UInt64(abs(UUID().hashValue))
+        let s = seed ?? UInt64.random(in: 0..<UInt64.max)
         let vec = Vector<Scalar>(size: size)
         Scalar.randomBNNS(size: size, bounds: bounds, seed: s, buffer: vec.buffer)
         return vec

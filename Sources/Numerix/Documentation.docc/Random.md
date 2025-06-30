@@ -1,4 +1,4 @@
-# Random
+# Random Numbers
 
 Random number generation.
 
@@ -12,8 +12,7 @@ Numerix provides pseudorandom number generators (PRNGs) which are not cryptograp
 - ``Xoshiro128Plus``
 - ``Xoroshiro128Plus``
 - ``Xoroshiro128PlusPlus``
-- ``Vector/random(_:)``
 - ``Vector/random(_:seed:)``
 - ``Vector/random(_:using:)``
-- ``Vector/randomDistribution(size:dist:)``
 - ``Vector/randomBNNS(size:bounds:seed:)``
+- ``Vector/randomDistribution(size:dist:)``
