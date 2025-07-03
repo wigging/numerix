@@ -43,6 +43,31 @@ struct RandomTests {
         #expect(cc == [0.8148898875141517, 0.3068460469993851, 0.3169041625894291, 0.30391479120110254])
     }
 
+    @Test func wyrandMatrix() {
+        // Without seed
+        let a = Matrix<Float>.random(3, 3)
+        #expect(a[0, 0] < 1)
+
+        let aa = Matrix<Double>.random(3, 3)
+        #expect(aa[0, 0] < 1)
+
+        // With seed
+        let b = Matrix<Float>.random(2, 2, seed: 123456)
+        #expect(b == [[0.81488985, 0.30684602], [0.31690413, 0.3039148]])
+
+        let bb = Matrix<Double>.random(2, 2, seed: 123456)
+        #expect(bb == [[0.8148898875141517, 0.3068460469993851], [0.3169041625894291, 0.30391479120110254]])
+
+        // With generator
+        var rng = Wyrand(seed: 123456)
+        let c = Matrix<Float>.random(2, 2, using: &rng)
+        #expect(c == [[0.81488985, 0.30684602], [0.31690413, 0.3039148]])
+
+        var rngg = Wyrand(seed: 123456)
+        let cc = Matrix<Double>.random(2, 2, using: &rngg)
+        #expect(cc == [[0.8148898875141517, 0.3068460469993851], [0.3169041625894291, 0.30391479120110254]])
+    }
+
     @Test func xoroshiro() {
         // Xoroshiro128Plus
         var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
@@ -66,7 +91,7 @@ struct RandomTests {
     }
 
     @Test func xoroshiroVector() {
-        // Xoroshiro128Plus vector
+        // Xoroshiro128Plus
         var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
         let a = Vector<Float>.random(5, using: &rng)
         #expect(a == [0.05646646, 0.061123848, 0.13076729, 0.672823, 0.86956143])
@@ -74,13 +99,31 @@ struct RandomTests {
         let b = Vector<Double>.random(4, using: &rng)
         #expect(b == [0.12803432662341308, 0.17036647757843948, 0.8789760758360461, 0.6166839170638875])
 
-        // Xoroshiro128PlusPlus vector
+        // Xoroshiro128PlusPlus
         var rngg = Xoroshiro128PlusPlus(seed: (12274935454779349997, 7213431619994351707))
         let c = Vector<Float>.random(5, using: &rngg)
         #expect(c == [0.84199363, 0.4994716, 0.7990605, 0.74130404, 0.2992577])
 
         let d = Vector<Double>.random(4, using: &rngg)
         #expect(d == [0.6241821269000679, 0.18502002919976157, 0.2555743212406011, 0.5790431050892778])
+    }
+
+    @Test func xoroshiroMatrix() {
+        // Xoroshiro128Plus
+        var rng = Xoroshiro128Plus(seed: (12274935454779349997, 7213431619994351707))
+        let a = Matrix<Float>.random(2, 2, using: &rng)
+        #expect(a == [[0.05646646, 0.061123848], [0.13076729, 0.672823]])
+
+        let b = Matrix<Double>.random(2, 2, using: &rng)
+        #expect(b == [[0.8695614471421985, 0.12803432662341308], [0.17036647757843948, 0.8789760758360461]])
+
+        // Xoroshiro128PlusPlus
+        var rngg = Xoroshiro128PlusPlus(seed: (12274935454779349997, 7213431619994351707))
+        let c = Matrix<Float>.random(2, 2, using: &rngg)
+        #expect(c == [[0.84199363, 0.4994716], [0.7990605, 0.74130404]])
+
+        let d = Matrix<Double>.random(2, 2, using: &rngg)
+        #expect(d == [[0.2992577376225274, 0.6241821269000679], [0.18502002919976157, 0.2555743212406011]])
     }
 
     @Test func xoshiro() {
