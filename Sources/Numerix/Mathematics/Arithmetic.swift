@@ -9,47 +9,63 @@ infix operator ⊙ : MultiplicationPrecedence
 
 @_documentation(visibility: private)
 public protocol Arithmetic {
-
+    // A + k
     static func add(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
-    static func add(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
-    static func subtract(_ k: Self, _ a: Vector<Self>) -> Vector<Self>
-    static func subtract(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
-    static func subtract(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
-    static func multiply(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
-    static func multiply(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
-    static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self>
-    static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
-    static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
-
     static func add(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
-    static func add(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-    static func subtract(_ k: Self, _ a: Matrix<Self>) -> Matrix<Self>
-    static func subtract(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
-    static func subtract(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-    static func multiply(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
-    static func multiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-    static func matrixMultiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-    static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self>
-    static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
-    static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-
     static func add(_ a: ShapedArray<Self>, _ k: Self) -> ShapedArray<Self>
+
+    // A + B
+    static func add(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
+    static func add(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
     static func add(_ a: ShapedArray<Self>, _ b: ShapedArray<Self>) -> ShapedArray<Self>
+
+    // k - A
+    static func subtract(_ k: Self, _ a: Vector<Self>) -> Vector<Self>
+    static func subtract(_ k: Self, _ a: Matrix<Self>) -> Matrix<Self>
     static func subtract(_ k: Self, _ a: ShapedArray<Self>) -> ShapedArray<Self>
+
+    // A - k
+    static func subtract(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
+    static func subtract(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func subtract(_ a: ShapedArray<Self>, _ k: Self) -> ShapedArray<Self>
+
+    // A - B
+    static func subtract(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
+    static func subtract(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
     static func subtract(_ a: ShapedArray<Self>, _ b: ShapedArray<Self>) -> ShapedArray<Self>
+
+    // A * k
+    static func multiply(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
+    static func multiply(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func multiply(_ a: ShapedArray<Self>, _ k: Self) -> ShapedArray<Self>
+
+    // A * B
+    static func multiply(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
+    static func multiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
     static func multiply(_ a: ShapedArray<Self>, _ b: ShapedArray<Self>) -> ShapedArray<Self>
-    static func divide(_ k: Self, _ b: ShapedArray<Self>) -> ShapedArray<Self>
+
+    // A x B
+    static func matrixMultiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
+
+    // k / A
+    static func divide(_ k: Self, _ a: Vector<Self>) -> Vector<Self>
+    static func divide(_ k: Self, _ a: Matrix<Self>) -> Matrix<Self>
+    static func divide(_ k: Self, _ a: ShapedArray<Self>) -> ShapedArray<Self>
+
+    // A / k
+    static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
+    static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func divide(_ a: ShapedArray<Self>, _ k: Self) -> ShapedArray<Self>
+
+    // A / B
+    static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self>
+    static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
     static func divide(_ a: ShapedArray<Self>, _ b: ShapedArray<Self>) -> ShapedArray<Self>
 }
 
 @_documentation(visibility: private)
 extension Int: Arithmetic {
-
-    // Vector
-
+    // A + k
     public static func add(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
         var vec = Vector(like: a)
         for i in 0..<a.size {
@@ -57,80 +73,6 @@ extension Int: Arithmetic {
         }
         return vec
     }
-
-    public static func add(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &+ b[i]
-        }
-        return vec
-    }
-
-    public static func subtract(_ k: Int, _ a: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = k &- a[i]
-        }
-        return vec
-    }
-
-    public static func subtract(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &- k
-        }
-        return vec
-    }
-
-    public static func subtract(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &- b[i]
-        }
-        return vec
-    }
-
-    public static func multiply(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &* k
-        }
-        return vec
-    }
-
-    public static func multiply(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &* b[i]
-        }
-        return vec
-    }
-
-    public static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self> {
-        var vec = Vector(like: b)
-        for i in 0..<b.size {
-            vec[i] = k / b[i]
-        }
-        return vec
-    }
-
-    public static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / k
-        }
-        return vec
-    }
-
-    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / b[i]
-        }
-        return vec
-    }
-
-    // Matrix
 
     public static func add(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -140,6 +82,24 @@ extension Int: Arithmetic {
             }
         }
         return mat
+    }
+
+    public static func add(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
+        let arr = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            arr.buffer[i] = k &+ a.buffer[i]
+        }
+        return arr
+    }
+
+    // A + B
+    public static func add(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] &+ b[i]
+        }
+        return vec
     }
 
     public static func add(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
@@ -152,6 +112,24 @@ extension Int: Arithmetic {
         return mat
     }
 
+    public static func add(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
+        let arr = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            arr.buffer[i] = a.buffer[i] &+ b.buffer[i]
+        }
+        return arr
+    }
+
+    // k - A
+    public static func subtract(_ k: Int, _ a: Vector<Int>) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = k &- a[i]
+        }
+        return vec
+    }
+
     public static func subtract(_ k: Int, _ a: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
         for i in 0..<a.rows {
@@ -160,6 +138,24 @@ extension Int: Arithmetic {
             }
         }
         return mat
+    }
+
+    public static func subtract(_ k: Int, _ a: ShapedArray<Int>) -> ShapedArray<Int> {
+        let arr = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            arr.buffer[i] = k &- a.buffer[i]
+        }
+        return arr
+    }
+
+    // A - k
+    public static func subtract(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] &- k
+        }
+        return vec
     }
 
     public static func subtract(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
@@ -172,6 +168,24 @@ extension Int: Arithmetic {
         return mat
     }
 
+    public static func subtract(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
+        let arr = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            arr.buffer[i] = a.buffer[i] &- k
+        }
+        return arr
+    }
+
+    // A - B
+    public static func subtract(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] &- b[i]
+        }
+        return vec
+    }
+
     public static func subtract(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
         for i in 0..<a.rows {
@@ -180,6 +194,24 @@ extension Int: Arithmetic {
             }
         }
         return mat
+    }
+
+    public static func subtract(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
+        let arr = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            arr.buffer[i] = a.buffer[i] &- b.buffer[i]
+        }
+        return arr
+    }
+
+    // A * k
+    public static func multiply(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] &* k
+        }
+        return vec
     }
 
     public static func multiply(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
@@ -192,6 +224,24 @@ extension Int: Arithmetic {
         return mat
     }
 
+    public static func multiply(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
+        let array = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            array.buffer[i] = k &* a.buffer[i]
+        }
+        return array
+    }
+
+    // A * B
+    public static func multiply(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] &* b[i]
+        }
+        return vec
+    }
+
     public static func multiply(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
         for i in 0..<a.rows {
@@ -202,6 +252,16 @@ extension Int: Arithmetic {
         return mat
     }
 
+    public static func multiply(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
+        let array = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            array.buffer[i] = a.buffer[i] &* b.buffer[i]
+        }
+        return array
+    }
+
+    // A x B
     public static func matrixMultiply(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
         precondition(a.columns == b.rows, "Number of columns in matrix A must equal number of rows in matrix B")
         var mat = Matrix<Int>(rows: a.rows, columns: b.columns)
@@ -215,17 +275,44 @@ extension Int: Arithmetic {
         return mat
     }
 
-    public static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self> {
-        var mat = Matrix(like: b)
-        for i in 0..<b.rows {
-            for j in 0..<b.columns {
-                mat[i, j] = k / b[i, j]
+    // k / A
+    public static func divide(_ k: Int, _ a: Vector<Int>) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = k / a[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ k: Int, _ a: Matrix<Int>) -> Matrix<Int> {
+        var mat = Matrix(like: a)
+        for i in 0..<a.rows {
+            for j in 0..<a.columns {
+                mat[i, j] = k / a[i, j]
             }
         }
         return mat
     }
 
-    public static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self> {
+    public static func divide(_ k: Int, _ a: ShapedArray<Int>) -> ShapedArray<Int> {
+        let arr = ShapedArray<Int>(shape: a.shape)
+        let count = a.shape.reduce(1, *)
+        for i in 0..<count {
+            arr.buffer[i] = k / a.buffer[i]
+        }
+        return arr
+    }
+
+    // A / k
+    public static func divide(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / k
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
         for i in 0..<a.rows {
             for j in 0..<a.columns {
@@ -235,90 +322,6 @@ extension Int: Arithmetic {
         return mat
     }
 
-    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
-        var mat = Matrix(like: a)
-        for i in 0..<a.rows {
-            for j in 0..<a.columns {
-                mat[i, j] = a[i, j] / b[i, j]
-            }
-        }
-        return mat
-    }
-
-    // ShapedArray
-
-    public static func add(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
-        let arr = ShapedArray<Int>(shape: a.shape)
-        let count = a.shape.reduce(1, *)
-        for i in 0..<count {
-            arr.buffer[i] = k &+ a.buffer[i]
-        }
-        return arr
-    }
-
-    public static func add(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
-        let arr = ShapedArray<Int>(shape: a.shape)
-        let count = a.shape.reduce(1, *)
-        for i in 0..<count {
-            arr.buffer[i] = a.buffer[i] &+ b.buffer[i]
-        }
-        return arr
-    }
-
-    public static func subtract(_ k: Int, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
-        let arr = ShapedArray<Int>(shape: b.shape)
-        let count = b.shape.reduce(1, *)
-        for i in 0..<count {
-            arr.buffer[i] = k &- b.buffer[i]
-        }
-        return arr
-    }
-
-    public static func subtract(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
-        let arr = ShapedArray<Int>(shape: a.shape)
-        let count = a.shape.reduce(1, *)
-        for i in 0..<count {
-            arr.buffer[i] = a.buffer[i] &- k
-        }
-        return arr
-    }
-
-    public static func subtract(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
-        let arr = ShapedArray<Int>(shape: a.shape)
-        let count = a.shape.reduce(1, *)
-        for i in 0..<count {
-            arr.buffer[i] = a.buffer[i] &- b.buffer[i]
-        }
-        return arr
-    }
-
-    public static func multiply(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
-        let array = ShapedArray<Int>(shape: a.shape)
-        let count = a.shape.reduce(1, *)
-        for i in 0..<count {
-            array.buffer[i] = k &* a.buffer[i]
-        }
-        return array
-    }
-
-    public static func multiply(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
-        let array = ShapedArray<Int>(shape: a.shape)
-        let count = a.shape.reduce(1, *)
-        for i in 0..<count {
-            array.buffer[i] = a.buffer[i] &* b.buffer[i]
-        }
-        return array
-    }
-
-    public static func divide(_ k: Int, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
-        let arr = ShapedArray<Int>(shape: b.shape)
-        let count = b.shape.reduce(1, *)
-        for i in 0..<count {
-            arr.buffer[i] = k / b.buffer[i]
-        }
-        return arr
-    }
-
     public static func divide(_ a: ShapedArray<Int>, _ k: Int) -> ShapedArray<Int> {
         let arr = ShapedArray<Int>(shape: a.shape)
         let count = a.shape.reduce(1, *)
@@ -326,6 +329,25 @@ extension Int: Arithmetic {
             arr.buffer[i] = a.buffer[i] / k
         }
         return arr
+    }
+
+    // A / B
+    public static func divide(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / b[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
+        var mat = Matrix(like: a)
+        for i in 0..<a.rows {
+            for j in 0..<a.columns {
+                mat[i, j] = a[i, j] / b[i, j]
+            }
+        }
+        return mat
     }
 
     public static func divide(_ a: ShapedArray<Int>, _ b: ShapedArray<Int>) -> ShapedArray<Int> {
@@ -340,78 +362,12 @@ extension Int: Arithmetic {
 
 @_documentation(visibility: private)
 extension Float: Arithmetic {
-
-    // Vector
-
+    // A + k
     public static func add(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
         var vec = Vector(like: a)
         vDSP.add(k, a.buffer, result: &vec.buffer)
         return vec
     }
-
-    public static func add(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
-        var vec = Vector(like: a)
-        vDSP.add(a.buffer, b.buffer, result: &vec.buffer)
-        return vec
-    }
-
-    public static func subtract(_ k: Float, _ a: Vector<Float>) -> Vector<Float> {
-        let arr = Array(repeating: k, count: a.size)
-        var res = Vector(like: a)
-        vDSP.subtract(arr, a.buffer, result: &res.buffer)
-        return res
-    }
-
-    public static func subtract(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
-        let arr = Array(repeating: k, count: a.size)
-        var res = Vector(like: a)
-        vDSP.subtract(a.buffer, arr, result: &res.buffer)
-        return res
-    }
-
-    public static func subtract(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
-        var res = Vector(like: a)
-        vDSP.subtract(a.buffer, b.buffer, result: &res.buffer)
-        return res
-    }
-
-    public static func multiply(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
-        var vec = Vector(like: a)
-        vDSP.multiply(k, a.buffer, result: &vec.buffer)
-        return vec
-    }
-
-    public static func multiply(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
-        var vec = Vector(like: a)
-        vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
-        return vec
-    }
-
-    public static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self> {
-        var vec = Vector(like: b)
-        for i in 0..<b.size {
-            vec[i] = k / b[i]
-        }
-        return vec
-    }
-
-    public static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / k
-        }
-        return vec
-    }
-
-    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / b[i]
-        }
-        return vec
-    }
-
-    // Matrix
 
     public static func add(_ a: Matrix<Float>, _ k: Float) -> Matrix<Float> {
         var mat = Matrix(like: a)
@@ -419,10 +375,37 @@ extension Float: Arithmetic {
         return mat
     }
 
+    public static func add(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
+        var arr = ShapedArray<Float>(shape: a.shape)
+        vDSP.add(k, a.buffer, result: &arr.buffer)
+        return arr
+    }
+
+    // A + B
+    public static func add(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
+        var vec = Vector(like: a)
+        vDSP.add(a.buffer, b.buffer, result: &vec.buffer)
+        return vec
+    }
+
     public static func add(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
         var mat = Matrix(like: a)
         vDSP.add(a.buffer, b.buffer, result: &mat.buffer)
         return mat
+    }
+
+    public static func add(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
+        var arr = ShapedArray<Float>(shape: a.shape)
+        vDSP.add(a.buffer, b.buffer, result: &arr.buffer)
+        return arr
+    }
+
+    // k - A
+    public static func subtract(_ k: Float, _ a: Vector<Float>) -> Vector<Float> {
+        let arr = Array(repeating: k, count: a.size)
+        var res = Vector(like: a)
+        vDSP.subtract(arr, a.buffer, result: &res.buffer)
+        return res
     }
 
     public static func subtract(_ k: Float, _ a: Matrix<Float>) -> Matrix<Float> {
@@ -432,11 +415,40 @@ extension Float: Arithmetic {
         return mat
     }
 
+    public static func subtract(_ k: Float, _ a: ShapedArray<Float>) -> ShapedArray<Float> {
+        let arr = Array(repeating: k, count: a.buffer.count)
+        var result = ShapedArray<Float>(shape: a.shape)
+        vDSP.subtract(arr, a.buffer, result: &result.buffer)
+        return result
+    }
+
+    // A - k
+    public static func subtract(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
+        let arr = Array(repeating: k, count: a.size)
+        var res = Vector(like: a)
+        vDSP.subtract(a.buffer, arr, result: &res.buffer)
+        return res
+    }
+
     public static func subtract(_ a: Matrix<Float>, _ k: Float) -> Matrix<Float> {
         let arr = Array(repeating: k, count: a.buffer.count)
         var mat = Matrix(like: a)
         vDSP.subtract(a.buffer, arr, result: &mat.buffer)
         return mat
+    }
+
+    public static func subtract(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
+        let arr = Array(repeating: k, count: a.buffer.count)
+        var result = ShapedArray<Float>(shape: a.shape)
+        vDSP.subtract(arr, a.buffer, result: &result.buffer)
+        return result
+    }
+
+    // A - B
+    public static func subtract(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
+        var res = Vector(like: a)
+        vDSP.subtract(a.buffer, b.buffer, result: &res.buffer)
+        return res
     }
 
     public static func subtract(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
@@ -445,10 +457,37 @@ extension Float: Arithmetic {
         return mat
     }
 
+    public static func subtract(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
+        precondition(a.shape == b.shape, "Shaped arrays must have same shape")
+        var result = ShapedArray<Float>(shape: a.shape)
+        vDSP.subtract(a.buffer, b.buffer, result: &result.buffer)
+        return result
+    }
+
+    // A * k
+    public static func multiply(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
+        var vec = Vector(like: a)
+        vDSP.multiply(k, a.buffer, result: &vec.buffer)
+        return vec
+    }
+
     public static func multiply(_ a: Matrix<Float>, _ k: Float) -> Matrix<Float> {
         var mat = Matrix(like: a)
         vDSP.multiply(k, a.buffer, result: &mat.buffer)
         return mat
+    }
+
+    public static func multiply(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
+        var array = ShapedArray<Float>(shape: a.shape)
+        vDSP.multiply(k, a.buffer, result: &array.buffer)
+        return array
+    }
+
+    // A * B
+    public static func multiply(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
+        var vec = Vector(like: a)
+        vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
+        return vec
     }
 
     public static func multiply(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
@@ -457,6 +496,13 @@ extension Float: Arithmetic {
         return mat
     }
 
+    public static func multiply(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
+        var array = ShapedArray<Float>(shape: a.shape)
+        vDSP.multiply(a.buffer, b.buffer, result: &array.buffer)
+        return array
+    }
+
+    // A x B
     public static func matrixMultiply(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
         precondition(a.columns == b.rows, "Number of columns in matrix A must equal number of rows in matrix B")
 
@@ -480,81 +526,61 @@ extension Float: Arithmetic {
         return c
     }
 
-    public static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self> {
-        var mat = Matrix(like: b)
-        vDSP.divide(k, b.buffer, result: &mat.buffer)
+    // k / A
+    public static func divide(_ k: Float, _ a: Vector<Float>) -> Vector<Float> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = k / a[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ k: Float, _ a: Matrix<Float>) -> Matrix<Float> {
+        var mat = Matrix(like: a)
+        vDSP.divide(k, a.buffer, result: &mat.buffer)
         return mat
     }
 
-    public static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self> {
+    public static func divide(_ k: Float, _ a: ShapedArray<Float>) -> ShapedArray<Float> {
+        var arr = ShapedArray<Float>(shape: a.shape)
+        vDSP.divide(k, a.buffer, result: &arr.buffer)
+        return arr
+    }
+
+    // A / k
+    public static func divide(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / k
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Matrix<Float>, _ k: Float) -> Matrix<Float> {
         var mat = Matrix(like: a)
         vDSP.divide(a.buffer, k, result: &mat.buffer)
         return mat
-    }
-
-    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
-        var mat = Matrix(like: a)
-        vDSP.divide(a.buffer, b.buffer, result: &mat.buffer)
-        return mat
-    }
-
-    // ShapedArray
-
-    public static func add(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
-        var arr = ShapedArray<Float>(shape: a.shape)
-        vDSP.add(k, a.buffer, result: &arr.buffer)
-        return arr
-    }
-
-    public static func add(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
-        var arr = ShapedArray<Float>(shape: a.shape)
-        vDSP.add(a.buffer, b.buffer, result: &arr.buffer)
-        return arr
-    }
-
-    public static func subtract(_ k: Float, _ a: ShapedArray<Float>) -> ShapedArray<Float> {
-        let arr = Array(repeating: k, count: a.buffer.count)
-        var result = ShapedArray<Float>(shape: a.shape)
-        vDSP.subtract(arr, a.buffer, result: &result.buffer)
-        return result
-    }
-
-    public static func subtract(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
-        let arr = Array(repeating: k, count: a.buffer.count)
-        var result = ShapedArray<Float>(shape: a.shape)
-        vDSP.subtract(arr, a.buffer, result: &result.buffer)
-        return result
-    }
-
-    public static func subtract(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
-        precondition(a.shape == b.shape, "Shaped arrays must have same shape")
-        var result = ShapedArray<Float>(shape: a.shape)
-        vDSP.subtract(a.buffer, b.buffer, result: &result.buffer)
-        return result
-    }
-
-    public static func multiply(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
-        var array = ShapedArray<Float>(shape: a.shape)
-        vDSP.multiply(k, a.buffer, result: &array.buffer)
-        return array
-    }
-
-    public static func multiply(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
-        var array = ShapedArray<Float>(shape: a.shape)
-        vDSP.multiply(a.buffer, b.buffer, result: &array.buffer)
-        return array
-    }
-
-    public static func divide(_ k: Float, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
-        var arr = ShapedArray<Float>(shape: b.shape)
-        vDSP.divide(k, b.buffer, result: &arr.buffer)
-        return arr
     }
 
     public static func divide(_ a: ShapedArray<Float>, _ k: Float) -> ShapedArray<Float> {
         var arr = ShapedArray<Float>(shape: a.shape)
         vDSP.divide(a.buffer, k, result: &arr.buffer)
         return arr
+    }
+
+    // A / B
+    public static func divide(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / b[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
+        var mat = Matrix(like: a)
+        vDSP.divide(a.buffer, b.buffer, result: &mat.buffer)
+        return mat
     }
 
     public static func divide(_ a: ShapedArray<Float>, _ b: ShapedArray<Float>) -> ShapedArray<Float> {
@@ -566,78 +592,12 @@ extension Float: Arithmetic {
 
 @_documentation(visibility: private)
 extension Double: Arithmetic {
-
-    // Vector
-
+    // A + k
     public static func add(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
         var vec = Vector(like: a)
         vDSP.add(k, a.buffer, result: &vec.buffer)
         return vec
     }
-
-    public static func add(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
-        var vec = Vector(like: a)
-        vDSP.add(a.buffer, b.buffer, result: &vec.buffer)
-        return vec
-    }
-
-    public static func subtract(_ k: Double, _ a: Vector<Double>) -> Vector<Double> {
-        let arr = Array(repeating: k, count: a.size)
-        var res = Vector(like: a)
-        vDSP.subtract(arr, a.buffer, result: &res.buffer)
-        return res
-    }
-
-    public static func subtract(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
-        let arr = Array(repeating: k, count: a.size)
-        var res = Vector(like: a)
-        vDSP.subtract(a.buffer, arr, result: &res.buffer)
-        return res
-    }
-
-    public static func subtract(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
-        var res = Vector(like: a)
-        vDSP.subtract(a.buffer, b.buffer, result: &res.buffer)
-        return res
-    }
-
-    public static func multiply(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
-        var vec = Vector(like: a)
-        vDSP.multiply(k, a.buffer, result: &vec.buffer)
-        return vec
-    }
-
-    public static func multiply(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
-        var vec = Vector(like: a)
-        vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
-        return vec
-    }
-
-    public static func divide(_ k: Self, _ b: Vector<Self>) -> Vector<Self> {
-        var vec = Vector(like: b)
-        for i in 0..<b.size {
-            vec[i] = k / b[i]
-        }
-        return vec
-    }
-
-    public static func divide(_ a: Vector<Self>, _ k: Self) -> Vector<Self> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / k
-        }
-        return vec
-    }
-
-    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / b[i]
-        }
-        return vec
-    }
-
-    // Matrix
 
     public static func add(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         var mat = Matrix(like: a)
@@ -645,10 +605,37 @@ extension Double: Arithmetic {
         return mat
     }
 
+    public static func add(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
+        var arr = ShapedArray<Double>(shape: a.shape)
+        vDSP.add(k, a.buffer, result: &arr.buffer)
+        return arr
+    }
+
+    // A + B
+    public static func add(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
+        var vec = Vector(like: a)
+        vDSP.add(a.buffer, b.buffer, result: &vec.buffer)
+        return vec
+    }
+
     public static func add(_ a: Matrix<Double>, _ b: Matrix<Double>) -> Matrix<Double> {
         var mat = Matrix(like: a)
         vDSP.add(a.buffer, b.buffer, result: &mat.buffer)
         return mat
+    }
+
+    public static func add(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
+        var arr = ShapedArray<Double>(shape: a.shape)
+        vDSP.add(a.buffer, b.buffer, result: &arr.buffer)
+        return arr
+    }
+
+    // k - A
+    public static func subtract(_ k: Double, _ a: Vector<Double>) -> Vector<Double> {
+        let arr = Array(repeating: k, count: a.size)
+        var res = Vector(like: a)
+        vDSP.subtract(arr, a.buffer, result: &res.buffer)
+        return res
     }
 
     public static func subtract(_ k: Double, _ a: Matrix<Double>) -> Matrix<Double> {
@@ -658,11 +645,40 @@ extension Double: Arithmetic {
         return mat
     }
 
+    public static func subtract(_ k: Double, _ a: ShapedArray<Double>) -> ShapedArray<Double> {
+        let arr = Array(repeating: k, count: a.buffer.count)
+        var result = ShapedArray<Double>(shape: a.shape)
+        vDSP.subtract(arr, a.buffer, result: &result.buffer)
+        return result
+    }
+
+    // A - k
+    public static func subtract(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
+        let arr = Array(repeating: k, count: a.size)
+        var res = Vector(like: a)
+        vDSP.subtract(a.buffer, arr, result: &res.buffer)
+        return res
+    }
+
     public static func subtract(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         let arr = Array(repeating: k, count: a.buffer.count)
         var mat = Matrix(like: a)
         vDSP.subtract(a.buffer, arr, result: &mat.buffer)
         return mat
+    }
+
+    public static func subtract(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
+        let arr = Array(repeating: k, count: a.buffer.count)
+        var result = ShapedArray<Double>(shape: a.shape)
+        vDSP.subtract(arr, a.buffer, result: &result.buffer)
+        return result
+    }
+
+    // A - B
+    public static func subtract(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
+        var res = Vector(like: a)
+        vDSP.subtract(a.buffer, b.buffer, result: &res.buffer)
+        return res
     }
 
     public static func subtract(_ a: Matrix<Double>, _ b: Matrix<Double>) -> Matrix<Double> {
@@ -671,10 +687,37 @@ extension Double: Arithmetic {
         return mat
     }
 
+    public static func subtract(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
+        precondition(a.shape == b.shape, "Shaped arrays must have same shape")
+        var result = ShapedArray<Double>(shape: a.shape)
+        vDSP.subtract(a.buffer, b.buffer, result: &result.buffer)
+        return result
+    }
+
+    // A * k
+    public static func multiply(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
+        var vec = Vector(like: a)
+        vDSP.multiply(k, a.buffer, result: &vec.buffer)
+        return vec
+    }
+
     public static func multiply(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         var mat = Matrix(like: a)
         vDSP.multiply(k, a.buffer, result: &mat.buffer)
         return mat
+    }
+
+    public static func multiply(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
+        var array = ShapedArray<Double>(shape: a.shape)
+        vDSP.multiply(k, a.buffer, result: &array.buffer)
+        return array
+    }
+
+    // A * B
+    public static func multiply(_ a: Vector<Double>, _ b: Vector<Double>) -> Vector<Double> {
+        var vec = Vector(like: a)
+        vDSP.multiply(a.buffer, b.buffer, result: &vec.buffer)
+        return vec
     }
 
     public static func multiply(_ a: Matrix<Double>, _ b: Matrix<Double>) -> Matrix<Double> {
@@ -683,6 +726,13 @@ extension Double: Arithmetic {
         return mat
     }
 
+    public static func multiply(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
+        var array = ShapedArray<Double>(shape: a.shape)
+        vDSP.multiply(a.buffer, b.buffer, result: &array.buffer)
+        return array
+    }
+
+    // A x B
     public static func matrixMultiply(_ a: Matrix<Double>, _ b: Matrix<Double>) -> Matrix<Double> {
         precondition(a.columns == b.rows, "Number of columns in matrix A must equal number of rows in matrix B")
 
@@ -706,81 +756,61 @@ extension Double: Arithmetic {
         return c
     }
 
-    public static func divide(_ k: Self, _ b: Matrix<Self>) -> Matrix<Self> {
-        var mat = Matrix(like: b)
-        vDSP.divide(k, b.buffer, result: &mat.buffer)
+    // k / A
+    public static func divide(_ k: Double, _ a: Vector<Double>) -> Vector<Double> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = k / a[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ k: Double, _ a: Matrix<Double>) -> Matrix<Double> {
+        var mat = Matrix(like: a)
+        vDSP.divide(k, a.buffer, result: &mat.buffer)
         return mat
     }
 
-    public static func divide(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self> {
+    public static func divide(_ k: Double, _ a: ShapedArray<Double>) -> ShapedArray<Double> {
+        var arr = ShapedArray<Double>(shape: a.shape)
+        vDSP.divide(k, a.buffer, result: &arr.buffer)
+        return arr
+    }
+
+    // A / k
+    public static func divide(_ a: Vector<Double>, _ k: Double) -> Vector<Double> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / k
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         var mat = Matrix(like: a)
         vDSP.divide(a.buffer, k, result: &mat.buffer)
         return mat
-    }
-
-    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
-        var mat = Matrix(like: a)
-        vDSP.divide(a.buffer, b.buffer, result: &mat.buffer)
-        return mat
-    }
-
-    // ShapedArray
-
-    public static func add(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
-        var arr = ShapedArray<Double>(shape: a.shape)
-        vDSP.add(k, a.buffer, result: &arr.buffer)
-        return arr
-    }
-
-    public static func add(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
-        var arr = ShapedArray<Double>(shape: a.shape)
-        vDSP.add(a.buffer, b.buffer, result: &arr.buffer)
-        return arr
-    }
-
-    public static func subtract(_ k: Double, _ a: ShapedArray<Double>) -> ShapedArray<Double> {
-        let arr = Array(repeating: k, count: a.buffer.count)
-        var result = ShapedArray<Double>(shape: a.shape)
-        vDSP.subtract(arr, a.buffer, result: &result.buffer)
-        return result
-    }
-
-    public static func subtract(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
-        let arr = Array(repeating: k, count: a.buffer.count)
-        var result = ShapedArray<Double>(shape: a.shape)
-        vDSP.subtract(arr, a.buffer, result: &result.buffer)
-        return result
-    }
-
-    public static func subtract(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
-        precondition(a.shape == b.shape, "Shaped arrays must have same shape")
-        var result = ShapedArray<Double>(shape: a.shape)
-        vDSP.subtract(a.buffer, b.buffer, result: &result.buffer)
-        return result
-    }
-
-    public static func multiply(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
-        var array = ShapedArray<Double>(shape: a.shape)
-        vDSP.multiply(k, a.buffer, result: &array.buffer)
-        return array
-    }
-
-    public static func multiply(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
-        var array = ShapedArray<Double>(shape: a.shape)
-        vDSP.multiply(a.buffer, b.buffer, result: &array.buffer)
-        return array
-    }
-
-    public static func divide(_ k: Double, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
-        var arr = ShapedArray<Double>(shape: b.shape)
-        vDSP.divide(k, b.buffer, result: &arr.buffer)
-        return arr
     }
 
     public static func divide(_ a: ShapedArray<Double>, _ k: Double) -> ShapedArray<Double> {
         var arr = ShapedArray<Double>(shape: a.shape)
         vDSP.divide(a.buffer, k, result: &arr.buffer)
         return arr
+    }
+
+    // A / B
+    public static func divide(_ a: Vector<Self>, _ b: Vector<Self>) -> Vector<Self> {
+        var vec = Vector(like: a)
+        for i in 0..<a.size {
+            vec[i] = a[i] / b[i]
+        }
+        return vec
+    }
+
+    public static func divide(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self> {
+        var mat = Matrix(like: a)
+        vDSP.divide(a.buffer, b.buffer, result: &mat.buffer)
+        return mat
     }
 
     public static func divide(_ a: ShapedArray<Double>, _ b: ShapedArray<Double>) -> ShapedArray<Double> {
