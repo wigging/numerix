@@ -26,10 +26,16 @@ public protocol Algebra {
     static func scale(_ a: inout Matrix<Self>, by k: Self)
     static func transpose(_ a: Matrix<Self>) -> Matrix<Self>
     static func swapValues(a: inout Matrix<Self>, b: inout Matrix<Self>)
+
+    static func update(a: inout Vector<Self>, k: Self, b: Vector<Self>)
 }
 
 @_documentation(visibility: private)
 extension Int: Algebra {
+
+    public static func update(a: inout Vector<Int>, k: Int, b: Vector<Int>) {
+        fatalError("Not supported for integer values")
+    }
 
     // Vector
 
@@ -126,6 +132,10 @@ extension Int: Algebra {
 
 @_documentation(visibility: private)
 extension Float: Algebra {
+
+    public static func update(a: inout Vector<Float>, k: Float, b: Vector<Float>) {
+        cblas_saxpy(b.size, k, b.buffer.baseAddress, 1, a.buffer.baseAddress, 1)
+    }
 
     // Vector
 
@@ -225,6 +235,10 @@ extension Float: Algebra {
 @_documentation(visibility: private)
 extension Double: Algebra {
 
+    public static func update(a: inout Vector<Double>, k: Double, b: Vector<Double>) {
+        cblas_daxpy(b.size, k, b.buffer.baseAddress, 1, a.buffer.baseAddress, 1)
+    }
+
     // Vector
 
     public static func swapValues(a: inout Vector<Double>, b: inout Vector<Double>) {
@@ -321,6 +335,17 @@ extension Double: Algebra {
 }
 
 extension Vector where Scalar: Algebra {
+
+    /// Update the vector with element-wise addition of another vector multiplied by a scalar value.
+    ///
+    /// This performs the Level 1 BLAS operation axpy which is represented by equation `y = y + αx` where `y` and `x`
+    /// are vectors and `α` is a scalar value.
+    /// - Parameters:
+    ///   - b: The vector `b` in `a = a + b * k`.
+    ///   - k: The scalar value `k` in `a = a + b * k`.
+    public mutating func update(with b: Vector, times k: Scalar = 1) where Scalar: Numeric {
+        Scalar.update(a: &self, k: k, b: b)
+    }
 
     /// Calculate the dot product of two vectors.
     ///

@@ -252,6 +252,14 @@ struct VectorTests {
         swapValues(&d, &e)
         #expect(d == [1, 2, 3, 4])
         #expect(e == [8, 9, 10, 11])
+
+        var y = Vector<Float>([2, 3, 4, 5, 6, 7])
+        let x = Vector<Float>([1, 2, 3, 4, 5, 6])
+        y.update(with: x)
+        #expect(y == [3, 5, 7, 9, 11, 13])
+
+        y.update(with: x, times: 2)
+        #expect(y == [5, 9, 13, 17, 21, 25])
     }
 
     @Test func doubleAlgebra() {
