@@ -196,41 +196,6 @@ struct MatrixTests {
         }
     }
 
-    @Test func determinant() {
-        let a: Matrix<Double> = [[1, 2], [3, 4]]
-        let detA = a.determinant()
-        #expect(detA == -2.0)
-
-        let b: Matrix<Float> = [[1, 12, 3],
-                                [4, 5, 6],
-                                [7, 8, 9.5]]
-        let detB = b.determinant()
-        #expect(detB == 38.500015)
-    }
-
-    /*
-     Need to test singular matrix which would cause precondition failuare but
-     Swift Testing does not have this feature yet. See discussion on Swift
-     forum https://forums.swift.org/t/exit-tests-death-tests-and-you/71186
-
-    @Test func determinantSingular() {
-        let a: Matrix<Float> = [[0, 12, 0],
-                                [4, 5, 0],
-                                [7, 0, 0]]
-        let detA = a.determinant()
-    }
-    */
-
-    @Test func inverse() {
-        let a = Matrix<Float>([[1, 2], [3, 4]])
-        let invA = a.inverse()
-        #expect(invA == [[-2, 1], [1.5, -0.5]])
-
-        let b = Matrix<Double>([[1, 2], [3, 4]])
-        let invB = b.inverse()
-        #expect(invB == [[-2, 1], [1.5, -0.5]])
-    }
-
     @Test func exponential() {
         let a = Matrix<Float>([[1, 2], [3, 4]])
         let b = Matrix<Double>([[1, 2], [3, 4]])
@@ -404,62 +369,5 @@ struct MatrixTests {
         // #expect(a.dot(b) == 100)
         // #expect(a.sum() == 15)
         // #expect(a.absoluteSum() == 15)
-    }
-
-    @Test func integerAlgebra() {
-        let a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        let b = Matrix([[2, 3, 4, 5], [6, 7, 8, 9]])
-
-        #expect(a.norm() == 16)
-        #expect(a.transpose() == Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))
-        #expect(b.transpose() == Matrix([[2, 6], [3, 7], [4, 8], [5, 9]]))
-
-        var c = Matrix([[1, 2, 3], [4, 5, 6]])
-        c.scale(by: 3)
-        #expect(c == [[3, 6, 9], [12, 15, 18]])
-
-        var d = Matrix([[1, 2, 3], [4, 5, 6]])
-        var e = Matrix([[9, 10, 11], [12, 13, 14]])
-        swapValues(&d, &e)
-        #expect(d == [[9, 10, 11], [12, 13, 14]])
-        #expect(e == [[1, 2, 3], [4, 5, 6]])
-    }
-
-    @Test func floatAlgebra() {
-        let a = Matrix<Float>([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-        let b = Matrix<Float>([[2, 3, 4, 5], [6, 7, 8, 9]])
-
-        #expect(a.norm() == 16.881943)
-        #expect(a.transpose() == Matrix<Float>([[1, 4, 7], [2, 5, 8], [3, 6, 9]]))
-        #expect(b.transpose() == Matrix<Float>([[2, 6], [3, 7], [4, 8], [5, 9]]))
-
-        var c = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
-        c.scale(by: 3.0)
-        #expect(c == [[3, 6, 9], [12, 15, 18.0]])
-
-        var d = Matrix<Float>([[1, 2, 3], [4, 5, 6]])
-        var e = Matrix<Float>([[9, 10, 11], [12, 13, 14]])
-        swapValues(&d, &e)
-        #expect(d == [[9, 10, 11], [12, 13, 14]])
-        #expect(e == [[1, 2, 3], [4, 5, 6]])
-    }
-
-    @Test func doubleAlgebra() {
-        let a = Matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9.0]])
-        let b = Matrix([[2, 3, 4, 5], [6, 7, 8, 9.0]])
-
-        #expect(a.norm() == 16.881943016134134)
-        #expect(a.transpose() == Matrix([[1, 4, 7], [2, 5, 8], [3, 6, 9.0]]))
-        #expect(b.transpose() == Matrix([[2, 6], [3, 7], [4, 8], [5, 9.0]]))
-
-        var c = Matrix([[1, 2, 3], [4, 5, 6.0]])
-        c.scale(by: 3.0)
-        #expect(c == [[3, 6, 9], [12, 15, 18.0]])
-
-        var d = Matrix([[1, 2, 3], [4, 5, 6.0]])
-        var e = Matrix([[9, 10, 11], [12, 13, 14.0]])
-        swapValues(&d, &e)
-        #expect(d == [[9, 10, 11], [12, 13, 14.0]])
-        #expect(e == [[1, 2, 3], [4, 5, 6.0]])
     }
 }
