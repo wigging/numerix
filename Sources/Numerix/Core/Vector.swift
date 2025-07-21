@@ -86,22 +86,6 @@ extension Vector: ExpressibleByArrayLiteral {
     }
 }
 
-extension Vector: CustomStringConvertible {
-
-    public var description: String {
-        self.formatted()
-    }
-}
-
-extension Vector: CustomDebugStringConvertible {
-
-    public var debugDescription: String {
-        var descr = "\(self.size)-element \(type(of: self))\n"
-        descr += self.formatted()
-        return descr
-    }
-}
-
 extension Vector: Equatable {
 
     /// Compare two vectors for equality.

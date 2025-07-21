@@ -139,23 +139,6 @@ extension Matrix: ExpressibleByArrayLiteral {
     }
 }
 
-extension Matrix: CustomStringConvertible {
-
-    public var description: String {
-        self.formatted()
-    }
-}
-
-extension Matrix: CustomDebugStringConvertible {
-
-    public var debugDescription: String {
-        """
-        \(self.rows)x\(self.columns) \(type(of: self))
-        \(self.description)
-        """
-    }
-}
-
 extension Matrix: Equatable {
 
     /// Compare two matrices for equality.

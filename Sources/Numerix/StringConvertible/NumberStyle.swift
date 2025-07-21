@@ -1,5 +1,6 @@
 /*
-Number style protocol.
+NumberStyle protocol and extensions.
+This is used by ShapedArray StringConvertible extensions.
 */
 
 @_documentation(visibility: private)
