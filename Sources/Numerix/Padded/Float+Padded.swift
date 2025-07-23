@@ -6,7 +6,9 @@ import Accelerate
 
 @_documentation(visibility: private)
 extension Float: Padded {
-    public static func padded(a: Matrix<Float>, top: Int, bottom: Int, left: Int, right: Int, value: Float) -> Matrix<Float> {
+    public static func padded(
+        a: Matrix<Float>, top: Int, bottom: Int, left: Int, right: Int, value: Float
+    ) -> Matrix<Float> {
         let newRows = a.rows + top + bottom
         let newCols = a.columns + left + right
         let offset = top * newCols + left

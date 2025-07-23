@@ -6,7 +6,9 @@ import Accelerate
 
 @_documentation(visibility: private)
 extension Double: Padded {
-    public static func padded(a: Matrix<Double>, top: Int, bottom: Int, left: Int, right: Int, value: Double) -> Matrix<Double> {
+    public static func padded(
+        a: Matrix<Double>, top: Int, bottom: Int, left: Int, right: Int, value: Double
+    ) -> Matrix<Double> {
         let newRows = a.rows + top + bottom
         let newCols = a.columns + left + right
         let offset = top * newCols + left

@@ -14,7 +14,7 @@ extension Matrix where Scalar: Padded, Scalar: Numeric {
     public func padded(top: Int, bottom: Int, left: Int, right: Int, with value: Scalar = 0) -> Matrix {
         Scalar.padded(a: self, top: top, bottom: bottom, left: left, right: right, value: value)
     }
-    
+
     /// Create a uniformly padded matrix with a constant value.
     /// - Parameters:
     ///   - padding: Number of rows/columns to add on each side. Default is one.
