@@ -7,6 +7,10 @@ import Accelerate
 @_documentation(visibility: private)
 extension Float: Arithmetic {
     // A + k
+    public static func add(_ a: Complex<Float>, _ k: Float) -> Complex<Float> {
+        Complex(a.real + k, a.imaginary)
+    }
+
     public static func add(_ a: Vector<Float>, _ k: Float) -> Vector<Float> {
         var vec = Vector(like: a)
         vDSP.add(k, a.buffer, result: &vec.buffer)
@@ -26,6 +30,10 @@ extension Float: Arithmetic {
     }
 
     // A + B
+    public static func add(_ a: Complex<Float>, _ b: Complex<Float>) -> Complex<Float> {
+        Complex(a.real + b.real, a.imaginary + b.imaginary)
+    }
+
     public static func add(_ a: Vector<Float>, _ b: Vector<Float>) -> Vector<Float> {
         var vec = Vector(like: a)
         vDSP.add(a.buffer, b.buffer, result: &vec.buffer)

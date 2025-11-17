@@ -7,6 +7,10 @@ import Accelerate
 @_documentation(visibility: private)
 extension Int: Arithmetic {
     // A + k
+    public static func add(_ a: Complex<Int>, _ k: Int) -> Complex<Int> {
+        Complex(a.real + k, a.imaginary)
+    }
+
     public static func add(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
         var vec = Vector(like: a)
         for i in 0..<a.size {
@@ -35,6 +39,10 @@ extension Int: Arithmetic {
     }
 
     // A + B
+    public static func add(_ a: Complex<Int>, _ b: Complex<Int>) -> Complex<Int> {
+        Complex(a.real + b.real, a.imaginary + b.imaginary)
+    }
+
     public static func add(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
         var vec = Vector(like: a)
         for i in 0..<a.size {
