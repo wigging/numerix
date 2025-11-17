@@ -13,7 +13,15 @@ extension Vector where Scalar: Arithmetic {
         Scalar.add(rhs, lhs)
     }
 
+    public static func + (lhs: Scalar, rhs: Vector<Complex<Scalar>>) -> Vector<Complex<Scalar>> {
+        Scalar.add(rhs, lhs)
+    }
+
     public static func + (lhs: Vector, rhs: Scalar) -> Vector {
+        Scalar.add(lhs, rhs)
+    }
+
+    public static func + (lhs: Vector<Complex<Scalar>>, rhs: Scalar) -> Vector<Complex<Scalar>> {
         Scalar.add(lhs, rhs)
     }
 

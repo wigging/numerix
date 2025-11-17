@@ -17,6 +17,14 @@ extension Double: Arithmetic {
         return vec
     }
 
+    public static func add(_ a: Vector<Complex<Double>>, _ k: Double) -> Vector<Complex<Double>> {
+        var vec = Vector(like: a)
+        for i in 0..<vec.size {
+            vec[i] = Complex(a[i].real + k, a[i].imaginary)
+        }
+        return vec
+    }
+
     public static func add(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         var mat = Matrix(like: a)
         vDSP.add(k, a.buffer, result: &mat.buffer)

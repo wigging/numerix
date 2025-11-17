@@ -12,6 +12,7 @@ public protocol Arithmetic {
     // A + k
     static func add(_ a: Complex<Self>, _ k: Self) -> Complex<Self>
     static func add(_ a: Vector<Self>, _ k: Self) -> Vector<Self>
+    static func add(_ a: Vector<Complex<Self>>, _ k: Self) -> Vector<Complex<Self>>
     static func add(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func add(_ a: ShapedArray<Self>, _ k: Self) -> ShapedArray<Self>
 

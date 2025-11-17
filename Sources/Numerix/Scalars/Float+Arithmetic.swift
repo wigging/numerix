@@ -17,6 +17,14 @@ extension Float: Arithmetic {
         return vec
     }
 
+    public static func add(_ a: Vector<Complex<Float>>, _ k: Float) -> Vector<Complex<Float>> {
+        var vec = Vector(like: a)
+        for i in 0..<vec.size {
+            vec[i] = Complex(a[i].real + k, a[i].imaginary)
+        }
+        return vec
+    }
+
     public static func add(_ a: Matrix<Float>, _ k: Float) -> Matrix<Float> {
         var mat = Matrix(like: a)
         vDSP.add(k, a.buffer, result: &mat.buffer)

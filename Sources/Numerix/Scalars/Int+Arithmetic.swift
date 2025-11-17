@@ -19,6 +19,14 @@ extension Int: Arithmetic {
         return vec
     }
 
+    public static func add(_ a: Vector<Complex<Int>>, _ k: Int) -> Vector<Complex<Int>> {
+        var vec = Vector(like: a)
+        for i in 0..<vec.size {
+            vec[i] = Complex(a[i].real + k, a[i].imaginary)
+        }
+        return vec
+    }
+
     public static func add(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
         for i in 0..<a.rows {
