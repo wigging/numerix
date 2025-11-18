@@ -11,22 +11,6 @@ extension Int: Arithmetic {
         Complex(a.real + k, a.imaginary)
     }
 
-    public static func add(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &+ k
-        }
-        return vec
-    }
-
-    public static func add(_ a: Vector<Complex<Int>>, _ k: Int) -> Vector<Complex<Int>> {
-        var vec = Vector(like: a)
-        for i in 0..<vec.size {
-            vec[i] = Complex(a[i].real + k, a[i].imaginary)
-        }
-        return vec
-    }
-
     public static func add(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
         for i in 0..<a.rows {
@@ -47,16 +31,9 @@ extension Int: Arithmetic {
     }
 
     // A + B
+    
     public static func add(_ a: Complex<Int>, _ b: Complex<Int>) -> Complex<Int> {
         Complex(a.real + b.real, a.imaginary + b.imaginary)
-    }
-
-    public static func add(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &+ b[i]
-        }
-        return vec
     }
 
     public static func add(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
@@ -79,13 +56,6 @@ extension Int: Arithmetic {
     }
 
     // k - A
-    public static func subtract(_ k: Int, _ a: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = k &- a[i]
-        }
-        return vec
-    }
 
     public static func subtract(_ k: Int, _ a: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -107,13 +77,6 @@ extension Int: Arithmetic {
     }
 
     // A - k
-    public static func subtract(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &- k
-        }
-        return vec
-    }
 
     public static func subtract(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -135,13 +98,6 @@ extension Int: Arithmetic {
     }
 
     // A - B
-    public static func subtract(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &- b[i]
-        }
-        return vec
-    }
 
     public static func subtract(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -163,21 +119,6 @@ extension Int: Arithmetic {
     }
 
     // A * k
-    public static func multiply(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &* k
-        }
-        return vec
-    }
-
-    public static func multiply(_ a: Vector<Complex<Int>>, _ k: Int) -> Vector<Complex<Int>> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = Complex(a[i].real * k, a[i].imaginary * k)
-        }
-        return vec
-    }
 
     public static func multiply(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -199,13 +140,6 @@ extension Int: Arithmetic {
     }
 
     // A * B
-    public static func multiply(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] &* b[i]
-        }
-        return vec
-    }
 
     public static func multiply(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -241,13 +175,6 @@ extension Int: Arithmetic {
     }
 
     // k / A
-    public static func divide(_ k: Int, _ a: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = k / a[i]
-        }
-        return vec
-    }
 
     public static func divide(_ k: Int, _ a: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -269,13 +196,6 @@ extension Int: Arithmetic {
     }
 
     // A / k
-    public static func divide(_ a: Vector<Int>, _ k: Int) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / k
-        }
-        return vec
-    }
 
     public static func divide(_ a: Matrix<Int>, _ k: Int) -> Matrix<Int> {
         var mat = Matrix(like: a)
@@ -297,13 +217,6 @@ extension Int: Arithmetic {
     }
 
     // A / B
-    public static func divide(_ a: Vector<Int>, _ b: Vector<Int>) -> Vector<Int> {
-        var vec = Vector(like: a)
-        for i in 0..<a.size {
-            vec[i] = a[i] / b[i]
-        }
-        return vec
-    }
 
     public static func divide(_ a: Matrix<Int>, _ b: Matrix<Int>) -> Matrix<Int> {
         var mat = Matrix(like: a)
