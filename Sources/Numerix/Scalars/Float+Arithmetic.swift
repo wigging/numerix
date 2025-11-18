@@ -150,6 +150,12 @@ extension Float: Arithmetic {
         return vec
     }
 
+    public static func multiply(_ a: Vector<Complex<Float>>, _ k: Float) -> Vector<Complex<Float>> {
+        let vec = a.copy()
+        cblas_csscal(vec.size, k, .init(vec.buffer.baseAddress), 1)
+        return vec
+    }
+
     public static func multiply(_ a: Matrix<Float>, _ b: Matrix<Float>) -> Matrix<Float> {
         var mat = Matrix(like: a)
         vDSP.multiply(a.buffer, b.buffer, result: &mat.buffer)

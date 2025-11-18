@@ -57,9 +57,20 @@ public struct Vector<Scalar> {
         self.data = DataBuffer(count: size, fill: fill)
     }
 
+    // Create a vector from a buffer, internal use only
+    public init(from buffer: UnsafeMutableBufferPointer<Scalar>) {
+        self.data = DataBuffer(buffer: buffer)
+    }
+
     public subscript(item: Int) -> Scalar {
         get { return self.buffer[item] }
         set { self.buffer[item] = newValue }
+    }
+
+    /// Make a copy of the vector along with its underlying data buffer.
+    /// - Returns: A copy of the vector.
+    public func copy() -> Vector {
+        Vector(from: self.buffer)
     }
 }
 

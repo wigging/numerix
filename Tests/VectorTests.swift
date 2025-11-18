@@ -193,9 +193,9 @@ struct VectorTests {
         #expect(a + k == Vector([6, 7, 8, 9, 10]))
         #expect(a + b == Vector([5, 7, 9, 11, 13]))
 
-        var c = Vector([1, 2, 3, 4, 5.0])
-        c += Vector([1, 2, 3, 4, 5.0])
-        #expect(c == Vector([2, 4, 6, 8, 10]))
+        var vec = Vector([1, 2, 3, 4, 5.0])
+        vec += Vector([1, 2, 3, 4, 5.0])
+        #expect(vec == Vector([2, 4, 6, 8, 10]))
 
         // Subtraction
         #expect(k - a == Vector([4, 3, 2, 1, 0]))
@@ -211,5 +211,22 @@ struct VectorTests {
         #expect((k / a).isApproximatelyEqual(to: [5, 2.5, 1.66666667, 1.25, 1]))
         #expect(a / k == [0.2, 0.4, 0.6, 0.8, 1])
         #expect((a / b).isApproximatelyEqual(to: [0.25, 0.4, 0.5, 0.57142857, 0.625]))
+    }
+
+    @Test func complexArithmetic() {
+        // Integer complex
+        let vecI = Vector([Complex(1, 2), Complex(2, 3)])
+        #expect(5 * vecI == Vector([Complex(5, 10), Complex(10, 15)]))
+        #expect(vecI * 5 == Vector([Complex(5, 10), Complex(10, 15)]))
+
+        // Float complex, single precision
+        let vecF = Vector([Complex<Float>(1, 2), Complex<Float>(2, 3)])
+        #expect(5 * vecF == Vector([Complex(5, 10), Complex(10, 15)]))
+        #expect(vecF * 5 == Vector([Complex(5, 10), Complex(10, 15)]))
+
+        // Double complex, double precision
+        let vecD = Vector([Complex(1, 2.0), Complex(2, 3.0)])
+        #expect(5 * vecD == Vector([Complex(5, 10), Complex(10, 15)]))
+        #expect(vecD * 5 == Vector([Complex(5, 10), Complex(10, 15)]))
     }
 }

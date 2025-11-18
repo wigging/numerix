@@ -131,6 +131,12 @@ extension Double: Arithmetic {
         return vec
     }
 
+    public static func multiply(_ a: Vector<Complex<Double>>, _ k: Double) -> Vector<Complex<Double>> {
+        let vec = a.copy()
+        cblas_zdscal(vec.size, k, .init(vec.buffer.baseAddress), 1)
+        return vec
+    }
+
     public static func multiply(_ a: Matrix<Double>, _ k: Double) -> Matrix<Double> {
         var mat = Matrix(like: a)
         vDSP.multiply(k, a.buffer, result: &mat.buffer)
