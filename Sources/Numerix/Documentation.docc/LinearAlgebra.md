@@ -17,8 +17,8 @@ Numerix uses the Accelerate framework to access Basic Linear Algebra Subprograms
 - ``Vector/norm()``
 - ``Vector/scale(by:)``
 - ``Vector/sum()``
-- ``swapValues(_:_:)-8dx3x``
 - ``Vector/update(with:times:)``
+- ``swapValues(_:_:)-(Vector<Scalar>,_)``
 
 ### Matrix operations
 
@@ -28,4 +28,4 @@ Numerix uses the Accelerate framework to access Basic Linear Algebra Subprograms
 - ``Matrix/norm()``
 - ``Matrix/scale(by:)``
 - ``Matrix/transpose()``
-- ``swapValues(_:_:)-10kkk``
+- ``swapValues(_:_:)-(Matrix<Scalar>,_)``

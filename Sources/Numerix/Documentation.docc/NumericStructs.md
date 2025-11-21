@@ -8,6 +8,7 @@ Numerix provides structures for working with numerical array data. One-dimension
 
 ## Topics
 
+- ``Complex``
 - ``Vector``
 - ``Matrix``
 - ``ShapedArray``

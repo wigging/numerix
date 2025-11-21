@@ -8,14 +8,14 @@ Numerix provides several element-wise trigonometic functions for vectors and mat
 
 ## Topics
 
-- ``sin(_:)-4rcxg``
-- ``sin(_:)-8nnze``
+- ``sin(_:)->Vector<Scalar>``
+- ``sin(_:)->Matrix<Scalar>``
 
-- ``cos(_:)-8lr7y``
-- ``cos(_:)-1x2xo``
+- ``cos(_:)->Vector<Scalar>``
+- ``cos(_:)->Matrix<Scalar>``
 
-- ``tan(_:)-2j3jl``
-- ``tan(_:)-5u0m2``
+- ``tan(_:)->Vector<Scalar>``
+- ``tan(_:)->Matrix<Scalar>``
 
 - ``asin(_:)``
 - ``acos(_:)``
