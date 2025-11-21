@@ -13,7 +13,7 @@ Functions to swap vector and matrix values.
 /// - Parameters:
 ///   - a: The first matrix.
 ///   - b: The second matrix.
-public func swapValues<Scalar: Algebra>(_ a: inout Matrix<Scalar>, _ b: inout Matrix<Scalar>) {
+public func swapValues<Scalar: MatrixAlgebra>(_ a: inout Matrix<Scalar>, _ b: inout Matrix<Scalar>) {
     Scalar.swapValues(a: &a, b: &b)
 }
 
@@ -28,6 +28,6 @@ public func swapValues<Scalar: Algebra>(_ a: inout Matrix<Scalar>, _ b: inout Ma
 /// - Parameters:
 ///   - a: The first vector.
 ///   - b: The second vector.
-public func swapValues<Scalar: Algebra>(_ a: inout Vector<Scalar>, _ b: inout Vector<Scalar>) {
+public func swapValues<Scalar: VectorAlgebra>(_ a: inout Vector<Scalar>, _ b: inout Vector<Scalar>) {
     Scalar.swapValues(a: &a, b: &b)
 }
