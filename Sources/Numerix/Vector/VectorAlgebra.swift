@@ -284,3 +284,18 @@ extension Vector where Scalar: VectorAlgebra {
         Scalar.update(a: &self, k: k, b: b)
     }
 }
+
+/// Swap the values of two vectors.
+///
+/// In this example the scalar values in `vec1` are exchanged for the values in `vec2` and vice versa.
+/// ```swift
+/// var vec1 = Vector<Float>([2, 3, 4, 5, 6])
+/// var vec2 = Vector<Float>([9, 8, 7, 10, 12])
+/// swapValues(&vec1, &vec2)
+/// ```
+/// - Parameters:
+///   - a: The first vector.
+///   - b: The second vector.
+public func swapValues<Scalar: VectorAlgebra>(_ a: inout Vector<Scalar>, _ b: inout Vector<Scalar>) {
+    Scalar.swapValues(a: &a, b: &b)
+}
