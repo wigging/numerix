@@ -231,7 +231,6 @@ extension Float: MatrixAlgebra {
     }
 }
 
-
 @_documentation(visibility: private)
 extension Int: MatrixAlgebra {
 

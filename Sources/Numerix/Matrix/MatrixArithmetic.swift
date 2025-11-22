@@ -8,14 +8,14 @@ import Accelerate
 public protocol MatrixArithmetic {
     static func add(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func add(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-    
+
     static func subtract(_ k: Self, _ a: Matrix<Self>) -> Matrix<Self>
     static func subtract(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func subtract(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
 
     static func multiply(_ a: Matrix<Self>, _ k: Self) -> Matrix<Self>
     static func multiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
-    
+
     static func matrixMultiply(_ a: Matrix<Self>, _ b: Matrix<Self>) -> Matrix<Self>
 
     static func divide(_ k: Self, _ a: Matrix<Self>) -> Matrix<Self>
